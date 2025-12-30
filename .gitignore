@@ -1,0 +1,60 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency managers / caches
+.pnp.*
+.pnpm-store/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/build-state.yml
+.yarn/install-state.gz
+.yarnrc.yml
+
+# Next.js / React build outputs
+.next/
+.next/cache/
+out/
+dist/
+build/
+.storybook-static/
+storybook-static/
+.vercel/
+.vercel/output/
+
+# Environment / secrets
+.env
+.env.local
+.env.*.local
+
+# Logs
+logs/
+*.log
+
+# Coverage / test output
+coverage/
+.nyc_output/
+jest-results.json
+
+# TypeScript
+*.tsbuildinfo
+
+# Caches
+.cache/
+.parcel-cache/
+
+# Editor / OS files
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+*.swp
+.DS_Store
+Thumbs.db
+
+# Misc
+*.tgz
+*.pem
+*.key
