@@ -1,38 +1,103 @@
-import * as React from 'react';
-
+'use client'
+import * as React from "react";
+import { Text } from "../Text";
+import { Button as ButtonHeroUI } from "@heroui/button";
+import clsx from "clsx";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  children: React.ReactNode;
+  onClick?: () => void;
+  label?: string;
+  children?: React.ReactNode;
+  variant?: "primary" | "secondary" | "flat" | "success" | "warning" | "danger";
+  textVariant?: "label" | "body" | "title" | "display" | "headline" | "subtitle";
+  size?: "sm" | "md" | "lg";
+  className?: string;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
+  isLoading?: boolean;
+  startContent?: React.ReactNode;
+  endContent?: React.ReactNode;
+  fullWidth?: boolean;
+}
+
+const getTextColorByVariant = (variant: string) => {
+  switch (variant) {
+    case "primary":
+      return "color-on-primary";
+    case "secondary":
+      return "color-on-secondary";
+    case "success":
+      return "color-on-success";
+    case "warning":
+      return "color-on-warning";
+    case "danger":
+      return "color-on-danger";
+    case "flat":
+      return "color-black";
+    default:
+      return "color-on-primary";
+  }
+}
+
+const getBtnClassByVariant = (variant: string) => {
+  switch (variant) {
+    case "primary":
+      return "btn-primary";
+    case "secondary":
+      return "btn-secondary";
+    case "success":
+      return "btn-success";
+    case "warning":
+      return "btn-warning";
+    case "danger":
+      return "btn-danger";
+    case "flat":
+      return "btn-flat";
+    default:
+      return "btn-primary";
+  }
 }
 
 export const Button = ({
-  variant = 'primary',
-  size = 'md',
+  onClick,
+  label,
   children,
-  className = '',
+  textVariant = "label",
+  variant = "primary",
+  size = "md",
+  className = "",
+  type = "button",
+  disabled = false,
+  isLoading = false,
+  startContent,
+  endContent,
+  fullWidth = false,
   ...props
 }: ButtonProps) => {
-  const baseClasses = 'inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none';
-  
-  const variantClasses = {
-    primary: 'btn-primary text-white hover:bg-blue-700 focus:ring-blue-500',
-    secondary: 'btn-secondary text-white hover:bg-gray-700 focus:ring-gray-500',
-    outline: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-blue-500',
-    ghost: 'text-gray-700 hover:bg-gray-100 focus:ring-gray-500'
-  };
-
-  const sizeClasses = {
-    sm: 'h-8 px-3 text-sm',
-    md: 'h-10 px-4 text-base',
-    lg: 'h-12 px-6 text-lg'
-  };
-
-  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const content = children || (label && (
+    <Text variant={textVariant} textColor={getTextColorByVariant(variant)}>
+      {label}
+    </Text>
+  ));
 
   return (
-    <button className={classes} {...props}>
-      {children}
-    </button>
-  );
-};
+    <ButtonHeroUI
+      color="default"
+      onPress={onClick}
+      className={clsx(
+        "btn-citrica-ui",
+        getBtnClassByVariant(variant),
+        className
+      )}
+      size={size}
+      radius="none"
+      type={type}
+      isDisabled={disabled}
+      isLoading={isLoading}
+      startContent={startContent}
+      endContent={endContent}
+      fullWidth={fullWidth}
+    >
+      {content}
+    </ButtonHeroUI>
+  )
+}
