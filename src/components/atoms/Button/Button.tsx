@@ -4,7 +4,7 @@ import { Text } from "../Text";
 import { Button as ButtonHeroUI } from "@heroui/button";
 import clsx from "clsx";
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  onClick?: () => void;
+  onPress?: () => void;
   label?: string;
   children?: React.ReactNode;
   variant?: "primary" | "secondary" | "flat" | "success" | "warning" | "danger";
@@ -12,53 +12,59 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   size?: "sm" | "md" | "lg";
   className?: string;
   type?: "button" | "submit" | "reset";
-  disabled?: boolean;
+  isDisabled?: boolean;
+  isIconOnly?: boolean;
+  isAdmin?: boolean;
   isLoading?: boolean;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
   fullWidth?: boolean;
 }
 
-const getTextColorByVariant = (variant: string) => {
+const getTextColorByVariant = (variant: string, isAdmin: boolean) => {
   switch (variant) {
     case "primary":
-      return "color-on-primary";
+      return isAdmin ? "color-admin-on-primary" : "color-on-primary";
     case "secondary":
-      return "color-on-secondary";
+      return isAdmin ? "color-admin-on-secondary" : "color-on-secondary";
     case "success":
-      return "color-on-success";
+      return isAdmin ? "color-admin-on-success" : "color-on-success";
     case "warning":
-      return "color-on-warning";
+      return isAdmin ? "color-admin-warning" : "color-on-warning";
     case "danger":
-      return "color-on-danger";
+      return isAdmin ? "color-admin-on-danger" : "color-on-danger";
     case "flat":
-      return "color-black";
+      return isAdmin ? "color-admin-black" : "color-black";
     default:
-      return "color-on-primary";
+      return isAdmin ? "color-admin-on-primary" : "color-on-primary";
   }
 }
 
-const getBtnClassByVariant = (variant: string) => {
+const getBtnClassByVariant = (variant: string, isAdmin: boolean) => {
   switch (variant) {
     case "primary":
-      return "btn-primary";
+      return isAdmin ? "btn-primary-admin" : "btn-primary";
     case "secondary":
-      return "btn-secondary";
+      return isAdmin ? "btn-secondary-admin" : "btn-secondary";
     case "success":
-      return "btn-success";
+      return isAdmin ? "btn-success-admin" : "btn-success";
     case "warning":
-      return "btn-warning";
+      return isAdmin ? "btn-warning-admin" : "btn-warning";
     case "danger":
-      return "btn-danger";
+      return isAdmin ? "btn-danger-admin" : "btn-danger";
     case "flat":
-      return "btn-flat";
+      return isAdmin ? "btn-flat-admin" : "btn-flat";
     default:
-      return "btn-primary";
+      return isAdmin ? "btn-primary-admin" : "btn-primary";
   }
+}
+
+const getTypeOfButton = (isAdmin: boolean) => {
+  return isAdmin ? "btn-citrica-ui-admin" : "btn-citrica-ui";
 }
 
 export const Button = ({
-  onClick,
+  onPress,
   label,
   children,
   textVariant = "label",
@@ -66,7 +72,9 @@ export const Button = ({
   size = "md",
   className = "",
   type = "button",
-  disabled = false,
+  isDisabled = false,
+  isIconOnly = false,
+  isAdmin = false,
   isLoading = false,
   startContent,
   endContent,
@@ -74,24 +82,25 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const content = children || (label && (
-    <Text variant={textVariant} textColor={getTextColorByVariant(variant)}>
+    <Text variant={textVariant} textColor={getTextColorByVariant(variant, isAdmin)} isAdmin={isAdmin}>
       {label}
     </Text>
   ));
 
   return (
     <ButtonHeroUI
+      isIconOnly={isIconOnly}
       color="default"
-      onPress={onClick}
+      onPress={onPress}
       className={clsx(
-        "btn-citrica-ui",
-        getBtnClassByVariant(variant),
+        getTypeOfButton(isAdmin),
+        getBtnClassByVariant(variant, isAdmin),
         className
       )}
       size={size}
       radius="none"
       type={type}
-      isDisabled={disabled}
+      isDisabled={isDisabled}
       isLoading={isLoading}
       startContent={startContent}
       endContent={endContent}

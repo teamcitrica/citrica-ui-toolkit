@@ -7,6 +7,7 @@ export interface TextProps extends React.HTMLAttributes<HTMLElement> {
   color?: string;
   textColor?: string;
   className?: string;
+  isAdmin?: boolean;
   as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div';
 }
 
@@ -18,13 +19,16 @@ export const Text: React.FC<TextProps> = ({
   textColor = 'color-black',
   className = '',
   as: Component = 'span',
+  isAdmin = false,
 }) => {
   const colorStyle = color ? { color } : { color: `var(--${textColor})` };
 
   const weightClass = weight !== 'normal' ? `text-${variant}-${weight}` : '';
 
+  const isAdminSuffix = isAdmin ? '-admin' : '';
+
   const classes = [
-    `text-${variant}`,
+    `text-${variant}${isAdminSuffix}`,
     'text-component',
     weightClass,
     className
