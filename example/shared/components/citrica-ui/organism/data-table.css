@@ -1,0 +1,85 @@
+/* Eliminar borde verde del Select en hover */
+[data-slot="list-item"][data-hover="true"],
+[data-slot="list-item"][data-focus="true"],
+[data-slot="list-item"]:hover,
+[data-slot="list-item"]:focus {
+  border: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+[data-slot="list-item"][data-hover="true"]::before,
+[data-slot="list-item"][data-hover="true"]::after,
+[data-slot="list-item"][data-focus="true"]::before,
+[data-slot="list-item"][data-focus="true"]::after {
+  border: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+}
+
+/* Alternativa: si es específicamente un li */
+li[data-hover="true"],
+li[data-focus="true"] {
+  border: none !important;
+  border-width: 0 !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+/* Controlar borde del Input de búsqueda */
+.search-input-wrapper [data-slot="input-wrapper"],
+.search-input-wrapper [data-slot="input-wrapper"][data-focus="true"],
+.search-input-wrapper [data-slot="input-wrapper"]:focus-within {
+  border-color: #D4DEED !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.search-input-wrapper [data-slot="input-wrapper"]:hover {
+  border-color: #B8D4E5 !important;
+}
+
+/* Estilos de paginación - Asegurar color azul */
+.container-blue-principal2 [data-slot="item"][data-active="true"] {
+  background-color: #42668A !important;
+  color: white !important;
+}
+
+.container-blue-principal2 [data-slot="cursor"] {
+  background-color: #42668A !important;
+  color: white !important;
+}
+
+/* Contenedor de tabla con scroll personalizado */
+.table-scroll-container {
+  max-height: 600px;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+/* Estilos personalizados del scrollbar - color #678cc5 */
+.table-scroll-container::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.table-scroll-container::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 6px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb {
+  background: #678cc5;
+  border-radius: 6px;
+}
+
+.table-scroll-container::-webkit-scrollbar-thumb:hover {
+  background: #5a7aad;
+}
+
+/* Para Firefox */
+.table-scroll-container {
+  scrollbar-width: thin;
+  scrollbar-color: #678cc5 #f1f1f1;
+}

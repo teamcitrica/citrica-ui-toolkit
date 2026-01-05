@@ -1,0 +1,81 @@
+// Colors
+@import '../01-settings/colors/colors.scss';
+@import '../01-settings/colors/colors-dark-theme.scss';
+@import '../01-settings/colors/colors-light-theme.scss';
+// Admin colors
+@import '../01-settings/colors-admin/colors-admin.scss';
+@import '../01-settings/colors-admin/colors-admin-dark-theme.scss';
+@import '../01-settings/colors-admin/colors-admin-light-theme.scss';
+@import '../10-tokens/form-tokens.scss';
+:root{
+  // Default light theme
+  @include light-theme;
+  @include admin-light-theme;
+  @include a-set($root-vars);
+  @include form-tokens;
+  
+  &[data-theme="light"] {
+    @include light-theme;
+    @include admin-light-theme;
+  }
+  &[data-theme="dark"] {
+    @include dark-theme;
+    @include admin-dark-theme;
+  }
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.no-padding {
+    padding: 0 !important;
+}
+.no-width-limit {
+  width: auto !important;
+}
+
+// INPUT
+input:focus { 
+    outline: none !important;
+}
+    
+    
+textarea:focus { 
+    outline: none !important;
+}
+    
+    
+
+::-webkit-input-placeholder { /* Edge */
+  color: var(--color-placeholder);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color:var(--color-placeholder);
+}
+
+::placeholder {
+  color: var(--color-placeholder);
+}
+
+.controls{
+  width: 100%;
+  padding: 10px;
+  background: var(--color-input-bg);
+  border:0;
+  color:var(--color-input-text);
+}
+
+.form-group{
+  margin-bottom: 20px;
+}
+
+
+// SELECTIONS
+::selection{
+    //color: var(--color-primary);
+    //background-color: var(--color-primary);
+}
