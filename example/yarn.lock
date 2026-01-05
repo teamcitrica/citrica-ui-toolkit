@@ -2754,7 +2754,7 @@
     "@tailwindcss/oxide-win32-arm64-msvc" "4.1.18"
     "@tailwindcss/oxide-win32-x64-msvc" "4.1.18"
 
-"@tailwindcss/postcss@^4.1.18":
+"@tailwindcss/postcss@4.1.18":
   version "4.1.18"
   resolved "https://registry.yarnpkg.com/@tailwindcss/postcss/-/postcss-4.1.18.tgz#19152640d676beaa2a4a70b00bbc36ef54e998b5"
   integrity sha512-Ce0GFnzAOuPyfV5SxjXGn0CubwGcuDB0zcdaPuCSzAa/2vII24JTkH+I6jcbXLb1ctjZMZZI6OjDaLPJQL1S0g==
@@ -3496,7 +3496,7 @@ chokidar@^4.0.0:
   dependencies:
     readdirp "^4.0.1"
 
-citrica-ui-toolkit@^0.0.6:
+"citrica-ui-toolkit@workspace:^":
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/citrica-ui-toolkit/-/citrica-ui-toolkit-0.0.6.tgz#66af9ed99ade2ea0b3b70e1d47cc6ba328faedca"
   integrity sha512-cU9plGLPectRBGTTyiRDRqtfwFzm7vVVQJGlxK1dwHvA0suIixCDc1WX8NTjlw58EE+bIjRMvp3uA6XqQsMcwA==

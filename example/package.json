@@ -30,7 +30,7 @@
     "@supabase/supabase-js": "2.45.4",
     "@tailwindcss/postcss": "4.1.18",
     "aos": "^2.3.4",
-    "citrica-ui-toolkit": "^0.0.6",
+    "citrica-ui-toolkit": "0.0.6",
     "classnames": "^2.3.2",
     "clsx": "2.1.1",
     "date-fns": "4.1.0",

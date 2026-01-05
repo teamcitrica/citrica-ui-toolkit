@@ -1,9 +1,11 @@
-'use client'
-import * as React from "react";
-import { Text } from "../Text";
-import { Button as ButtonHeroUI } from "@heroui/button";
+"use client";
+import React from "react";
+import { Text } from "citrica-ui-toolkit";
+import { Button as HeroUIButton, ButtonProps as HeroUIButtonProps } from "@heroui/button";
 import clsx from "clsx";
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+
+export interface ButtonProps
+  extends Omit<HeroUIButtonProps, 'variant'> {
   onPress?: () => void;
   label?: string;
   children?: React.ReactNode;
@@ -21,50 +23,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
   fullWidth?: boolean;
 }
 
-const getTextColorByVariant = (variant: string, isAdmin: boolean) => {
-  switch (variant) {
-    case "primary":
-      return isAdmin ? "color-admin-on-primary" : "color-on-primary";
-    case "secondary":
-      return isAdmin ? "color-admin-on-secondary" : "color-on-secondary";
-    case "success":
-      return isAdmin ? "color-admin-on-success" : "color-on-success";
-    case "warning":
-      return isAdmin ? "color-admin-warning" : "color-on-warning";
-    case "danger":
-      return isAdmin ? "color-admin-on-danger" : "color-on-danger";
-    case "flat":
-      return isAdmin ? "color-admin-black" : "color-black";
-    default:
-      return isAdmin ? "color-admin-on-primary" : "color-on-primary";
-  }
-}
-
-const getBtnClassByVariant = (variant: string, isAdmin: boolean) => {
-  switch (variant) {
-    case "primary":
-      return isAdmin ? "btn-primary-admin" : "btn-primary";
-    case "secondary":
-      return isAdmin ? "btn-secondary-admin" : "btn-secondary";
-    case "success":
-      return isAdmin ? "btn-success-admin" : "btn-success";
-    case "warning":
-      return isAdmin ? "btn-warning-admin" : "btn-warning";
-    case "danger":
-      return isAdmin ? "btn-danger-admin" : "btn-danger";
-    case "flat":
-      return isAdmin ? "btn-flat-admin" : "btn-flat";
-    default:
-      return isAdmin ? "btn-primary-admin" : "btn-primary";
-  }
-}
-
-const getTypeOfButton = (isAdmin: boolean) => {
-  return isAdmin ? "btn-citrica-ui-admin" : "btn-citrica-ui";
-}
-
-export const Button = ({
-  onPress,
+export const Button: React.FC<ButtonProps> = ({
   label,
   children,
   textVariant = "label",
@@ -76,11 +35,51 @@ export const Button = ({
   isIconOnly = false,
   isAdmin = false,
   isLoading = false,
-  startContent,
-  endContent,
   fullWidth = false,
+  style,
   ...props
-}: ButtonProps) => {
+}) => {
+  const getBtnClassByVariant = (variant: string, isAdmin: boolean) => {
+  switch (variant) {
+      case "primary":
+        return isAdmin ? "btn-primary-admin" : "btn-primary";
+      case "secondary":
+        return isAdmin ? "btn-secondary-admin" : "btn-secondary";
+      case "success":
+        return isAdmin ? "btn-success-admin" : "btn-success";
+      case "warning":
+        return isAdmin ? "btn-warning-admin" : "btn-warning";
+      case "danger":
+        return isAdmin ? "btn-danger-admin" : "btn-danger";
+      case "flat":
+        return isAdmin ? "btn-flat-admin" : "btn-flat";
+      default:
+        return isAdmin ? "btn-primary-admin" : "btn-primary";
+    }
+  }
+
+  const getTypeOfButton = (isAdmin: boolean) => {
+    return isAdmin ? "btn-citrica-ui-admin" : "btn-citrica-ui";
+  }
+
+  const getTextColorByVariant = (variant: string, isAdmin: boolean) => {
+  switch (variant) {
+      case "primary":
+        return isAdmin ? "color-admin-on-primary" : "color-on-primary";
+      case "secondary":
+        return isAdmin ? "color-admin-on-secondary" : "color-on-secondary";
+      case "success":
+        return isAdmin ? "color-admin-on-success" : "color-on-success";
+      case "warning":
+        return isAdmin ? "color-admin-warning" : "color-on-warning";
+      case "danger":
+        return isAdmin ? "color-admin-on-danger" : "color-on-danger";
+      case "flat":
+        return isAdmin ? "color-admin-black" : "color-black";
+      default:
+        return isAdmin ? "color-admin-on-primary" : "color-on-primary";
+    }
+  }
   const content = children || (label && (
     <Text variant={textVariant} textColor={getTextColorByVariant(variant, isAdmin)} isAdmin={isAdmin}>
       {label}
@@ -88,25 +87,18 @@ export const Button = ({
   ));
 
   return (
-    <ButtonHeroUI
-      isIconOnly={isIconOnly}
-      color="default"
-      onPress={onPress}
+    <HeroUIButton
       className={clsx(
-        getTypeOfButton(isAdmin),
         getBtnClassByVariant(variant, isAdmin),
+        getTypeOfButton(isAdmin),
         className
       )}
-      size={size}
-      radius="none"
-      type={type}
-      isDisabled={isDisabled}
-      isLoading={isLoading}
-      startContent={startContent}
-      endContent={endContent}
-      fullWidth={fullWidth}
+      style={style}
+      {...props}
     >
       {content}
-    </ButtonHeroUI>
-  )
-}
+    </HeroUIButton>
+  );
+};
+
+export default Button;
