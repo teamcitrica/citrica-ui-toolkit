@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { Text } from "citrica-ui-toolkit";
+import { Text } from "../Text/Text";
 import { Button as HeroUIButton, ButtonProps as HeroUIButtonProps } from "@heroui/button";
 import clsx from "clsx";
 
