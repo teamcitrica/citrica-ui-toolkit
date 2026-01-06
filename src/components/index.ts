@@ -3,3 +3,7 @@ export * from './atoms/Text';
 export * from './atoms/Icon';
 export * from './atoms/Input';
 export * from './atoms/Select';
+export * from './atoms/Card';
+export * from './atoms/Textarea';
+export * from './molecules/Modal';
+export * from './molecules/Carousel';
