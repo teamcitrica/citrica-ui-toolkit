@@ -1,8 +1,13 @@
 'use client';
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { Input as HeroInput } from '@heroui/input';
 import clsx from 'clsx';
 import Icon, { IconName } from '../Icon/Icon';
+
+type ValidationRule = {
+  test: (value: string) => boolean;
+  message: string;
+};
 
 export interface InputProps {
   label?: string;
@@ -12,7 +17,17 @@ export interface InputProps {
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onValueChange?: (value: string) => void;
   name?: string;
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
+  type?:
+    | 'text'
+    | 'email'
+    | 'password'
+    | 'number'
+    | 'tel'
+    | 'url'
+    | 'search'
+    | 'date'
+    | 'datetime-local'
+    | 'time';
   variant?: 'primary' | 'secondary' | 'flat' | 'bordered' | 'faded' | 'underlined';
   color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger';
   size?: 'sm' | 'md' | 'lg';
@@ -49,9 +64,24 @@ export interface InputProps {
   step?: string | number;
   min?: string | number;
   max?: string | number;
+  // Validación automática
+  autoValidate?: boolean;
+  validationRules?: ValidationRule[];
+  validateOnBlur?: boolean;
+  validateOnChange?: boolean;
+  // Estados de carga
+  loading?: boolean;
+  // Callback de validación
+  onValidationChange?: (isValid: boolean, errors: string[]) => void;
+  // Soporte para react-hook-form
+  register?: any;
+  errors?: any;
+  // Helpers de texto
+  helperText?: string;
+  showCharacterCount?: boolean;
 }
 
-const Input = ({
+const Input = forwardRef<HTMLInputElement, InputProps>(({
   label,
   placeholder,
   value,
@@ -88,7 +118,7 @@ const Input = ({
   step,
   min,
   max,
-}: InputProps) => {
+}, ref) => {
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
     <Icon name={startIcon} size={iconSize} color={iconColor} />
@@ -118,6 +148,7 @@ const Input = ({
 
   return (
     <HeroInput
+      ref={ref}
       label={label}
       placeholder={placeholder}
       value={value}
@@ -156,6 +187,10 @@ const Input = ({
       max={max}
     />
   );
-};
+});
+
+// Agregar displayName para debugging
+Input.displayName = 'Input';
 
 export default Input;
+export type { ValidationRule };

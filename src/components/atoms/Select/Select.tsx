@@ -12,6 +12,19 @@ export interface SelectOption {
   endContent?: React.ReactNode;
 }
 
+/** Item seleccionado que se pasa a renderValue (compatible con HeroUI) */
+export interface SelectedItem extends SelectOption {
+  /** Key del item (igual a value) */
+  key: string;
+  /** Texto del item (igual a label) */
+  textValue: string;
+  /** Data original del item */
+  data?: SelectOption;
+}
+
+/** Tipo para la función renderValue */
+export type RenderValueFunction = (items: SelectedItem[]) => React.ReactNode;
+
 export interface SelectProps {
   label?: string;
   placeholder?: string;
@@ -46,6 +59,8 @@ export interface SelectProps {
   iconColor?: string;
   fullWidth?: boolean;
   options: SelectOption[];
+  /** Función para renderizar el valor seleccionado. Por defecto muestra el label del item seleccionado */
+  renderValue?: RenderValueFunction;
 }
 
 const Select = ({
@@ -74,6 +89,7 @@ const Select = ({
   iconColor,
   fullWidth = true,
   options = [],
+  renderValue,
 }: SelectProps) => {
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
@@ -102,6 +118,26 @@ const Select = ({
   const shouldUseCustomVariant = variant === 'primary' || variant === 'secondary';
   const heroVariant = shouldUseCustomVariant ? 'bordered' : variant;
 
+  // Adaptador para renderValue: convierte los items de HeroUI a SelectedItem
+  const handleRenderValue = renderValue
+    ? (items: any) => {
+        const selectedItems = Array.from(items).map((item: any) => {
+          const option = options.find((opt) => opt.value === item.key);
+          return {
+            key: item.key,
+            textValue: item.textValue,
+            value: option?.value || item.key,
+            label: option?.label || item.textValue,
+            description: option?.description,
+            startContent: option?.startContent,
+            endContent: option?.endContent,
+            data: option,
+          } as SelectedItem;
+        });
+        return renderValue(selectedItems);
+      }
+    : undefined;
+
   return (
     <HeroSelect
       label={label}
@@ -128,6 +164,7 @@ const Select = ({
       startContent={startIconContent}
       endContent={endIconContent}
       fullWidth={fullWidth}
+      renderValue={handleRenderValue}
     >
       {options.map((option) => (
         <SelectItem
