@@ -189,7 +189,7 @@
     "@react-types/overlays" "3.9.2"
     "@react-types/shared" "3.32.1"
 
-"@heroui/autocomplete@^2.3.31":
+"@heroui/autocomplete@2.3.31":
   version "2.3.31"
   resolved "https://registry.yarnpkg.com/@heroui/autocomplete/-/autocomplete-2.3.31.tgz#4bc07af8fae5e20b2c15d0b815d7bbf61cc9ee5a"
   integrity sha512-xRA3mttbLSiSU9rJSm1N3+liHcLEUUCiGdKRkCa89yZwcrD9N1mg6FaTrn099W0/obHZ30r36Nmfx8z3Z7Cnfw==
