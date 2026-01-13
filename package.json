@@ -1,6 +1,6 @@
 {
   "name": "citrica-ui-toolkit",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -19,21 +19,44 @@
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch"
   },
   "peerDependencies": {
-    "@types/react": ">=17.0.0",
-    "react": ">=17.0.0"
+    "@heroui/system": ">=2.4.0",
+    "@heroui/theme": ">=2.4.0",
+    "@types/react": ">=18.0.0",
+    "framer-motion": ">=11.0.0",
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "@heroui/system": {
+      "optional": true
+    },
+    "@heroui/theme": {
+      "optional": true
+    },
+    "framer-motion": {
+      "optional": true
+    }
   },
   "devDependencies": {
-    "@types/react": "^17.0.21",
-    "react": "^18.0.0",
+    "@heroui/system": "2.4.25",
+    "@heroui/theme": "2.4.25",
+    "@types/react": "18.3.3",
+    "@types/react-dom": "18.3.0",
+    "framer-motion": "11.18.2",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
     "tsup": "^8.5.1",
-    "typescript": "5.9.3"
+    "typescript": "5.0.4"
   },
   "dependencies": {
     "@heroui/autocomplete": "2.3.31",
     "@heroui/button": "2.2.29",
     "@heroui/card": "2.2.27",
     "@heroui/input": "2.4.30",
+    "@heroui/listbox": "2.3.28",
     "@heroui/modal": "2.2.26",
+    "@heroui/popover": "2.3.29",
+    "@heroui/scroll-shadow": "2.3.19",
     "@heroui/select": "2.4.30",
     "classnames": "2.5.1",
     "clsx": "2.1.1",
