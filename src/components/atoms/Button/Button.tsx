@@ -3,6 +3,7 @@ import React from "react";
 import { Text } from "../Text/Text";
 import { Button as HeroUIButton, ButtonProps as HeroUIButtonProps } from "@heroui/button";
 import clsx from "clsx";
+import Icon, { IconName } from "../Icon/Icon";
 
 export interface ButtonProps
   extends Omit<HeroUIButtonProps, 'variant'> {
@@ -18,6 +19,8 @@ export interface ButtonProps
   isIconOnly?: boolean;
   isAdmin?: boolean;
   isLoading?: boolean;
+  startIcon?: IconName;
+  endIcon?: IconName;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
   fullWidth?: boolean;
@@ -36,6 +39,10 @@ export const Button: React.FC<ButtonProps> = ({
   isAdmin = false,
   isLoading = false,
   fullWidth = false,
+  startIcon,
+  endIcon,
+  startContent,
+  endContent,
   style,
   ...props
 }) => {
@@ -86,6 +93,9 @@ export const Button: React.FC<ButtonProps> = ({
     </Text>
   ));
 
+  const finalStartContent = startIcon ? <Icon name={startIcon} /> : startContent;
+  const finalEndContent = endIcon ? <Icon name={endIcon} /> : endContent;
+
   return (
     <HeroUIButton
       className={clsx(
@@ -94,6 +104,8 @@ export const Button: React.FC<ButtonProps> = ({
         className
       )}
       style={style}
+      startContent={finalStartContent}
+      endContent={finalEndContent}
       {...props}
     >
       {content}
