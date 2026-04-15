@@ -270,7 +270,7 @@ export const Login: React.FC<LoginProps> = ({
         </span>
       )}
 
-      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="flex flex-col justify-center mt-4">
+      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="flex flex-col justify-center mt-4 gap-4">
         <Input
           label={emailLabel}
           type="email"
@@ -315,7 +315,6 @@ export const Login: React.FC<LoginProps> = ({
           disabled={isLoading}
           isLoading={isLoading}
           fullWidth={true}
-          className="!mt-3"
         />
       </form>
 
