@@ -13,6 +13,8 @@ export interface LoginProps {
 
   // Styling
   bgImage?: string;
+  bgImageSrc?: string;
+  bgImageAlt?: string;
   logo?: string;
   logoAlt?: string;
   logoClassName?: string;
@@ -75,6 +77,8 @@ export const Login: React.FC<LoginProps> = ({
 
   // Styling
   bgImage = '/img/login-form-image-lg.jpg',
+  bgImageSrc,
+  bgImageAlt = 'Login background',
   logo = '/img/citrica-logo.png',
   logoAlt = 'Logo',
   logoClassName = 'w-[80px] pb-3 items-center',
@@ -477,7 +481,21 @@ export const Login: React.FC<LoginProps> = ({
       </div>
 
       {/* Background Image Section - Right - Hidden on mobile */}
-      <div className="hidden md:block" style={bgLoginStyle} />
+      <div className="hidden md:block" style={bgImageSrc ? {} : bgLoginStyle}>
+        {bgImageSrc && (
+          <img
+            src={bgImageSrc}
+            alt={bgImageAlt}
+            className="w-full h-full object-cover rounded-r-lg"
+            style={{
+              maxWidth: '484px',
+              height: '473px',
+              borderTopRightRadius: '12px',
+              borderBottomRightRadius: '12px',
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };

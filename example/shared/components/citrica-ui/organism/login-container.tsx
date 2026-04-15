@@ -16,7 +16,12 @@ type FormValues = {
   email: string;
 };
 
-const LoginPage = () => {
+type LoginPageProps = {
+  bgImageSrc?: string;
+  bgImageAlt?: string;
+};
+
+const LoginPage = ({ bgImageSrc, bgImageAlt = "Login background" }: LoginPageProps) => {
   const { register, handleSubmit } = useForm<FormValues>();
   const { signInWithPassword, userSession, isInitializing } = UserAuth();
   const [showPassword, setShowPassword] = useState(false);
@@ -132,7 +137,15 @@ const LoginPage = () => {
           </Link>
         </div>
       </div>
-      <div className='bg-login not-sm'></div>
+      <div className='bg-login not-sm'>
+        {bgImageSrc && (
+          <img
+            src={bgImageSrc}
+            alt={bgImageAlt}
+            className="w-full h-full object-cover rounded-r-lg"
+          />
+        )}
+      </div>
     </Container>
   )
 }
