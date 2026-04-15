@@ -12,7 +12,6 @@ export interface LoginProps {
   mode?: LoginMode;
 
   // Styling
-  bgColor?: string;
   bgImage?: string;
   logo?: string;
   logoAlt?: string;
@@ -22,7 +21,8 @@ export interface LoginProps {
   // Content - Login mode
   title?: string;
   subtitle?: string;
-  brandTitle?: string;
+  emailLabel?: string;
+  passwordLabel?: string;
   emailPlaceholder?: string;
   passwordPlaceholder?: string;
   loginButtonText?: string;
@@ -39,6 +39,7 @@ export interface LoginProps {
   // Content - New Password mode
   newPasswordTitle?: string;
   newPasswordSubtitle?: string;
+  newPasswordLabel?: string;
   newPasswordPlaceholder?: string;
   savePasswordButtonText?: string;
   savingPasswordButtonText?: string;
@@ -47,7 +48,6 @@ export interface LoginProps {
   // Actions - Login mode
   onLogin?: (email: string, password: string) => Promise<{error?: boolean; message?: string}>;
   onForgotPasswordClick?: () => void;
-  onRegisterClick?: () => void;
 
   // Actions - Forgot Password mode
   onSendResetLink?: (email: string) => Promise<{error?: boolean; message?: string}>;
@@ -58,13 +58,9 @@ export interface LoginProps {
   onCancel?: () => void;
 
   // Visibility toggles
-  showRegisterLink?: boolean;
   showForgotPassword?: boolean;
 
-  // Text customization
-  registerLinkText?: string;
-  registerButtonText?: string;
-  forgotPasswordText?: string;
+  // Error messages
   emptyFieldsError?: string;
   loginError?: string;
   emptyEmailError?: string;
@@ -78,21 +74,21 @@ export const Login: React.FC<LoginProps> = ({
   mode = 'login',
 
   // Styling
-  bgColor = '#3E688E',
-  bgImage = '/img/logo-principal.svg',
-  logo,
+  bgImage = '/img/login-form-image-lg.jpg',
+  logo = '/img/citrica-logo.png',
   logoAlt = 'Logo',
-  logoClassName = 'w-20 pb-3',
+  logoClassName = 'w-[80px] pb-3 items-center',
   className = '',
 
   // Content - Login
-  title = 'Bienvenido',
-  subtitle,
-  brandTitle = 'Administración',
+  title = '¡Bienvenido!',
+  subtitle = 'Ingresa tu correo electrónico y contraseña',
+  emailLabel = 'Email',
+  passwordLabel = 'Clave',
   emailPlaceholder = 'Correo electrónico',
   passwordPlaceholder = 'Contraseña',
-  loginButtonText = 'Acceder',
-  loadingButtonText = 'Iniciando...',
+  loginButtonText = 'Iniciar sesión',
+  loadingButtonText = 'Accediendo...',
 
   // Content - Forgot Password
   forgotPasswordTitle = '¿No puedes iniciar sesión?',
@@ -100,11 +96,12 @@ export const Login: React.FC<LoginProps> = ({
   forgotPasswordDescription = 'Escribe tu correo para recuperar el acceso.',
   sendLinkButtonText = 'Enviar enlace',
   sendingLinkButtonText = 'Enviando...',
-  backToLoginText = 'Volver al inicio de sesión',
+  backToLoginText = '¿Olvidaste tu contraseña?',
 
   // Content - New Password
   newPasswordTitle = 'Crea una nueva contraseña',
   newPasswordSubtitle,
+  newPasswordLabel = 'Nueva contraseña',
   newPasswordPlaceholder = 'Nueva contraseña',
   savePasswordButtonText = 'Guardar contraseña',
   savingPasswordButtonText = 'Guardando...',
@@ -113,22 +110,17 @@ export const Login: React.FC<LoginProps> = ({
   // Actions
   onLogin,
   onForgotPasswordClick,
-  onRegisterClick,
   onSendResetLink,
   onBackToLogin,
   onSaveNewPassword,
   onCancel,
 
   // Toggles
-  showRegisterLink = true,
   showForgotPassword = true,
 
-  // Texts
-  registerLinkText = '¿Aún no te has registrado?',
-  registerButtonText = 'Regístrate',
-  forgotPasswordText = '¿Olvidaste tu contraseña?',
-  emptyFieldsError = 'Se requiere un usuario y contraseña',
-  loginError = 'Por favor verifique su usuario o contraseña',
+  // Error messages
+  emptyFieldsError = 'Por favor ingresa tu correo y contraseña',
+  loginError = 'Correo o contraseña incorrectos',
   emptyEmailError = 'Se requiere un correo electrónico',
   resetLinkError = 'Ocurrió un error al enviar el correo',
   emptyPasswordError = 'Se requiere una contraseña',
@@ -140,15 +132,6 @@ export const Login: React.FC<LoginProps> = ({
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [hasCheckedSession, setHasCheckedSession] = useState(false);
-
-  React.useEffect(() => {
-    const timer = setTimeout(() => {
-      setHasCheckedSession(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
 
   const handleEmailChange = (value: string) => {
     setEmailValue(value);
@@ -160,9 +143,6 @@ export const Login: React.FC<LoginProps> = ({
     setErrorMessage('');
   };
 
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
-  };
 
   // Login mode handler
   const handleLogin = async () => {
@@ -239,137 +219,121 @@ export const Login: React.FC<LoginProps> = ({
     setIsLoading(false);
   };
 
-  if (!hasCheckedSession) {
-    return (
-      <div
-        className="fixed inset-0 flex items-center justify-center"
-        style={{ backgroundColor: bgColor }}
-      >
-        <div className="animate-pulse">
-          <img
-            src={bgImage}
-            alt="Logo"
-            className="w-48 h-48"
-          />
-        </div>
-      </div>
-    );
-  }
+  // Estilos inline basados en la referencia
+  const containerInputsStyle: React.CSSProperties = {
+    width: '100%',
+    maxWidth: '484px',
+    height: '473px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    border: '1px solid #E9E8DD',
+    borderTopLeftRadius: '12px',
+    borderBottomLeftRadius: '12px',
+    boxShadow: '8px 8px 24px rgba(102, 102, 102, 0.3)',
+    background: '#FFFFFF',
+    zIndex: 10,
+  };
+
+  const bgLoginStyle: React.CSSProperties = {
+    background: `url(${bgImage})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    width: '100%',
+    maxWidth: '484px',
+    height: '473px',
+    borderTopRightRadius: '12px',
+    borderBottomRightRadius: '12px',
+    zIndex: 10,
+  };
 
   // Render Login Mode
   const renderLoginMode = () => (
     <>
       {logo && (
-        <div className="mb-4 flex justify-center">
-          <img src={logo} alt={logoAlt} className={logoClassName} />
-        </div>
+        <img className={logoClassName} src={logo} alt={logoAlt} />
       )}
 
-      {brandTitle && (
-        <Text
-          variant="headline"
-          className="text-center mb-2"
-          style={{ color: bgColor }}
-        >
-          {brandTitle}
+      <h2 className="text-center mb-1">
+        <Text color="#FF5B00" variant="title">
+          {title}
         </Text>
-      )}
-
-      <Text
-        variant="headline"
-        className="text-center mb-4"
-        style={{ color: bgColor }}
-      >
-        {title}
-      </Text>
+      </h2>
 
       {subtitle && (
-        <Text variant="body" className="text-center mb-4" style={{ color: bgColor }}>
-          {subtitle}
+        <span>
+          <Text variant="label" textColor="#265197">
+            {subtitle}
+          </Text>
+        </span>
+      )}
+
+      <form onSubmit={(e) => { e.preventDefault(); handleLogin(); }} className="flex flex-col justify-center mt-4">
+        <Input
+          label={emailLabel}
+          type="email"
+          placeholder={emailPlaceholder}
+          value={emailValue}
+          onChange={(e) => handleEmailChange(e.target.value)}
+          disabled={isLoading}
+          variant="faded"
+          classNames={{
+            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
+            label: "!text-[#FF5B00]",
+            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+          }}
+        />
+
+        <Input
+          label={passwordLabel}
+          type={showPassword ? "text" : "password"}
+          placeholder={passwordPlaceholder}
+          value={passwordValue}
+          onChange={(e) => handlePasswordChange(e.target.value)}
+          disabled={isLoading}
+          variant="faded"
+          classNames={{
+            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
+            label: "!text-[#FF5B00]",
+            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+          }}
+          endContent={
+            <Icon
+              name="Eye"
+              className="text-[#66666666] cursor-pointer w-5 h-5"
+              onClick={() => setShowPassword((prev) => !prev)}
+            />
+          }
+        />
+
+        <Button
+          onClick={handleLogin}
+          variant="primary"
+          label={isLoading ? loadingButtonText : loginButtonText}
+          disabled={isLoading}
+          isLoading={isLoading}
+          fullWidth={true}
+          className="!mt-3"
+        />
+      </form>
+
+      {errorMessage && (
+        <Text variant="label" color="#ef4444" className="text-center mt-2">
+          {errorMessage}
         </Text>
       )}
 
-      <Input
-        placeholder={emailPlaceholder}
-        type="email"
-        value={emailValue}
-        onValueChange={handleEmailChange}
-        variant="primary"
-      />
-
-      <div className="relative">
-        <Input
-          placeholder={passwordPlaceholder}
-          type={showPassword ? 'text' : 'password'}
-          value={passwordValue}
-          onValueChange={handlePasswordChange}
-          variant="primary"
-        />
-        <button
-          className="absolute inset-y-0 right-3 flex items-center text-gray-500"
-          type="button"
-          onClick={togglePasswordVisibility}
-        >
-          {showPassword ? (
-            <Icon
-              className="text-2xl text-default-400 pointer-events-none"
-              name="EyeOff"
-            />
-          ) : (
-            <Icon
-              className="text-2xl text-default-400 pointer-events-none"
-              name="Eye"
-            />
-          )}
-        </button>
-      </div>
-
-      {errorMessage && (
-        <div className="error-message" style={{ color: '#ef4444' }}>
-          {errorMessage}
+      {showForgotPassword && (
+        <div className="w-[312px] mt-4 flex flex-col justify-center items-center">
+          <div className="w-[210px] h-[1px] bg-[#E5E7EB] mt-[14px] mb-2" />
+          <button onClick={onForgotPasswordClick}>
+            <Text variant="label" textColor="color-primary">
+              {backToLoginText}
+            </Text>
+          </button>
         </div>
-      )}
-
-      <div className="flex flex-col gap-4 mt-2">
-        <Button
-          className="w-full"
-          isDisabled={isLoading}
-          variant="primary"
-          type="submit"
-          onPress={handleLogin}
-          label={isLoading ? loadingButtonText : loginButtonText}
-          fullWidth
-        />
-
-        {showForgotPassword && (
-          <div className="flex justify-center items-center">
-            <button
-              className="text-sm underline hover:opacity-80 transition-opacity"
-              style={{ color: bgColor }}
-              onClick={onForgotPasswordClick}
-            >
-              {forgotPasswordText}
-            </button>
-          </div>
-        )}
-      </div>
-
-      {showRegisterLink && (
-        <>
-          <div className="my-4 h-px bg-gray-300" />
-          <div className="flex justify-center items-center gap-2 flex-wrap">
-            <span className="text-sm" style={{ color: bgColor }}>
-              {registerLinkText}
-            </span>
-            <button
-              className="text-sm underline hover:opacity-80 transition-opacity font-medium"
-              style={{ color: bgColor }}
-              onClick={onRegisterClick}
-            >
-              {registerButtonText}
-            </button>
-          </div>
-        </>
       )}
     </>
   );
@@ -378,16 +342,10 @@ export const Login: React.FC<LoginProps> = ({
   const renderForgotPasswordMode = () => (
     <>
       {logo && (
-        <div className="mb-4 flex justify-center">
-          <img src={logo} alt={logoAlt} className={logoClassName} />
-        </div>
+        <img className={logoClassName} src={logo} alt={logoAlt} />
       )}
 
-      <Text
-        variant="body"
-        weight="bold"
-        className="mb-4"
-      >
+      <Text variant="body" weight="bold" className="mb-4">
         {forgotPasswordTitle}
       </Text>
 
@@ -407,15 +365,21 @@ export const Login: React.FC<LoginProps> = ({
           placeholder={emailPlaceholder}
           required
           value={emailValue}
-          onValueChange={handleEmailChange}
+          onChange={(e) => handleEmailChange(e.target.value)}
           description="Te enviaremos un enlace para restablecerla."
           className="!p-0"
+          variant="faded"
+          classNames={{
+            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
+            label: "!text-[#FF5B00]",
+            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+          }}
         />
 
         <Button
           variant="primary"
           label={isLoading ? sendingLinkButtonText : sendLinkButtonText}
-          isDisabled={isLoading || !emailValue}
+          disabled={isLoading || !emailValue}
           onPress={handleSendResetLink}
         />
 
@@ -441,9 +405,7 @@ export const Login: React.FC<LoginProps> = ({
   const renderNewPasswordMode = () => (
     <>
       {logo && (
-        <div className="mb-4 flex justify-center">
-          <img src={logo} alt={logoAlt} className={logoClassName} />
-        </div>
+        <img className={logoClassName} src={logo} alt={logoAlt} />
       )}
 
       <Text variant="body" className="text-center mb-4">
@@ -457,33 +419,33 @@ export const Login: React.FC<LoginProps> = ({
       )}
 
       <div className="flex flex-col justify-center gap-4">
-        <div className="relative">
-          <Input
-            placeholder={newPasswordPlaceholder}
-            type={showPassword ? 'text' : 'password'}
-            value={passwordValue}
-            onValueChange={handlePasswordChange}
-            className="!p-0"
-            disabled={isLoading}
-          />
-          <button
-            className="absolute inset-y-0 right-3 flex items-center cursor-pointer"
-            type="button"
-            onClick={togglePasswordVisibility}
-          >
+        <Input
+          label={newPasswordLabel}
+          placeholder={newPasswordPlaceholder}
+          type={showPassword ? 'text' : 'password'}
+          value={passwordValue}
+          onChange={(e) => handlePasswordChange(e.target.value)}
+          className="!p-0"
+          disabled={isLoading}
+          variant="faded"
+          classNames={{
+            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
+            label: "!text-[#FF5B00]",
+            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+          }}
+          endContent={
             <Icon
               name={showPassword ? 'EyeOff' : 'Eye'}
-              size={20}
-              color="#666666"
+              className="text-[#66666666] cursor-pointer w-5 h-5"
+              onClick={() => setShowPassword((prev) => !prev)}
             />
-          </button>
-        </div>
+          }
+        />
 
         <Button
           disabled={isLoading}
           isLoading={isLoading}
           label={isLoading ? savingPasswordButtonText : savePasswordButtonText}
-          type="submit"
           variant="primary"
           onPress={handleSavePassword}
         />
@@ -507,28 +469,16 @@ export const Login: React.FC<LoginProps> = ({
   );
 
   return (
-    <div className={`w-full min-h-screen flex items-center justify-center ${className}`} style={{ backgroundColor: bgColor }}>
-      <div className="w-full max-w-[968px] flex flex-col lg:flex-row justify-center items-stretch shadow-2xl bg-white rounded-lg overflow-hidden">
-        {/* Form Section */}
-        <div className="flex-1 flex items-center justify-center p-8 lg:p-12 bg-white">
-          <div className="w-full max-w-[350px] flex flex-col">
-            {mode === 'login' && renderLoginMode()}
-            {mode === 'forgot-password' && renderForgotPasswordMode()}
-            {mode === 'new-password' && renderNewPasswordMode()}
-          </div>
-        </div>
-
-        {/* Background Image Section */}
-        <div
-          className="hidden lg:block flex-1 min-h-[600px]"
-          style={{
-            backgroundImage: `url(${bgImage})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
+    <div className={`w-[968px] flex justify-center flex-nowrap ${className}`}>
+      {/* Form Section - Left */}
+      <div style={containerInputsStyle}>
+        {mode === 'login' && renderLoginMode()}
+        {mode === 'forgot-password' && renderForgotPasswordMode()}
+        {mode === 'new-password' && renderNewPasswordMode()}
       </div>
+
+      {/* Background Image Section - Right - Hidden on mobile */}
+      <div className="hidden sm:block" style={bgLoginStyle} />
     </div>
   );
 };
