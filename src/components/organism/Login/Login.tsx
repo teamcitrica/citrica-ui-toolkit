@@ -237,7 +237,7 @@ export const Login: React.FC<LoginProps> = ({
   };
 
   const bgLoginStyle: React.CSSProperties = {
-    background: `url(${bgImage})`,
+    backgroundImage: `url(${bgImage})`,
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'center',
     backgroundSize: 'cover',
@@ -477,7 +477,7 @@ export const Login: React.FC<LoginProps> = ({
       </div>
 
       {/* Background Image Section - Right - Hidden on mobile */}
-      <div className="hidden sm:block" style={bgLoginStyle} />
+      <div className="hidden md:block" style={bgLoginStyle} />
     </div>
   );
 };
