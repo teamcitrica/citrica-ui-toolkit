@@ -223,7 +223,7 @@
     "@react-aria/focus" "3.21.3"
     "@react-types/breadcrumbs" "3.7.17"
 
-"@heroui/button@2.2.29", "@heroui/button@^2.2.29":
+"@heroui/button@2.2.29":
   version "2.2.29"
   resolved "https://registry.yarnpkg.com/@heroui/button/-/button-2.2.29.tgz#dbcca14752229010d6276e67bb8e67f361b9b49c"
   integrity sha512-F8cWp6V1/dJIeLOj0Cb9fA8luwzVKI3RUMUmx4zLo0C90cctRzssAMlg6eQ+SBz2NQxCYxMff8mtxMri1wrizg==
@@ -3496,20 +3496,29 @@ chokidar@^4.0.0:
   dependencies:
     readdirp "^4.0.1"
 
-"citrica-ui-toolkit@workspace:^":
-  version "0.0.6"
-  resolved "https://registry.yarnpkg.com/citrica-ui-toolkit/-/citrica-ui-toolkit-0.0.6.tgz#66af9ed99ade2ea0b3b70e1d47cc6ba328faedca"
-  integrity sha512-cU9plGLPectRBGTTyiRDRqtfwFzm7vVVQJGlxK1dwHvA0suIixCDc1WX8NTjlw58EE+bIjRMvp3uA6XqQsMcwA==
+"citrica-ui-toolkit@file:..":
+  version "0.0.16"
   dependencies:
-    "@heroui/button" "^2.2.29"
+    "@heroui/autocomplete" "2.3.31"
+    "@heroui/button" "2.2.29"
+    "@heroui/card" "2.2.27"
+    "@heroui/input" "2.4.30"
+    "@heroui/listbox" "2.3.28"
+    "@heroui/modal" "2.2.26"
+    "@heroui/popover" "2.3.29"
+    "@heroui/scroll-shadow" "2.3.19"
+    "@heroui/select" "2.4.30"
+    classnames "2.5.1"
     clsx "2.1.1"
+    lucide-react "0.562.0"
+    swiper "12.0.3"
 
 classlist-polyfill@^1.0.3:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/classlist-polyfill/-/classlist-polyfill-1.2.0.tgz#935bc2dfd9458a876b279617514638bcaa964a2e"
   integrity sha512-GzIjNdcEtH4ieA2S8NmrSxv7DfEV5fmixQeyTmqmRmRJPGpRBaSnA2a0VrCjyT8iW8JjEdMbKzDotAJf+ajgaQ==
 
-classnames@^2.3.2:
+classnames@2.5.1, classnames@^2.3.2:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
   integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
@@ -5135,6 +5144,11 @@ lru-cache@^10.2.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.4.3.tgz#410fc8a17b70e598013df257c2446b7f3383f119"
   integrity sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==
 
+lucide-react@0.562.0:
+  version "0.562.0"
+  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.562.0.tgz#217796c2f57624f012b484ea7f08505067c90d51"
+  integrity sha512-82hOAu7y0dbVuFfmO4bYF1XEwYk/mEbM5E+b1jgci/udUBEE/R7LF5Ip0CCEmXe8AybRM8L+04eP+LGZeDvkiw==
+
 lucide-react@^0.554.0:
   version "0.554.0"
   resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.554.0.tgz#85ee9855d43cfa83f6077125fe9dbe2521bdf37d"
@@ -6239,6 +6253,11 @@ svg-pathdata@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/svg-pathdata/-/svg-pathdata-6.0.3.tgz#80b0e0283b652ccbafb69ad4f8f73e8d3fbf2cac"
   integrity sha512-qsjeeq5YjBZ5eMdFuUa4ZosMLxgr5RZ+F+Y1OrDhuOCEInRMA3x74XdBtggJcj9kOeInz0WE+LgCPDkZFlBYJw==
+
+swiper@12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.0.3.tgz#c7804fd39955189d3ec652d9832896bd3d04733e"
+  integrity sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==
 
 swiper@^10.3.1:
   version "10.3.1"
