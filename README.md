@@ -1052,6 +1052,157 @@ Build outputs to `dist/` with:
 
 ---
 
+#### Login
+
+Multi-mode authentication component with login, forgot password, and new password flows.
+
+**Import:**
+```typescript
+import { Login, type LoginMode } from 'citrica-ui-toolkit';
+```
+
+**Props:**
+- `mode?: LoginMode` - Display mode: 'login' | 'forgot-password' | 'new-password' (default: 'login')
+- **Styling**
+  - `bgImage?: string` - Background image URL for right section (default: '/img/login-form-image-lg.jpg')
+  - `logo?: string` - Logo image URL (default: '/img/citrica-logo.png')
+  - `logoAlt?: string` - Logo alt text (default: 'Logo')
+  - `logoClassName?: string` - Logo CSS classes (default: 'w-[80px] pb-3 items-center')
+  - `className?: string` - Additional CSS classes
+- **Content - Login mode**
+  - `title?: string` - Main title (default: '¡Bienvenido!')
+  - `subtitle?: string` - Subtitle text (default: 'Ingresa tu correo electrónico y contraseña')
+  - `emailLabel?: string` - Email input label (default: 'Email')
+  - `passwordLabel?: string` - Password input label (default: 'Clave')
+  - `emailPlaceholder?: string` - Email placeholder (default: 'Correo electrónico')
+  - `passwordPlaceholder?: string` - Password placeholder (default: 'Contraseña')
+  - `loginButtonText?: string` - Login button text (default: 'Iniciar sesión')
+  - `loadingButtonText?: string` - Loading state text (default: 'Accediendo...')
+- **Content - Forgot Password mode**
+  - `forgotPasswordTitle?: string` - Title (default: '¿No puedes iniciar sesión?')
+  - `forgotPasswordSubtitle?: string` - Subtitle
+  - `forgotPasswordDescription?: string` - Description text
+  - `sendLinkButtonText?: string` - Send link button text (default: 'Enviar enlace')
+  - `sendingLinkButtonText?: string` - Sending state text (default: 'Enviando...')
+  - `backToLoginText?: string` - Back to login link text (default: '¿Olvidaste tu contraseña?')
+- **Content - New Password mode**
+  - `newPasswordTitle?: string` - Title (default: 'Crea una nueva contraseña')
+  - `newPasswordSubtitle?: string` - Subtitle
+  - `newPasswordLabel?: string` - Password input label (default: 'Nueva contraseña')
+  - `newPasswordPlaceholder?: string` - Password placeholder
+  - `savePasswordButtonText?: string` - Save button text (default: 'Guardar contraseña')
+  - `savingPasswordButtonText?: string` - Saving state text (default: 'Guardando...')
+  - `cancelText?: string` - Cancel link text (default: 'Cancelar')
+- **Actions - Login mode**
+  - `onLogin?: (email: string, password: string) => Promise<{error?: boolean; message?: string}>` - Login handler
+  - `onForgotPasswordClick?: () => void` - Forgot password click handler
+- **Actions - Forgot Password mode**
+  - `onSendResetLink?: (email: string) => Promise<{error?: boolean; message?: string}>` - Send reset link handler
+  - `onBackToLogin?: () => void` - Back to login handler
+- **Actions - New Password mode**
+  - `onSaveNewPassword?: (password: string) => Promise<{error?: boolean; message?: string}>` - Save password handler
+  - `onCancel?: () => void` - Cancel handler
+- **Toggles**
+  - `showForgotPassword?: boolean` - Show forgot password link (default: true)
+- **Error messages**
+  - `emptyFieldsError?: string` - Empty fields error (default: 'Por favor ingresa tu correo y contraseña')
+  - `loginError?: string` - Login error (default: 'Correo o contraseña incorrectos')
+  - `emptyEmailError?: string` - Empty email error
+  - `resetLinkError?: string` - Reset link error
+  - `emptyPasswordError?: string` - Empty password error
+  - `savePasswordError?: string` - Save password error
+
+**Usage:**
+```tsx
+"use client";
+import { useState } from "react";
+import { Login, LoginMode } from "citrica-ui-toolkit";
+
+export default function LoginPage() {
+  const [mode, setMode] = useState<LoginMode>("login");
+
+  const handleLogin = async (email: string, password: string) => {
+    // Your login logic
+    const response = await yourAuthService.login(email, password);
+
+    if (response.success) {
+      return { error: false, message: "Login exitoso" };
+    } else {
+      return { error: true, message: "Email o contraseña incorrectos" };
+    }
+  };
+
+  const handleForgotPasswordClick = () => {
+    setMode("forgot-password");
+  };
+
+  const handleSendResetLink = async (email: string) => {
+    // Your reset link logic
+    await yourAuthService.sendResetLink(email);
+    return { error: false, message: "Enlace enviado exitosamente" };
+  };
+
+  const handleBackToLogin = () => {
+    setMode("login");
+  };
+
+  const handleSaveNewPassword = async (password: string) => {
+    // Your save password logic
+    await yourAuthService.savePassword(password);
+    setMode("login");
+    return { error: false, message: "Contraseña guardada" };
+  };
+
+  return (
+    <div className="w-full min-h-screen flex items-center justify-center bg-gray-100">
+      <Login
+        mode={mode}
+        bgImage="https://your-image-url.com/background.jpg"
+        logo="/your-logo.png"
+
+        // Actions - Login mode
+        onLogin={handleLogin}
+        onForgotPasswordClick={handleForgotPasswordClick}
+
+        // Actions - Forgot Password mode
+        onSendResetLink={handleSendResetLink}
+        onBackToLogin={handleBackToLogin}
+
+        // Actions - New Password mode
+        onSaveNewPassword={handleSaveNewPassword}
+        onCancel={handleBackToLogin}
+      />
+    </div>
+  );
+}
+```
+
+**Features:**
+- Three modes: login, forgot password, and new password
+- Two-column layout: form on left, background image on right
+- Responsive design (image hidden on mobile with `md:block`)
+- Built-in password visibility toggle
+- Input validation and error messages
+- Loading states for async operations
+- Inline CSS styling for consistent design
+- Uses Input variant="faded" with custom classNames
+
+**Layout:**
+- Fixed width container (968px)
+- Left section: White form container (484px max) with border and shadow
+- Right section: Background image (484px max) with rounded corners
+- Form uses gap-4 spacing between inputs and button
+
+**Styling Notes:**
+- Component has inline styles that don't require external CSS
+- Form inputs use HeroUI's "faded" variant with custom colors:
+  - Border: `#D4DEED`, hover: `#265197`
+  - Labels: `#FF5B00` (orange)
+  - Input text: `#265197` (blue)
+  - Placeholder: `#A7BDE2` (light blue)
+
+---
+
 ## License
 
 ISC
