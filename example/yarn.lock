@@ -246,7 +246,7 @@
     "@react-aria/focus" "3.21.3"
     "@react-types/breadcrumbs" "3.7.17"
 
-"@heroui/button@2.2.29":
+"@heroui/button@2.2.29", "@heroui/button@^2.2.29":
   version "2.2.29"
   resolved "https://registry.yarnpkg.com/@heroui/button/-/button-2.2.29.tgz#dbcca14752229010d6276e67bb8e67f361b9b49c"
   integrity sha512-F8cWp6V1/dJIeLOj0Cb9fA8luwzVKI3RUMUmx4zLo0C90cctRzssAMlg6eQ+SBz2NQxCYxMff8mtxMri1wrizg==
@@ -1257,17 +1257,17 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@internationalized/date@^3.10.1", "@internationalized/date@^3.12.1":
+"@internationalized/date@^3.12.1":
   version "3.12.1"
   resolved "https://registry.yarnpkg.com/@internationalized/date/-/date-3.12.1.tgz#6e07ff34fafcba9a155cb8d4e0505f362e57a56b"
   integrity sha512-6IedsVWXyq4P9Tj+TxuU8WGWM70hYLl12nbYU8jkikVpa6WXapFazPUcHUMDMoWftIDE2ILDkFFte6W2nFCkRQ==
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@internationalized/message@^3.1.8", "@internationalized/message@^3.1.9":
-  version "3.1.9"
-  resolved "https://registry.yarnpkg.com/@internationalized/message/-/message-3.1.9.tgz#40b0f5d2ac9df6e6aabcf5d34750aa2c58730cb9"
-  integrity sha512-x03MSVTaB/4JHtW1VAYaY/2cCuBrHbWM6ZvlgpKdnSdW28tZbqpR673RJrVJyXWRw1bpgYN89Tz7ohX5tgNgPA==
+"@internationalized/message@^3.1.8":
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/@internationalized/message/-/message-3.1.8.tgz#7181e8178f0868535f4507a573bf285e925832cb"
+  integrity sha512-Rwk3j/TlYZhn3HQ6PyXUV0XP9Uv42jqZGNegt0BXlxjE6G3+LwHjbQZAGHhCnCPdaA6Tvd3ma/7QzLlLkJxAWA==
   dependencies:
     "@swc/helpers" "^0.5.0"
     intl-messageformat "^10.1.0"
@@ -1279,7 +1279,21 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
-"@internationalized/string@^3.2.7", "@internationalized/string@^3.2.8":
+"@internationalized/number@^3.6.6":
+  version "3.6.6"
+  resolved "https://registry.yarnpkg.com/@internationalized/number/-/number-3.6.6.tgz#8bd41940dd9c08e265ec13c9331bad4fd57267e1"
+  integrity sha512-iFgmQaXHE0vytNfpLZWOC2mEJCBRzcUxt53Xf/yCXG93lRvqas237i3r7X4RKMwO3txiyZD4mQjKAByFv6UGSQ==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+
+"@internationalized/string@^3.2.7":
+  version "3.2.7"
+  resolved "https://registry.yarnpkg.com/@internationalized/string/-/string-3.2.7.tgz#76ae10f1e6e1fdaec7d0028a3f807d37a71bd2dd"
+  integrity sha512-D4OHBjrinH+PFZPvfCXvG28n2LSykWcJ7GIioQL+ok0LON15SdfoUssoHzzOUmVZLbRoREsQXVzA6r8JKsbP6A==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+
+"@internationalized/string@^3.2.8":
   version "3.2.8"
   resolved "https://registry.yarnpkg.com/@internationalized/string/-/string-3.2.8.tgz#ca27e2ba127528d6b55a20fb5302bfebb852e1d9"
   integrity sha512-NdbMQUSfXLYIQol5VyMtinm9pZDciiMfN7RtmSuSB78io1hqwJ0naYfxyW6vgxWBkzWymQa/3uLDlbfmshtCaA==
@@ -3172,7 +3186,7 @@
   resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.32.1.tgz#abfeb839d65d0abe923576f34ac08342c25dfa55"
   integrity sha512-famxyD5emrGGpFuUlgOP6fVW2h/ZaF405G5KDi3zPHzyjAWys/8W6NAVJtNbkCkhedmvL0xOhvt8feGXyXaw5w==
 
-"@react-types/shared@^3.23.1", "@react-types/shared@^3.27.0", "@react-types/shared@^3.32.1", "@react-types/shared@^3.34.0":
+"@react-types/shared@^3.34.0":
   version "3.34.0"
   resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.34.0.tgz#f9688443fdf8e29f7a06b499598a930be96a2f65"
   integrity sha512-gp6xo/s2lX54AlTjOiqwDnxA7UW79BNvI9dB9pr3LZTzRKCd1ZA+ZbgKw/ReIiWuvvVw/8QFJpnqeeFyLocMcQ==
@@ -4221,7 +4235,7 @@ classlist-polyfill@^1.0.3:
   resolved "https://registry.yarnpkg.com/classlist-polyfill/-/classlist-polyfill-1.2.0.tgz#935bc2dfd9458a876b279617514638bcaa964a2e"
   integrity sha512-GzIjNdcEtH4ieA2S8NmrSxv7DfEV5fmixQeyTmqmRmRJPGpRBaSnA2a0VrCjyT8iW8JjEdMbKzDotAJf+ajgaQ==
 
-classnames@2.5.1, classnames@^2.3.2:
+classnames@^2.3.2:
   version "2.5.1"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.5.1.tgz#ba774c614be0f016da105c858e7159eae8e7687b"
   integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
@@ -5845,11 +5859,6 @@ lru-cache@^10.2.0:
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-10.4.3.tgz#410fc8a17b70e598013df257c2446b7f3383f119"
   integrity sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ==
 
-lucide-react@0.562.0:
-  version "0.562.0"
-  resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.562.0.tgz#217796c2f57624f012b484ea7f08505067c90d51"
-  integrity sha512-82hOAu7y0dbVuFfmO4bYF1XEwYk/mEbM5E+b1jgci/udUBEE/R7LF5Ip0CCEmXe8AybRM8L+04eP+LGZeDvkiw==
-
 lucide-react@^0.554.0:
   version "0.554.0"
   resolved "https://registry.yarnpkg.com/lucide-react/-/lucide-react-0.554.0.tgz#85ee9855d43cfa83f6077125fe9dbe2521bdf37d"
@@ -6361,18 +6370,6 @@ raf@^3.4.1:
   integrity sha512-Sq4CW4QhwOHE8ucn6J34MqtZCeWFP2aQSmrlroYgqAV1PjStIhJXxYuTgUIfkEk7zTLjmIjLmU5q+fbD1NnOJA==
   dependencies:
     performance-now "^2.1.0"
-
-react-aria-components@1.17.0:
-  version "1.17.0"
-  resolved "https://registry.yarnpkg.com/react-aria-components/-/react-aria-components-1.17.0.tgz#7fd5c9b6c575b3353a5bf9996dbdc39c1ccc211e"
-  integrity sha512-0EyisMgvsFJ2aML3crDYv2tW5vT2Ryf8PGzY/g63JjDdCbLshlwazhS8JNtPF1vkTkungJJ6sVJbKyX+YKSoFA==
-  dependencies:
-    "@internationalized/date" "^3.12.1"
-    "@react-types/shared" "^3.34.0"
-    "@swc/helpers" "^0.5.0"
-    client-only "^0.0.1"
-    react-aria "3.48.0"
-    react-stately "3.46.0"
 
 react-aria@3.48.0:
   version "3.48.0"
@@ -6998,11 +6995,6 @@ svg-pathdata@^6.0.3:
   version "6.0.3"
   resolved "https://registry.yarnpkg.com/svg-pathdata/-/svg-pathdata-6.0.3.tgz#80b0e0283b652ccbafb69ad4f8f73e8d3fbf2cac"
   integrity sha512-qsjeeq5YjBZ5eMdFuUa4ZosMLxgr5RZ+F+Y1OrDhuOCEInRMA3x74XdBtggJcj9kOeInz0WE+LgCPDkZFlBYJw==
-
-swiper@12.0.3:
-  version "12.0.3"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-12.0.3.tgz#c7804fd39955189d3ec652d9832896bd3d04733e"
-  integrity sha512-BHd6U1VPEIksrXlyXjMmRWO0onmdNPaTAFduzqR3pgjvi7KfmUCAm/0cj49u2D7B0zNjMw02TSeXfinC1hDCXg==
 
 swiper@^10.3.1:
   version "10.3.1"
