@@ -20,6 +20,25 @@ export interface LoginProps {
   logoClassName?: string;
   className?: string;
 
+  // Container styling
+  containerClassName?: string;
+  containerStyle?: React.CSSProperties;
+  bgContainerClassName?: string;
+  bgContainerStyle?: React.CSSProperties;
+
+  // Color customization
+  titleColor?: string;
+  subtitleColor?: string;
+  labelColor?: string;
+  inputBorderColor?: string;
+  inputHoverColor?: string;
+  inputPlaceholderColor?: string;
+  inputTextColor?: string;
+
+  // Divider
+  showDivider?: boolean;
+  dividerClassName?: string;
+
   // Content - Login mode
   title?: string;
   subtitle?: string;
@@ -37,6 +56,7 @@ export interface LoginProps {
   sendLinkButtonText?: string;
   sendingLinkButtonText?: string;
   backToLoginText?: string;
+  forgotPasswordHref?: string;
 
   // Content - New Password mode
   newPasswordTitle?: string;
@@ -84,6 +104,25 @@ export const Login: React.FC<LoginProps> = ({
   logoClassName = 'w-[80px] pb-3 items-center',
   className = '',
 
+  // Container styling
+  containerClassName = '',
+  containerStyle,
+  bgContainerClassName = '',
+  bgContainerStyle,
+
+  // Color customization
+  titleColor = '#FF5B00',
+  subtitleColor = '#265197',
+  labelColor = '#FF5B00',
+  inputBorderColor = '#D4DEED',
+  inputHoverColor = '#265197',
+  inputPlaceholderColor = '#A7BDE2',
+  inputTextColor = '#265197',
+
+  // Divider
+  showDivider = true,
+  dividerClassName = '',
+
   // Content - Login
   title = '¡Bienvenido!',
   subtitle = 'Ingresa tu correo electrónico y contraseña',
@@ -101,6 +140,7 @@ export const Login: React.FC<LoginProps> = ({
   sendLinkButtonText = 'Enviar enlace',
   sendingLinkButtonText = 'Enviando...',
   backToLoginText = '¿Olvidaste tu contraseña?',
+  forgotPasswordHref,
 
   // Content - New Password
   newPasswordTitle = 'Crea una nueva contraseña',
@@ -238,6 +278,7 @@ export const Login: React.FC<LoginProps> = ({
     boxShadow: '8px 8px 24px rgba(102, 102, 102, 0.3)',
     background: '#FFFFFF',
     zIndex: 10,
+    ...containerStyle,
   };
 
   const bgLoginStyle: React.CSSProperties = {
@@ -251,6 +292,7 @@ export const Login: React.FC<LoginProps> = ({
     borderTopRightRadius: '12px',
     borderBottomRightRadius: '12px',
     zIndex: 10,
+    ...bgContainerStyle,
   };
 
   // Render Login Mode
@@ -261,14 +303,14 @@ export const Login: React.FC<LoginProps> = ({
       )}
 
       <h2 className="text-center mb-1">
-        <Text color="#FF5B00" variant="title">
+        <Text color={titleColor} variant="title">
           {title}
         </Text>
       </h2>
 
       {subtitle && (
         <span>
-          <Text variant="label" textColor="#265197">
+          <Text variant="label" textColor={subtitleColor}>
             {subtitle}
           </Text>
         </span>
@@ -284,9 +326,9 @@ export const Login: React.FC<LoginProps> = ({
           disabled={isLoading}
           variant="faded"
           classNames={{
-            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
-            label: "!text-[#FF5B00]",
-            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+            inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
+            label: `!text-[${labelColor}]`,
+            input: `placeholder:text-[${inputPlaceholderColor}] !text-[${inputTextColor}]`,
           }}
         />
 
@@ -299,9 +341,9 @@ export const Login: React.FC<LoginProps> = ({
           disabled={isLoading}
           variant="faded"
           classNames={{
-            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
-            label: "!text-[#FF5B00]",
-            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+            inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
+            label: `!text-[${labelColor}]`,
+            input: `placeholder:text-[${inputPlaceholderColor}] !text-[${inputTextColor}]`,
           }}
           endContent={
             <Icon
@@ -330,12 +372,22 @@ export const Login: React.FC<LoginProps> = ({
 
       {showForgotPassword && (
         <div className="w-[312px] mt-4 flex flex-col justify-center items-center">
-          <div className="w-[210px] h-[1px] bg-[#E5E7EB] mt-[14px] mb-2" />
-          <button onClick={onForgotPasswordClick}>
-            <Text variant="label" textColor="color-primary">
-              {backToLoginText}
-            </Text>
-          </button>
+          {showDivider && (
+            <div className={`w-[210px] h-[1px] bg-[#E5E7EB] mt-[14px] mb-2 ${dividerClassName}`} />
+          )}
+          {forgotPasswordHref ? (
+            <a href={forgotPasswordHref}>
+              <Text variant="label" textColor="color-primary">
+                {backToLoginText}
+              </Text>
+            </a>
+          ) : (
+            <button onClick={onForgotPasswordClick}>
+              <Text variant="label" textColor="color-primary">
+                {backToLoginText}
+              </Text>
+            </button>
+          )}
         </div>
       )}
     </>
@@ -373,9 +425,9 @@ export const Login: React.FC<LoginProps> = ({
           className="!p-0"
           variant="faded"
           classNames={{
-            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
-            label: "!text-[#FF5B00]",
-            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+            inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
+            label: `!text-[${labelColor}]`,
+            input: `placeholder:text-[${inputPlaceholderColor}] !text-[${inputTextColor}]`,
           }}
         />
 
@@ -432,9 +484,9 @@ export const Login: React.FC<LoginProps> = ({
           disabled={isLoading}
           variant="faded"
           classNames={{
-            inputWrapper: "!border-[#D4DEED] !rounded-[12px] data-[hover=true]:!border-[#265197]",
-            label: "!text-[#FF5B00]",
-            input: "placeholder:text-[#A7BDE2] !text-[#265197]",
+            inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
+            label: `!text-[${labelColor}]`,
+            input: `placeholder:text-[${inputPlaceholderColor}] !text-[${inputTextColor}]`,
           }}
           endContent={
             <Icon
@@ -474,14 +526,14 @@ export const Login: React.FC<LoginProps> = ({
   return (
     <div className={`w-[968px] flex justify-center flex-nowrap ${className}`}>
       {/* Form Section - Left */}
-      <div style={containerInputsStyle}>
+      <div className={containerClassName} style={containerInputsStyle}>
         {mode === 'login' && renderLoginMode()}
         {mode === 'forgot-password' && renderForgotPasswordMode()}
         {mode === 'new-password' && renderNewPasswordMode()}
       </div>
 
       {/* Background Image Section - Right - Hidden on mobile */}
-      <div className="hidden md:block" style={bgImageSrc ? {} : bgLoginStyle}>
+      <div className={`hidden md:block ${bgContainerClassName}`} style={bgImageSrc ? bgContainerStyle : bgLoginStyle}>
         {bgImageSrc && (
           <img
             src={bgImageSrc}

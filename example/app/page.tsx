@@ -10,7 +10,14 @@ export default function App() {
       <div className="mb-4">
         <Button variant="primary" size="md">Primary Button</Button>
       </div>
-      <Login />
+      <Login
+        bgImageSrc="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=600&fit=crop"
+        bgImageAlt="Office workspace"
+        onLogin={async (email: string, password: string) => {
+          console.log('Login:', email, password);
+          return {};
+        }}
+      />
     </div>
   );
 }
