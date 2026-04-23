@@ -1,46 +1,28 @@
-@import './text-tokens.scss';
-@import './button-tokens.scss';
-@import './input-tokens.scss';
-@import './select-tokens.scss';
-@import './textarea-tokens.scss';
-@import './form-tokens.scss';
-@import './login-tokens.scss';
-@import './calendar-tokens.scss';
-// BUTTONS
+// ============================================
+// TOKENS - MAIN FILE
+// ============================================
+// This file imports all token definitions for both
+// web (public) and admin side components
+// ============================================
 
-// .btn {
-//   font-family: var(--font-family-a);
-//   font-weight: 500;
-//   font-size: var(--btn-size);
-//   line-height: var(--btn-height);
-//   letter-spacing: 0;
-//   text-decoration: none;
-//   text-transform: none;
-// }
-// .btn-link {
-//   font-family: var(--font-family-a);
-//   font-weight: normal;
-//   font-size: var(--btn-link-size);
-//   line-height: var(--btn-link-height);
-//   letter-spacing: 0;
-//   text-decoration: none;
-//   text-transform: none;
-// }
-// .btn-big {
-//   font-family: var(--font-family-a);
-//   font-weight: normal;
-//   font-size: var(--btn-big-size);
-//   line-height: var(--btn-big-height);
-//   letter-spacing: 0;
-//   text-decoration: none;
-//   text-transform: none;
-// }
-// Typography colors
-// background colors
+// WEB (PUBLIC) COMPONENTS
+@import './web/components/_text.scss';
+@import './web/components/_button.scss';
+@import './web/components/_input.scss';
+@import './web/components/_select.scss';
+@import './web/components/_textarea.scss';
+@import './web/components/_form.scss';
+@import './web/components/_login.scss';
+@import './web/components/_calendar.scss';
+@import './web/components/_accordion.scss';
 
-// color navbar
-
-// .navbar-text-color :hover{
-//   color: #D5B16C;
-// }
-
+// ADMIN COMPONENTS
+@import './admin/components/_text.scss';
+@import './admin/components/_button.scss';
+@import './admin/components/_input.scss';
+@import './admin/components/_select.scss';
+@import './admin/components/_textarea.scss';
+@import './admin/components/_form.scss';
+@import './admin/components/_login.scss';
+@import './admin/components/_calendar.scss';
+@import './admin/components/_accordion.scss';

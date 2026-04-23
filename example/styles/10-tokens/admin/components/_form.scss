@@ -1,0 +1,16 @@
+// ============================================
+// FORM TOKENS - ADMIN SIDE
+// ============================================
+
+@mixin form-admin-tokens {
+    --form-admin-radius-btn:8px;  // Border radius for inputs, selects, buttons, textareas
+  --form-admin-radius-input: 10px; 
+  --form-admin-radius-select: var(--form-admin-radius-input);
+  --form-admin-radius-textarea: var(--form-admin-radius-input);
+  --form-admin-border-size-input: 2px; // Border size for inputs, selects, buttons, textareas
+  --form-admin-border-size-select: var(--form-admin-border-size-input);
+  --form-admin-border-size-btn: var(--form-admin-border-size-input);
+  --form-admin-border-size-textarea: var(--form-admin-border-size-input);
+  --form-admin-radius-accordion: 8px;
+  --form-admin-border-size-accordion: 0.5px;
+}

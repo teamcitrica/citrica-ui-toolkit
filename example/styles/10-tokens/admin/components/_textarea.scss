@@ -1,0 +1,84 @@
+// ============================================
+// TEXTAREA TOKENS - ADMIN SIDE
+// ============================================
+
+$textarea-citrica-ui-admin: (
+  sm: (
+    padding: 10px 20px,
+  ),
+  md: (
+    padding: 10px 20px,
+  ),
+  lg: (
+    padding: 20px 50px,
+  )
+);
+
+.textarea-citrica-ui-admin{
+  min-width: 140px;
+  // max-width: 380px;
+  @include a-set($textarea-citrica-ui-admin);
+
+  [data-slot="input-wrapper"] {
+    border-radius: var(--form-admin-radius-textarea);
+  }
+}
+
+// SELECTED TEXTAREA BORDER COLOR WHEN FOCUSED (ADMIN)
+.group[data-focus="true"] .group-data-\[focus\=true\]\:border-admin-foreground {
+  border-color: var(--color-admin-primary-textarea-border-hover) !important;
+}
+
+.textarea-primary-admin{
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-admin-primary-textarea-bg);
+    border: var(--form-admin-border-size-textarea) solid var(--color-admin-primary-textarea-border);
+
+    &:hover {
+      border-color: var(--color-admin-primary-textarea-border-hover);
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-primary-textarea-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-primary-textarea-label);
+  }
+
+  [data-slot="input"] {
+    color: var(--color-admin-primary-textarea-text-hover);
+
+    &::placeholder {
+      color: var(--color-admin-primary-textarea-placeholder);
+    }
+  }
+}
+
+.textarea-secondary-admin{
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-admin-secondary-textarea-bg);
+    border: 1px solid var(--color-admin-secondary-textarea-border);
+
+    &:hover {
+      border-color: var(--color-admin-secondary-textarea-border-hover);
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-secondary-textarea-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-secondary-textarea-label);
+  }
+
+  [data-slot="input"] {
+    color: var(--color-admin-secondary-textarea-text-hover);
+
+    &::placeholder {
+      color: var(--color-admin-secondary-textarea-placeholder);
+    }
+  }
+}

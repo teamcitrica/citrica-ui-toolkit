@@ -1,3 +1,6 @@
+// ============================================
+// INPUT TOKENS - CLIENT/PUBLIC SIDE
+// ============================================
 
 $input-citrica-ui: (
   sm: (
@@ -15,9 +18,17 @@ $input-citrica-ui: (
   // min-width: 140px;
   // max-width: 380px;
   @include a-set($input-citrica-ui);
-  
+
   [data-slot="input-wrapper"] {
     border-radius: var(--form-radius-input);
+  }
+
+  // Label placement inside by default
+  [data-slot="label"] {
+    position: absolute;
+    pointer-events: none;
+    transform-origin: top left;
+    transition: all 0.2s ease;
   }
 }
 
@@ -30,23 +41,23 @@ $input-citrica-ui: (
   [data-slot="input-wrapper"] {
     background-color: var(--color-primary-input-bg);
     border: var(--form-border-size-input) solid var(--color-primary-input-border);
-    
+
     &:hover {
       border-color: var(--color-primary-input-border-hover);
     }
-    
+
     &[data-focus="true"] {
       border-color: var(--color-primary-input-border-hover);
     }
   }
-  
+
   [data-slot="label"] {
     color: var(--color-primary-input-label);
   }
-  
+
   [data-slot="input"] {
     color: var(--color-primary-input-text-hover);
-    
+
     &::placeholder {
       color: var(--color-primary-input-placeholder);
     }
@@ -57,23 +68,23 @@ $input-citrica-ui: (
   [data-slot="input-wrapper"] {
     background-color: var(--color-secondary-input-bg);
     border: 1px solid var(--color-secondary-input-border);
-    
+
     &:hover {
       border-color: var(--color-secondary-input-border-hover);
     }
-    
+
     &[data-focus="true"] {
       border-color: var(--color-secondary-input-border-hover);
     }
   }
-  
+
   [data-slot="label"] {
     color: var(--color-secondary-input-label);
   }
-  
+
   [data-slot="input"] {
     color: var(--color-secondary-input-text-hover);
-    
+
     &::placeholder {
       color: var(--color-secondary-input-placeholder);
     }

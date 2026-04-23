@@ -1,0 +1,92 @@
+// ============================================
+// INPUT TOKENS - ADMIN SIDE
+// ============================================
+
+$input-citrica-ui-admin: (
+  sm: (
+    padding: 10px 0px,
+  ),
+  md: (
+    padding: 10px 0px,
+  ),
+  lg: (
+    padding: 10px 0px,
+  )
+);
+
+.input-citrica-ui-admin{
+  // min-width: 140px;
+  // max-width: 380px;
+  @include a-set($input-citrica-ui-admin);
+
+  [data-slot="input-wrapper"] {
+    border-radius: var(--form-admin-radius-input);
+  }
+
+  // Label placement inside by default
+  [data-slot="label"] {
+    position: absolute;
+    pointer-events: none;
+    transform-origin: top left;
+    transition: all 0.2s ease;
+  }
+}
+
+// SELECTED INPUT BORDER COLOR WHEN FOCUSED (ADMIN)
+.group[data-focus="true"] .group-data-\[focus\=true\]\:border-admin-foreground {
+  border-color: var(--color-admin-primary-input-border-hover) !important;
+}
+
+.input-primary-admin{
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-admin-primary-input-bg);
+    border: var(--form-admin-border-size-input) solid var(--color-admin-primary-input-border);
+
+    &:hover {
+      border-color: var(--color-admin-primary-input-border-hover);
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-primary-input-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-primary-input-label);
+  }
+
+  [data-slot="input"] {
+    color: var(--color-admin-primary-input-text-hover);
+
+    &::placeholder {
+      color: var(--color-admin-primary-input-placeholder);
+    }
+  }
+}
+
+.input-secondary-admin{
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-admin-secondary-input-bg);
+    border: 1px solid var(--color-admin-secondary-input-border);
+
+    &:hover {
+      border-color: var(--color-admin-secondary-input-border-hover);
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-secondary-input-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-secondary-input-label);
+  }
+
+  [data-slot="input"] {
+    color: var(--color-admin-secondary-input-text-hover);
+
+    &::placeholder {
+      color: var(--color-admin-secondary-input-placeholder);
+    }
+  }
+}

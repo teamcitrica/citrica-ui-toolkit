@@ -1,0 +1,154 @@
+// ============================================
+// SELECT TOKENS - ADMIN SIDE
+// ============================================
+
+$select-citrica-ui-admin: (
+  sm: (
+    padding: 10px 0px,
+  ),
+  md: (
+    padding: 10px 0px,
+  ),
+  lg: (
+    padding: 10px 0px,
+  )
+);
+
+.select-citrica-ui-admin{
+  // min-width: 140px !important;
+  // max-width: 380px !important;
+  @include a-set($select-citrica-ui-admin);
+}
+
+.select-item-citrica-ui-admin{
+  border-radius: var(--form-admin-radius-select); // border radius
+}
+
+.select-primary-admin.select-citrica-ui-admin {
+  [data-slot="trigger"] {
+    background-color: var(--color-admin-primary-input-bg);
+    border: var(--form-admin-border-size-select) solid var(--color-admin-primary-input-border);
+    border-radius: var(--form-admin-radius-select);
+
+    &:hover {
+      border-color: var(--color-admin-primary-select-border-hover) !important;
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-primary-select-border-hover) !important;
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-primary-input-label) !important;
+  }
+
+  [data-slot="value"] {
+    color: var(--color-admin-primary-input-text) !important;
+
+    &::placeholder {
+      color: var(--color-admin-primary-select-placeholder) !important;
+    }
+
+    &:hover {
+      color: var(--color-admin-primary-select-text-hover) !important;
+    }
+
+    &[data-placeholder="true"] {
+      color: var(--color-admin-primary-select-placeholder) !important;
+    }
+
+    &:empty {
+      color: var(--color-admin-primary-select-placeholder) !important;
+    }
+  }
+
+  [data-slot="placeholder"] {
+    color: var(--color-admin-primary-select-placeholder) !important;
+  }
+
+  /* SelectItems admin */
+  [data-slot="listbox"] [data-slot="option"],
+  [data-slot="listbox"] li,
+  [data-slot="listbox"] > *,
+  [role="option"],
+  li[data-key] {
+    color: var(--color-admin-primary-select-item-text) !important;
+    background-color: var(--color-admin-primary-select-item-bg) !important;
+
+    &[data-hover="true"],
+    &:hover {
+      background-color: var(--color-admin-primary-select-item-bg-hover) !important;
+    }
+
+    &[data-selected="true"],
+    &[aria-selected="true"] {
+      background-color: var(--color-admin-primary-select-item-bg-selected) !important;
+      color: var(--color-admin-primary-select-item-text-selected) !important;
+    }
+  }
+}
+
+.select-secondary-admin.select-citrica-ui-admin {
+  [data-slot="trigger"] {
+    background-color: var(--color-admin-secondary-select-bg) !important;
+    border: 1px solid var(--color-admin-secondary-select-border) !important;
+
+    &:hover {
+      border-color: var(--color-admin-secondary-select-border-hover) !important;
+    }
+
+    &[data-focus="true"] {
+      border-color: var(--color-admin-secondary-select-border-hover) !important;
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-admin-secondary-select-label) !important;
+  }
+
+  [data-slot="value"] {
+    color: var(--color-admin-secondary-select-text) !important;
+
+    &::placeholder {
+      color: var(--color-admin-secondary-select-placeholder) !important;
+    }
+
+    &:hover {
+      color: var(--color-admin-secondary-select-text-hover) !important;
+    }
+
+    &[data-placeholder="true"] {
+      color: var(--color-admin-secondary-select-placeholder) !important;
+    }
+
+    &:empty {
+      color: var(--color-admin-secondary-select-placeholder) !important;
+    }
+  }
+
+  [data-slot="placeholder"] {
+    color: var(--color-admin-secondary-select-placeholder) !important;
+  }
+
+  /* SelectItems admin secondary */
+  [data-slot="listbox"] [data-slot="option"],
+  [data-slot="listbox"] li,
+  [data-slot="listbox"] > *,
+  [role="option"],
+  li[data-key] {
+    color: var(--color-admin-secondary-select-item-text) !important;
+    background-color: var(--color-admin-secondary-select-item-bg) !important;
+
+    &[data-hover="true"],
+    &:hover {
+      background-color: var(--color-admin-secondary-select-item-bg-hover) !important;
+    }
+
+    &[data-selected="true"],
+    &[aria-selected="true"] {
+      background-color: var(--color-admin-secondary-select-item-bg-selected) !important;
+      color: var(--color-admin-secondary-select-item-text-selected) !important;
+    }
+  }
+}

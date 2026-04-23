@@ -36,6 +36,16 @@ $not-sm-block:(
   @include a-set($not-sm-block);
 }
 
+$not-sm-flex:(
+  only-sm:(
+    display: none,
+  )
+);
+.not-sm-flex{
+  display: flex;
+  @include a-set($not-sm-flex);
+}
+
 // MD
 $only-md-block:(
   only-md:(
@@ -47,6 +57,16 @@ $only-md-block:(
   @include a-set($only-md-block);
 }
 
+$only-md-flex:(
+  only-md:(
+    display: flex,
+  )
+);
+.only-md-flex{
+  display: none;
+  @include a-set($only-md-flex);
+}
+
 $not-md-block:(
   only-md:(
     display: none,
@@ -55,6 +75,16 @@ $not-md-block:(
 .not-md{
   display: block;
   @include a-set($not-md-block);
+}
+
+$not-md-flex:(
+  only-md:(
+    display: none,
+  )
+);
+.not-md-flex{
+  display: flex;
+  @include a-set($not-md-flex);
 }
 
 // LG
@@ -76,6 +106,16 @@ $not-lg-block:(
 .not-lg{
   display: block;
   @include a-set($not-lg-block);
+}
+
+$not-lg-flex:(
+  only-lg:(
+    display: none,
+  )
+);
+.not-lg-flex{
+  display: flex;
+  @include a-set($not-lg-flex);
 }
 
 $only-lg-flex:(
