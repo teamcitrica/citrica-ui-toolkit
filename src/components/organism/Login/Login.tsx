@@ -125,11 +125,11 @@ export const Login: React.FC<LoginProps> = ({
 
   // Content - Login
   title = '¡Bienvenido!',
-  subtitle = 'Ingresa tu correo electrónico y contraseña',
+  subtitle = 'Ingresa tu correo electrónico y clave',
   emailLabel = 'Email',
   passwordLabel = 'Clave',
   emailPlaceholder = 'Correo electrónico',
-  passwordPlaceholder = 'Contraseña',
+  passwordPlaceholder = 'Ingresa tu clave',
   loginButtonText = 'Iniciar sesión',
   loadingButtonText = 'Accediendo...',
 
@@ -174,39 +174,42 @@ export const Login: React.FC<LoginProps> = ({
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errors, setErrors] = useState<{ email?: string; password?: string; general?: string }>({});
   const [showPassword, setShowPassword] = useState(false);
 
   const handleEmailChange = (value: string) => {
     setEmailValue(value);
-    setErrorMessage('');
+    setErrors(prev => ({ ...prev, email: undefined, general: undefined }));
   };
 
   const handlePasswordChange = (value: string) => {
     setPasswordValue(value);
-    setErrorMessage('');
+    setErrors(prev => ({ ...prev, password: undefined, general: undefined }));
   };
 
 
   // Login mode handler
   const handleLogin = async () => {
-    setErrorMessage('');
-    setIsLoading(true);
+    const newErrors: typeof errors = {};
+    if (!emailValue.trim()) newErrors.email = emptyEmailError;
+    if (!passwordValue.trim()) newErrors.password = emptyPasswordError;
 
-    if (!emailValue.trim() || !passwordValue.trim()) {
-      setErrorMessage(emptyFieldsError);
-      setIsLoading(false);
+    if (Object.keys(newErrors).length) {
+      setErrors(newErrors);
       return;
     }
+
+    setErrors({});
+    setIsLoading(true);
 
     if (onLogin) {
       try {
         const result = await onLogin(emailValue, passwordValue);
         if (result?.error) {
-          setErrorMessage(result.message || loginError);
+          setErrors({ general: result.message || loginError });
         }
       } catch (error) {
-        setErrorMessage(loginError);
+        setErrors({ general: loginError });
       }
     }
 
@@ -215,23 +218,22 @@ export const Login: React.FC<LoginProps> = ({
 
   // Forgot password mode handler
   const handleSendResetLink = async () => {
-    setErrorMessage('');
-    setIsLoading(true);
-
     if (!emailValue.trim()) {
-      setErrorMessage(emptyEmailError);
-      setIsLoading(false);
+      setErrors({ email: emptyEmailError });
       return;
     }
+
+    setErrors({});
+    setIsLoading(true);
 
     if (onSendResetLink) {
       try {
         const result = await onSendResetLink(emailValue);
         if (result?.error) {
-          setErrorMessage(result.message || resetLinkError);
+          setErrors({ general: result.message || resetLinkError });
         }
       } catch (error) {
-        setErrorMessage(resetLinkError);
+        setErrors({ general: resetLinkError });
       }
     }
 
@@ -240,23 +242,22 @@ export const Login: React.FC<LoginProps> = ({
 
   // New password mode handler
   const handleSavePassword = async () => {
-    setErrorMessage('');
-    setIsLoading(true);
-
     if (!passwordValue.trim()) {
-      setErrorMessage(emptyPasswordError);
-      setIsLoading(false);
+      setErrors({ password: emptyPasswordError });
       return;
     }
+
+    setErrors({});
+    setIsLoading(true);
 
     if (onSaveNewPassword) {
       try {
         const result = await onSaveNewPassword(passwordValue);
         if (result?.error) {
-          setErrorMessage(result.message || savePasswordError);
+          setErrors({ general: result.message || savePasswordError });
         }
       } catch (error) {
-        setErrorMessage(savePasswordError);
+        setErrors({ general: savePasswordError });
       }
     }
 
@@ -325,6 +326,9 @@ export const Login: React.FC<LoginProps> = ({
           onChange={(e) => handleEmailChange(e.target.value)}
           disabled={isLoading}
           variant="faded"
+          isInvalid={!!errors.email}
+          errorMessage={errors.email}
+          className="!p-0"
           classNames={{
             inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
             label: `!text-[${labelColor}]`,
@@ -340,6 +344,9 @@ export const Login: React.FC<LoginProps> = ({
           onChange={(e) => handlePasswordChange(e.target.value)}
           disabled={isLoading}
           variant="faded"
+          isInvalid={!!errors.password}
+          errorMessage={errors.password}
+          className="!p-0"
           classNames={{
             inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
             label: `!text-[${labelColor}]`,
@@ -361,12 +368,13 @@ export const Login: React.FC<LoginProps> = ({
           disabled={isLoading}
           isLoading={isLoading}
           fullWidth={true}
+          className='mt-4'
         />
       </form>
 
-      {errorMessage && (
+      {errors.general && (
         <Text variant="label" color="#ef4444" className="text-center mt-2">
-          {errorMessage}
+          {errors.general}
         </Text>
       )}
 
@@ -424,6 +432,8 @@ export const Login: React.FC<LoginProps> = ({
           description="Te enviaremos un enlace para restablecerla."
           className="!p-0"
           variant="faded"
+          isInvalid={!!errors.email}
+          errorMessage={errors.email}
           classNames={{
             inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
             label: `!text-[${labelColor}]`,
@@ -438,9 +448,9 @@ export const Login: React.FC<LoginProps> = ({
           onPress={handleSendResetLink}
         />
 
-        {errorMessage && (
+        {errors.general && (
           <Text variant="label" color="#ef4444" className="text-center">
-            {errorMessage}
+            {errors.general}
           </Text>
         )}
       </div>
@@ -483,6 +493,8 @@ export const Login: React.FC<LoginProps> = ({
           className="!p-0"
           disabled={isLoading}
           variant="faded"
+          isInvalid={!!errors.password}
+          errorMessage={errors.password}
           classNames={{
             inputWrapper: `!border-[${inputBorderColor}] !rounded-[12px] data-[hover=true]:!border-[${inputHoverColor}]`,
             label: `!text-[${labelColor}]`,
@@ -505,9 +517,9 @@ export const Login: React.FC<LoginProps> = ({
           onPress={handleSavePassword}
         />
 
-        {errorMessage && (
+        {errors.general && (
           <Text variant="label" color="#ef4444" className="text-center">
-            {errorMessage}
+            {errors.general}
           </Text>
         )}
       </div>

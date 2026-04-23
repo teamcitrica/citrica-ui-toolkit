@@ -11,9 +11,9 @@ npm install citrica-ui-toolkit
 ## Architecture
 
 Components follow Atomic Design principles:
-- **Atoms**: Basic building blocks (Button, Input, Select, Icon, Card, Grid, Text)
-- **Molecules**: Compositions of atoms (Modal, Carousel)
-- **Organisms**: Complex UI sections (Footer, Header, Sidebar)
+- **Atoms**: Basic building blocks (Button, Input, Select, Autocomplete, Textarea, Icon, Card, Grid, Text)
+- **Molecules**: Compositions of atoms (Modal, Carousel, Accordion)
+- **Organisms**: Complex UI sections (Footer, Header, Sidebar, Login)
 
 ---
 
@@ -106,6 +106,7 @@ import { Input } from 'citrica-ui-toolkit';
 - `autoFocus?: boolean` - Auto focus on mount
 - `maxLength?: number` - Maximum characters
 - `className?: string` - Additional CSS classes
+- `isAdmin?: boolean` - Use admin theme colors (default: false)
 
 **Usage:**
 ```tsx
@@ -132,11 +133,14 @@ import { Input } from 'citrica-ui-toolkit';
   value={value}
   onValueChange={(val) => setValue(val)}
 />
+
+// Admin mode input
+<Input label="Usuario" variant="primary" isAdmin={true} />
 ```
 
 **CSS Classes Applied:**
-- `input-citrica-ui`
-- `input-primary` or `input-secondary` (for custom variants)
+- `input-citrica-ui` or `input-citrica-ui-admin`
+- `input-primary` / `input-secondary` (or `-admin` variants)
 
 **Notes:**
 - Uses `forwardRef` for ref forwarding (compatible with react-hook-form)
@@ -178,6 +182,7 @@ import { Select, type SelectOption } from 'citrica-ui-toolkit';
 - `options: SelectOption[]` - Array of options (required)
 - `renderValue?: (items: SelectedItem[]) => React.ReactNode` - Custom render for selected value
 - `className?: string` - Additional CSS classes
+- `isAdmin?: boolean` - Use admin theme colors (default: false)
 
 **SelectOption Interface:**
 ```typescript
@@ -224,9 +229,9 @@ const options = [
 ```
 
 **CSS Classes Applied:**
-- `select-citrica-ui`
-- `select-primary` or `select-secondary`
-- `select-item-citrica-ui` (on option items)
+- `select-citrica-ui` or `select-citrica-ui-admin`
+- `select-primary` / `select-secondary` (or `-admin` variants)
+- `select-item-citrica-ui` or `select-item-citrica-ui-admin` (on option items)
 
 ---
 
@@ -756,6 +761,71 @@ const items = [
 **Notes:**
 - Requires Swiper CSS imports (included in component)
 - Supports title/description overlays on images
+
+---
+
+#### Accordion
+
+Collapsible content panels with admin mode support.
+
+**Import:**
+```typescript
+import { Accordion, type AccordionItemData } from 'citrica-ui-toolkit';
+```
+
+**Props:**
+- `items: AccordionItemData[]` - Array of accordion items (required)
+- `variant?: 'light' | 'shadow' | 'bordered' | 'splitted'` - Visual style (default: 'splitted')
+- `selectionMode?: 'single' | 'multiple' | 'none'` - Expansion mode (default: 'multiple')
+- `defaultExpandedKeys?: Iterable<string | number> | 'all'` - Initial expanded items
+- `expandedKeys?: Iterable<string | number> | 'all'` - Controlled expanded items
+- `disabledKeys?: Iterable<string | number>` - Disabled item keys
+- `onSelectionChange?: (keys: any) => void` - Selection change handler
+- `isCompact?: boolean` - Compact sizing (default: false)
+- `isDisabled?: boolean` - Disable whole accordion (default: false)
+- `hideIndicator?: boolean` - Hide open/close indicator (default: false)
+- `showDivider?: boolean` - Show divider between items (default: true)
+- `fullWidth?: boolean` - Full width (default: true)
+- `className?: string` - Additional CSS classes
+- `isAdmin?: boolean` - Use admin theme colors (default: false)
+
+**AccordionItemData Interface:**
+```typescript
+interface AccordionItemData {
+  key: string | number;      // Unique key
+  title: React.ReactNode;    // Header (string auto-wrapped as subtitle bold)
+  content: React.ReactNode;  // Panel content (string auto-wrapped as body)
+  subtitle?: React.ReactNode;
+  startContent?: React.ReactNode;
+  isDisabled?: boolean;
+}
+```
+
+**Usage:**
+```tsx
+const items = [
+  { key: "1", title: "¿Qué es Citrica UI?", content: "Una librería de componentes React." },
+  { key: "2", title: "¿Cómo se instala?", content: "npm install citrica-ui-toolkit" },
+];
+
+// Basic accordion
+<Accordion items={items} />
+
+// Single selection with initial open
+<Accordion
+  items={items}
+  selectionMode="single"
+  defaultExpandedKeys={["1"]}
+  variant="bordered"
+/>
+
+// Admin mode
+<Accordion items={items} isAdmin={true} />
+```
+
+**CSS Classes Applied:**
+- `accordion-citrica-ui` or `accordion-citrica-ui-admin`
+- `accordion-item-citrica-ui`, `accordion-item-{variant}` (or `-admin`)
 
 ---
 

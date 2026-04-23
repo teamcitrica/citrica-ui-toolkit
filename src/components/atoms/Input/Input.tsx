@@ -79,6 +79,7 @@ export interface InputProps {
   // Helpers de texto
   helperText?: string;
   showCharacterCount?: boolean;
+  isAdmin?: boolean;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(({
@@ -118,6 +119,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   step,
   min,
   max,
+  isAdmin = false,
 }, ref) => {
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
@@ -128,12 +130,12 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
     <Icon name={endIcon} size={iconSize} color={iconColor} />
   ) : endContent;
 
-  const getInputClassByVariant = (variant: string) => {
+  const getInputClassByVariant = (variant: string, isAdmin: boolean) => {
     switch (variant) {
       case 'primary':
-        return 'input-primary';
+        return isAdmin ? 'input-primary-admin' : 'input-primary';
       case 'secondary':
-        return 'input-secondary';
+        return isAdmin ? 'input-secondary-admin' : 'input-secondary';
       case 'flat':
       case 'bordered':
       case 'faded':
@@ -141,6 +143,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       default:
         return '';
     }
+  };
+
+  const getInputBaseClass = (isAdmin: boolean) => {
+    return isAdmin ? 'input-citrica-ui-admin' : 'input-citrica-ui';
   };
 
   const shouldUseCustomVariant = variant === 'primary' || variant === 'secondary';
@@ -168,8 +174,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       errorMessage={errorMessage}
       description={description}
       className={clsx(
-        'input-citrica-ui',
-        getInputClassByVariant(variant),
+        getInputBaseClass(isAdmin),
+        getInputClassByVariant(variant, isAdmin),
         className
       )}
       classNames={classNames}

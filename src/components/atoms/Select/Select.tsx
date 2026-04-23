@@ -61,6 +61,7 @@ export interface SelectProps {
   options: SelectOption[];
   /** Función para renderizar el valor seleccionado. Por defecto muestra el label del item seleccionado */
   renderValue?: RenderValueFunction;
+  isAdmin?: boolean;
 }
 
 const Select = ({
@@ -90,6 +91,7 @@ const Select = ({
   fullWidth = true,
   options = [],
   renderValue,
+  isAdmin = false,
 }: SelectProps) => {
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
@@ -100,12 +102,12 @@ const Select = ({
     <Icon name={endIcon} size={iconSize} color={iconColor} />
   ) : endContent;
 
-  const getSelectClassByVariant = (variant: string) => {
+  const getSelectClassByVariant = (variant: string, isAdmin: boolean) => {
     switch (variant) {
       case 'primary':
-        return 'select-primary';
+        return isAdmin ? 'select-primary-admin' : 'select-primary';
       case 'secondary':
-        return 'select-secondary';
+        return isAdmin ? 'select-secondary-admin' : 'select-secondary';
       case 'flat':
       case 'bordered':
       case 'faded':
@@ -113,6 +115,14 @@ const Select = ({
       default:
         return '';
     }
+  };
+
+  const getSelectBaseClass = (isAdmin: boolean) => {
+    return isAdmin ? 'select-citrica-ui-admin' : 'select-citrica-ui';
+  };
+
+  const getSelectItemClass = (isAdmin: boolean) => {
+    return isAdmin ? 'select-item-citrica-ui-admin' : 'select-item-citrica-ui';
   };
 
   const shouldUseCustomVariant = variant === 'primary' || variant === 'secondary';
@@ -156,8 +166,8 @@ const Select = ({
       errorMessage={errorMessage}
       description={description}
       className={clsx(
-        'select-citrica-ui',
-        getSelectClassByVariant(variant),
+        getSelectBaseClass(isAdmin),
+        getSelectClassByVariant(variant, isAdmin),
         className
       )}
       classNames={classNames}
@@ -173,7 +183,7 @@ const Select = ({
           description={option.description}
           startContent={option.startContent}
           endContent={option.endContent}
-          className="select-item-citrica-ui"
+          className={getSelectItemClass(isAdmin)}
         >
           {option.label}
         </SelectItem>

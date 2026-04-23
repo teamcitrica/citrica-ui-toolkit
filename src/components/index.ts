@@ -9,6 +9,7 @@ export * from './atoms/Textarea';
 export * from './atoms/Grid';
 export * from './molecules/Modal';
 export * from './molecules/Carousel';
+export * from './molecules/Accordion';
 export * from './organism/Footer';
 export * from './organism/Header';
 export * from './organism/Sidebar';
