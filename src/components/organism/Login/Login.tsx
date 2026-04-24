@@ -4,6 +4,7 @@ import { Text } from '../../atoms/Text';
 import { Button } from '../../atoms/Button';
 import { Input } from '../../atoms/Input';
 import { Icon } from '../../atoms/Icon';
+import { Container } from '../..';
 
 export type LoginMode = 'login' | 'forgot-password' | 'new-password';
 
@@ -56,6 +57,7 @@ export interface LoginProps {
   sendLinkButtonText?: string;
   sendingLinkButtonText?: string;
   backToLoginText?: string;
+  forgotPasswordLinkText?: string;
   forgotPasswordHref?: string;
 
   // Content - New Password mode
@@ -139,7 +141,8 @@ export const Login: React.FC<LoginProps> = ({
   forgotPasswordDescription = 'Escribe tu correo para recuperar el acceso.',
   sendLinkButtonText = 'Enviar enlace',
   sendingLinkButtonText = 'Enviando...',
-  backToLoginText = '¿Olvidaste tu contraseña?',
+  backToLoginText = 'Volver al inicio de sesión',
+  forgotPasswordLinkText = '¿Olvidaste tu contraseña?',
   forgotPasswordHref,
 
   // Content - New Password
@@ -386,13 +389,13 @@ export const Login: React.FC<LoginProps> = ({
           {forgotPasswordHref ? (
             <a href={forgotPasswordHref}>
               <Text variant="label" textColor="color-primary">
-                {backToLoginText}
+                {forgotPasswordLinkText}
               </Text>
             </a>
           ) : (
             <button onClick={onForgotPasswordClick}>
               <Text variant="label" textColor="color-primary">
-                {backToLoginText}
+                {forgotPasswordLinkText}
               </Text>
             </button>
           )}
@@ -403,7 +406,7 @@ export const Login: React.FC<LoginProps> = ({
 
   // Render Forgot Password Mode
   const renderForgotPasswordMode = () => (
-    <>
+    <Container className='w-[968px] flex flex-col justify-center items-center !flex-nowrap'>
       {logo && (
         <img className={logoClassName} src={logo} alt={logoAlt} />
       )}
@@ -463,7 +466,7 @@ export const Login: React.FC<LoginProps> = ({
           </Text>
         </button>
       </div>
-    </>
+    </Container>
   );
 
   // Render New Password Mode

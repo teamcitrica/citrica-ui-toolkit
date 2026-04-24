@@ -36,6 +36,20 @@
     outline: none !important;
 }
 
+// Suprime el ring de focus de HeroUI/Tailwind en todos los componentes Citrica
+[class*="-citrica-ui"] {
+  &[data-focus="true"],
+  &[data-focus-visible="true"],
+  [data-focus="true"],
+  [data-focus-visible="true"] {
+    outline: none !important;
+    box-shadow: none !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-width: 0px !important;
+  }
+}
+
 .no-padding {
     padding: 0 !important;
 }
