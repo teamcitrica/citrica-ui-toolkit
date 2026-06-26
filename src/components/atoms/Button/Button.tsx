@@ -98,15 +98,23 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <HeroUIButton
+      // El spread va primero; las props controladas debajo tienen precedencia.
+      {...props}
+      type={type}
+      size={size}
+      isDisabled={isDisabled}
+      isIconOnly={isIconOnly}
+      isLoading={isLoading}
+      fullWidth={fullWidth}
       className={clsx(
         getBtnClassByVariant(variant, isAdmin),
         getTypeOfButton(isAdmin),
+        isIconOnly && "btn-icon-only-citrica-ui",
         className
       )}
       style={style}
       startContent={finalStartContent}
       endContent={finalEndContent}
-      {...props}
     >
       {content}
     </HeroUIButton>
