@@ -21,6 +21,10 @@ export interface HeaderProps {
    */
   variant?: 'floating' | 'split' | 'basic' | 'standard';
   className?: string;
+  /** Color de fondo del header, aplicado en CUALQUIER variante.
+   *  Acepta cualquier string CSS ("#FAF", "var(--color-primary)", "transparent").
+   *  Por defecto blanco "#FFF". */
+  backgroundColor?: string;
   showButton?: boolean;
   buttonText?: string;
   onButtonClick?: () => void;
@@ -31,6 +35,7 @@ export const Header: React.FC<HeaderProps> = ({
   logo,
   variant = 'basic',
   className = '',
+  backgroundColor = '#FFF',
   showButton = false,
   buttonText = 'GET STARTED',
   onButtonClick,
@@ -69,6 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
             ? 'bg-[var(--color-secondary)] shadow-md backdrop-blur-md'
             : 'bg-transparent'
         } ${className}`}
+        style={{ backgroundColor }}
       >
         <Container>
           <Col cols={{ lg: 12, md: 6, sm: 4 }} className="flex justify-between items-center py-4">
@@ -80,11 +86,11 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center space-x-1">
                     <div className="w-8 h-8 bg-[var(--color-primary)] rounded-sm flex items-center justify-center">
-                      <Text variant="label" color="var(--color-text-white)" weight="bold">M</Text>
+                      <Text variant="label" color="#FFF" weight="bold">M</Text>
                     </div>
                   </div>
                   <div>
-                    <Text variant="title" color="var(--color-text-white)" weight="bold">
+                    <Text variant="title" color="#FFF" weight="bold">
                       Matour
                     </Text>
                   </div>
@@ -100,7 +106,7 @@ export const Header: React.FC<HeaderProps> = ({
                     <button
                       key={index}
                       onClick={() => scrollToSection(item.href)}
-                      className="transition-colors duration-200 hover:text-[var(--color-text-white)] text-white/90"
+                      className="transition-colors duration-200 hover:text-[#FFF] text-white/90"
                     >
                       <Text variant="label" textColor="color-on-surface">
                         {item.title}
@@ -119,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
                   variant="primary"
                   size="md"
                   label={buttonText}
-                  className="bg-[var(--color-text-white)] text-[var(--color-text-black)] hover:opacity-90"
+                  className="bg-[#FFF] text-[var(--color-text-black)] hover:opacity-90"
                 />
               </div>
             )}
@@ -132,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
                 onPress={() => setIsOpen(!isOpen)}
                 className="p-2 !min-w-0"
               >
-                <Icon name="Menu" size={24} color="var(--color-text-white)" />
+                <Icon name="Menu" size={24} color="#444" />
               </Button>
             </div>
           </Col>
@@ -142,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
         {isOpen && (
           <div className="lg:hidden flex absolute top-full left-0 right-0 bg-[var(--color-secondary)] backdrop-blur-md">
             <Container>
-              <Col cols={{ sm: 4 }} className="py-6">
+              <Col cols={{ sm: 6 }} className="py-6">
                 <div className="space-y-4">
                   {navItems.map((item, index) => (
                     <button
@@ -164,7 +170,7 @@ export const Header: React.FC<HeaderProps> = ({
                         fullWidth
                         size="md"
                         label={buttonText}
-                        className="bg-[var(--color-text-white)] text-[var(--color-text-black)]"
+                        className="bg-[#FFF] text-[var(--color-text-black)]"
                       />
                     </div>
                   )}
@@ -188,9 +194,10 @@ export const Header: React.FC<HeaderProps> = ({
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[var(--color-text-white)] shadow-md backdrop-blur-md'
-            : 'bg-[var(--color-text-white)] backdrop-blur-sm'
+            ? 'bg-[#FFF] shadow-md backdrop-blur-md'
+            : 'bg-[#FFF] backdrop-blur-sm'
         } ${className}`}
+        style={{ backgroundColor }}
       >
         <Container>
           <Col cols={{ lg: 12, md: 6, sm: 4 }} className="flex justify-between items-center py-4">
@@ -217,7 +224,7 @@ export const Header: React.FC<HeaderProps> = ({
                 <div className="flex items-center space-x-2">
                   <div className="flex items-center space-x-1">
                     <div className="w-8 h-8 bg-[var(--color-primary)] rounded-lg flex items-center justify-center">
-                      <Text variant="label" color="var(--color-text-white)" weight="bold">F</Text>
+                      <Text variant="label" color="#FFF" weight="bold">F</Text>
                     </div>
                   </div>
                   <div>
@@ -253,7 +260,7 @@ export const Header: React.FC<HeaderProps> = ({
                   variant="primary"
                   size="md"
                   label={buttonText === 'GET STARTED' ? 'Get started' : buttonText}
-                  className="bg-[var(--color-secondary)] text-[var(--color-text-white)] hover:bg-gray-800 rounded-full px-6"
+                  className="bg-[var(--color-secondary)] text-[#FFF] hover:bg-gray-800 rounded-full px-6"
                 />
               )}
 
@@ -274,7 +281,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="lg:hidden flex absolute top-full left-0 right-0 bg-[var(--color-text-white)] shadow-lg border-t">
+          <div className="lg:hidden flex absolute top-full left-0 right-0 bg-[#FFF] shadow-lg border-t">
             <Container>
               <Col cols={{ sm: 4 }} className="py-4">
                 <div className="space-y-4">
@@ -298,7 +305,7 @@ export const Header: React.FC<HeaderProps> = ({
                         fullWidth
                         size="md"
                         label={buttonText === 'GET STARTED' ? 'Get started' : buttonText}
-                        className="bg-[var(--color-secondary)] text-[var(--color-text-white)] rounded-full"
+                        className="bg-[var(--color-secondary)] text-[#FFF] rounded-full"
                       />
                     </div>
                   )}
@@ -317,9 +324,10 @@ export const Header: React.FC<HeaderProps> = ({
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'bg-[var(--color-text-white)] shadow-lg backdrop-blur-md'
-            : 'bg-[var(--color-text-white)] backdrop-blur-sm'
+            ? 'bg-[#FFF] shadow-lg backdrop-blur-md'
+            : 'bg-[#FFF] backdrop-blur-sm'
         } ${className}`}
+        style={{ backgroundColor }}
       >
         <Container>
           <Col cols={{ lg: 12, md: 6, sm: 4 }} className="flex justify-between items-center py-2">
@@ -377,7 +385,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* Mobile Menu */}
         {isOpen && (
-          <div className="md:hidden flex absolute top-full left-0 right-0 bg-[var(--color-text-white)] shadow-lg border-t">
+          <div className="md:hidden flex absolute top-full left-0 right-0 bg-[#FFF] shadow-lg border-t">
             <Container>
               <Col cols={{ sm: 4 }} className="py-4">
                 <div className="space-y-4">
@@ -418,14 +426,15 @@ export const Header: React.FC<HeaderProps> = ({
     return (
       <nav
         aria-label="Navegación principal"
-        className={`relative w-full bg-[var(--color-surface-container-lowest)] border-b transition-shadow duration-200 ${
+        className={`relative w-full border-b transition-shadow duration-200 ${
           isScrolled
             ? 'shadow-[0_4px_16px_rgba(0,0,0,0.06)] border-[var(--color-outline-variant)]'
             : 'border-[var(--color-outline-variant)]'
         } ${className}`}
+        style={{ backgroundColor }}
       >
-        <Container noPadding>
-          <div className="flex items-center gap-4 px-6 lg:px-20 h-16">
+        <Container>
+          <Col cols={{ sm: 4, md: 6, lg: 12 }} className="flex items-center gap-4 h-16">
             {/* Logo */}
             <div className="flex items-center shrink-0">
               {logo ? (
@@ -476,14 +485,17 @@ export const Header: React.FC<HeaderProps> = ({
                 <Icon name={isOpen ? 'X' : 'Menu'} size={24} />
               </Button>
             </div>
-          </div>
+          </Col>
         </Container>
 
         {/* Menú móvil */}
         {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-[var(--color-surface-container-lowest)] border-b border-[var(--color-outline-variant)] shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
-            <Container noPadding>
-              <div className="px-6 py-2 flex flex-col">
+          <div
+            style={{ backgroundColor }}
+            className="md:hidden absolute top-full left-0 right-0 border-b border-[var(--color-outline-variant)] shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
+          >
+            <Container>
+              <Col cols={{ sm: 4, md: 6, lg: 12 }} className="py-2 flex flex-col">
                 {navItems.map((item, index) => (
                   <button
                     key={index}
@@ -507,7 +519,7 @@ export const Header: React.FC<HeaderProps> = ({
                     />
                   </div>
                 )}
-              </div>
+              </Col>
             </Container>
           </div>
         )}
@@ -520,9 +532,10 @@ export const Header: React.FC<HeaderProps> = ({
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[var(--color-text-white)] shadow-md backdrop-blur-md'
-          : 'bg-[var(--color-text-white)] backdrop-blur-sm'
+          ? 'bg-[#FFF] shadow-md backdrop-blur-md'
+          : 'bg-[#FFF] backdrop-blur-sm'
       } ${className}`}
+      style={{ backgroundColor }}
     >
       <Container>
         <Col cols={{ lg: 12, md: 6, sm: 4 }} className="flex justify-between items-center py-4">
@@ -534,7 +547,7 @@ export const Header: React.FC<HeaderProps> = ({
               <>
                 <div className="flex items-center space-x-1">
                   <div className="w-8 h-8 bg-[var(--color-primary)] rounded-sm flex items-center justify-center">
-                    <Text variant="label" color="var(--color-text-white)" weight="bold">L</Text>
+                    <Text variant="label" color="#FFF" weight="bold">L</Text>
                   </div>
                   <div className="w-2 h-8 bg-[var(--color-outline)] rounded-sm"></div>
                 </div>
@@ -588,7 +601,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="md:hidden flex absolute top-full left-0 right-0 bg-[var(--color-text-white)] shadow-lg border-t">
+        <div className="md:hidden flex absolute top-full left-0 right-0 bg-[#FFF] shadow-lg border-t">
           <Container>
             <Col cols={{ sm: 4 }} className="py-4">
               <div className="space-y-4">

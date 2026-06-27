@@ -5,14 +5,29 @@ import { Button as HeroUIButton, ButtonProps as HeroUIButtonProps } from "@herou
 import clsx from "clsx";
 import Icon, { IconName } from "../Icon/Icon";
 
+// `size` y `color` se omiten del tipo base porque los redefinimos con
+// valores propios (size añade "xs"; color pasa a ser un color CSS libre).
 export interface ButtonProps
-  extends Omit<HeroUIButtonProps, 'variant'> {
+  extends Omit<HeroUIButtonProps, "variant" | "size" | "color"> {
   onPress?: () => void;
   label?: string;
   children?: React.ReactNode;
-  variant?: "primary" | "secondary" | "flat" | "success" | "warning" | "danger";
-  textVariant?: "label" | "body" | "title" | "display" | "headline" | "subtitle";
-  size?: "sm" | "md" | "lg";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "flat"
+    | "link"
+    | "success"
+    | "warning"
+    | "danger";
+  textVariant?:
+    | "label"
+    | "body"
+    | "title"
+    | "display"
+    | "headline"
+    | "subtitle";
+  size?: "xs" | "sm" | "md" | "lg";
   className?: string;
   type?: "button" | "submit" | "reset";
   isDisabled?: boolean;
@@ -21,9 +36,27 @@ export interface ButtonProps
   isLoading?: boolean;
   startIcon?: IconName;
   endIcon?: IconName;
+  /** Tamaño en px de los íconos de startIcon/endIcon (por defecto el del componente Icon). */
+  iconSize?: number;
   startContent?: React.ReactNode;
   endContent?: React.ReactNode;
   fullWidth?: boolean;
+  /** Color CSS libre del texto (ej. "#FFF" o "var(--color-text-white)"). Tiene prioridad sobre la variante. */
+  color?: string;
+  /** Token de color del texto (ej. "color-on-primary"). Se usa si no se pasa `color`. */
+  textColor?: string;
+  /** Si se define, el botón se renderiza como ancla (`<a>`) — ideal para enlaces `tel:`, `mailto:` o navegación. */
+  href?: string;
+  /** Elemento/componente a renderizar (ej. "a" o el `<Link>` de Next). */
+  as?: React.ElementType;
+  target?: string;
+  rel?: string;
+  /** Atajo: abre en pestaña nueva con `rel` seguro. */
+  isExternal?: boolean;
+  /** Color del TEXTO en hover (variante "link"). Si se omite, el hover es por opacidad. */
+  hoverColor?: string;
+  /** Color del FONDO en hover (variante "link"). Si se omite, el hover es por opacidad. */
+  backgroundHoverColor?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -41,13 +74,23 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   startIcon,
   endIcon,
+  iconSize,
   startContent,
   endContent,
+  color,
+  textColor,
+  href,
+  as,
+  target,
+  rel,
+  isExternal = false,
+  hoverColor,
+  backgroundHoverColor,
   style,
   ...props
 }) => {
   const getBtnClassByVariant = (variant: string, isAdmin: boolean) => {
-  switch (variant) {
+    switch (variant) {
       case "primary":
         return isAdmin ? "btn-primary-admin" : "btn-primary";
       case "secondary":
@@ -60,17 +103,19 @@ export const Button: React.FC<ButtonProps> = ({
         return isAdmin ? "btn-danger-admin" : "btn-danger";
       case "flat":
         return isAdmin ? "btn-flat-admin" : "btn-flat";
+      case "link":
+        return isAdmin ? "btn-link-admin" : "btn-link";
       default:
         return isAdmin ? "btn-primary-admin" : "btn-primary";
     }
-  }
+  };
 
   const getTypeOfButton = (isAdmin: boolean) => {
     return isAdmin ? "btn-citrica-ui-admin" : "btn-citrica-ui";
-  }
+  };
 
   const getTextColorByVariant = (variant: string, isAdmin: boolean) => {
-  switch (variant) {
+    switch (variant) {
       case "primary":
         return isAdmin ? "color-admin-on-primary" : "color-on-primary";
       case "secondary":
@@ -80,41 +125,96 @@ export const Button: React.FC<ButtonProps> = ({
       case "warning":
         return isAdmin ? "color-admin-warning" : "color-on-warning";
       case "danger":
-        return isAdmin ? "color-admin-on-danger" : "color-on-danger";
+        return isAdmin ? "color-admin-on-error" : "color-on-error";
       case "flat":
         return isAdmin ? "color-admin-black" : "color-black";
+      case "link":
+        return isAdmin ? "color-admin-primary" : "color-primary";
       default:
         return isAdmin ? "color-admin-on-primary" : "color-on-primary";
     }
-  }
-  const content = children || (label && (
-    <Text variant={textVariant} textColor={getTextColorByVariant(variant, isAdmin)} isAdmin={isAdmin}>
-      {label}
-    </Text>
-  ));
+  };
 
-  const finalStartContent = startIcon ? <Icon name={startIcon} /> : startContent;
-  const finalEndContent = endIcon ? <Icon name={endIcon} /> : endContent;
+  // Prioridad de color del texto: color (CSS libre) > textColor (token) > el de la variante.
+  const resolvedTextColor =
+    textColor ?? getTextColorByVariant(variant, isAdmin);
+  const textColorProps = color ? { color } : { textColor: resolvedTextColor };
+
+  // Override de color del texto/ícono. Solo se define si el consumidor pasó
+  // `color` o `textColor`; en ese caso tiene prioridad en TODAS las variantes
+  // (el SCSS usa `var(--btn-text-override, <token de la variante>)`).
+  const textOverride = color
+    ? color
+    : textColor
+      ? `var(--${textColor})`
+      : undefined;
+
+  const content =
+    children ||
+    (label && (
+      <Text variant={textVariant} {...textColorProps} isAdmin={isAdmin}>
+        {label}
+      </Text>
+    ));
+
+  const finalStartContent = startIcon ? (
+    <Icon name={startIcon} size={iconSize} />
+  ) : (
+    startContent
+  );
+  const finalEndContent = endIcon ? (
+    <Icon name={endIcon} size={iconSize} />
+  ) : (
+    endContent
+  );
+
+  // "xs" no existe en HeroUI: usamos "sm" y compactamos vía clase propia.
+  const heroSize = size === "xs" ? "sm" : size;
+
+  // Hover personalizado: pasamos los colores como CSS custom properties y el
+  // SCSS los consume en :hover (no se puede estilar :hover inline). Si se define
+  // algún color, una clase modificadora desactiva el hover por opacidad.
+  const styleVars: Record<string, string> = {};
+
+  if (textOverride) styleVars["--btn-text-override"] = textOverride;
+  if (hoverColor) styleVars["--btn-hover-text"] = hoverColor;
+  if (backgroundHoverColor) styleVars["--btn-hover-bg"] = backgroundHoverColor;
+  const mergedStyle = { ...style, ...styleVars } as React.CSSProperties;
+
+  // Si hay href (o as="a"), renderizamos un ancla real: `type` no aplica a <a>.
+  const isLink = Boolean(href) || as === "a";
+  const elementProps = isLink
+    ? {
+        as: as ?? "a",
+        href,
+        target: isExternal ? "_blank" : target,
+        rel: isExternal ? "noopener noreferrer" : rel,
+      }
+    : { type };
 
   return (
     <HeroUIButton
       // El spread va primero; las props controladas debajo tienen precedencia.
       {...props}
-      type={type}
-      size={size}
-      isDisabled={isDisabled}
-      isIconOnly={isIconOnly}
-      isLoading={isLoading}
-      fullWidth={fullWidth}
+      {...elementProps}
       className={clsx(
         getBtnClassByVariant(variant, isAdmin),
         getTypeOfButton(isAdmin),
         isIconOnly && "btn-icon-only-citrica-ui",
-        className
+        size === "xs" &&
+          (isAdmin ? "btn-xs-citrica-ui-admin" : "btn-xs-citrica-ui"),
+        hoverColor && "btn-hover-text",
+        backgroundHoverColor && "btn-hover-bg",
+        className,
       )}
-      style={style}
-      startContent={finalStartContent}
       endContent={finalEndContent}
+      fullWidth={fullWidth}
+      isDisabled={isDisabled}
+      isIconOnly={isIconOnly}
+      isLoading={isLoading}
+      size={heroSize}
+      startContent={finalStartContent}
+      style={mergedStyle}
     >
       {content}
     </HeroUIButton>
