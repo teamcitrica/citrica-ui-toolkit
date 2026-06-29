@@ -33,17 +33,30 @@ import { Button } from 'citrica-ui-toolkit';
 **Props:**
 - `label?: string` - Button text label
 - `children?: React.ReactNode` - Custom content (overrides label)
-- `variant?: "primary" | "secondary" | "flat" | "success" | "warning" | "danger"` - Visual style (default: "primary")
+- `variant?: "primary" | "secondary" | "flat" | "link" | "success" | "warning" | "danger"` - Visual style (default: "primary")
 - `textVariant?: "label" | "body" | "title" | "display" | "headline" | "subtitle"` - Text typography variant (default: "label")
-- `size?: "sm" | "md" | "lg"` - Button size (default: "md")
+- `size?: "xs" | "sm" | "md" | "lg"` - Button size (default: "md")
 - `type?: "button" | "submit" | "reset"` - HTML button type (default: "button")
 - `isDisabled?: boolean` - Disable button (default: false)
 - `isIconOnly?: boolean` - Button with only icon, no text
 - `isAdmin?: boolean` - Use admin theme colors (default: false)
 - `isLoading?: boolean` - Show loading state
+- `startIcon?: IconName` - Lucide icon at start (via Icon component)
+- `endIcon?: IconName` - Lucide icon at end
+- `iconSize?: number` - Size in px for `startIcon`/`endIcon`
 - `startContent?: React.ReactNode` - Content before label
 - `endContent?: React.ReactNode` - Content after label
 - `fullWidth?: boolean` - Expand to full width
+- `color?: string` - Free CSS text color (e.g. `"#FFF"` or `"var(--color-text-white)"`). Takes priority over the variant color
+- `textColor?: string` - Text color token (e.g. `"color-on-primary"`). Used when `color` is not provided
+- `href?: string` - If set, the button renders as an anchor (`<a>`) — ideal for `tel:`, `mailto:` or navigation links
+- `as?: React.ElementType` - Element/component to render (e.g. `"a"` or Next's `<Link>`)
+- `target?: string` - Anchor target
+- `rel?: string` - Anchor rel
+- `isExternal?: boolean` - Shortcut: opens in a new tab with a safe `rel` (default: false)
+- `hoverColor?: string` - Text color on hover (mainly for the `link` variant)
+- `backgroundHoverColor?: string` - Background color on hover (mainly for the `link` variant)
+- `unstyled?: boolean` - Removes the design-system styles (the `btn-citrica-ui` box, variant fill and forced text color). The consumer controls everything via `className` and the color is inherited (`currentColor`), so the icon follows the text. Keeps semantics/behavior (as/href, loading, focus, icons). Ideal for nav rows or custom-shaped CTAs (default: false)
 - `className?: string` - Additional CSS classes
 - `onPress?: () => void` - Click handler
 
@@ -55,16 +68,54 @@ import { Button } from 'citrica-ui-toolkit';
 // Admin mode button
 <Button label="Admin Action" variant="primary" isAdmin={true} />
 
-// Button with icon content
+// Button with Lucide icons (via startIcon/endIcon)
+<Button label="Save" startIcon="Save" />
+<Button label="Next" endIcon="ArrowRight" iconSize={18} />
+
+// Custom content
 <Button label="Save" startContent={<Icon name="Save" />} />
 
 // Loading button
 <Button label="Loading..." isLoading={true} />
+
+// Link variant with custom hover colors
+<Button
+  label="Learn more"
+  variant="link"
+  hoverColor="#265197"
+  backgroundHoverColor="#EAF0FA"
+/>
+
+// Render as a real anchor (tel/mailto/navigation)
+<Button label="Call us" href="tel:+5112345678" />
+<Button label="Docs" href="https://example.com" isExternal />
+
+// Render as Next.js Link
+<Button label="Go home" as={Link} href="/" />
+
+// Custom text color (free CSS value or token)
+<Button label="White text" color="#FFFFFF" />
+<Button label="Primary text" textColor="color-on-primary" />
+
+// Extra-small icon-only button
+<Button isIconOnly size="xs" startIcon="Plus" />
+
+// Unstyled button (consumer fully controls styling via className)
+<Button unstyled label="Custom" className="flex items-center gap-2 text-blue-600" />
 ```
 
 **CSS Classes Applied:**
 - `btn-citrica-ui` or `btn-citrica-ui-admin`
-- `btn-{variant}` or `btn-{variant}-admin`
+- `btn-{variant}` or `btn-{variant}-admin` (includes `btn-link` / `btn-link-admin` and `btn-flat` / `btn-flat-admin`)
+- `btn-icon-only-citrica-ui` (when `isIconOnly`)
+- `btn-xs-citrica-ui` or `btn-xs-citrica-ui-admin` (when `size="xs"`)
+- `btn-hover-text` (when `hoverColor` is set), `btn-hover-bg` (when `backgroundHoverColor` is set)
+
+**Notes:**
+- Uses `forwardRef` for ref forwarding.
+- Text/icon color priority: `color` (free CSS) → `textColor` (token) → the variant's color.
+- Custom hover colors are passed as CSS custom properties (`--btn-hover-text`, `--btn-hover-bg`) and consumed by the SCSS on `:hover` (a modifier class disables the default opacity hover).
+- With `unstyled`, none of the system styles/hover vars apply; the label inherits `currentColor`.
 
 ---
 
@@ -165,6 +216,7 @@ import { Select, type SelectOption } from 'citrica-ui-toolkit';
 - `onSelectionChange?: (keys: any) => void` - Selection change handler
 - `name?: string` - Input name for forms
 - `variant?: 'primary' | 'secondary' | 'flat' | 'bordered' | 'faded' | 'underlined'` - Visual style (default: 'primary')
+- `color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'` - HeroUI color scheme (default: 'default')
 - `size?: 'sm' | 'md' | 'lg'` - Size (default: 'md')
 - `radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'` - Border radius (default: 'md')
 - `required?: boolean` - Mark as required
@@ -182,7 +234,9 @@ import { Select, type SelectOption } from 'citrica-ui-toolkit';
 - `options: SelectOption[]` - Array of options (required)
 - `renderValue?: (items: SelectedItem[]) => React.ReactNode` - Custom render for selected value
 - `className?: string` - Additional CSS classes
+- `classNames?: object` - Custom classes for the select's internal slots: `base`, `trigger`, `label`, `value`, `selectorIcon`, `description`, `errorMessage`
 - `isAdmin?: boolean` - Use admin theme colors (default: false)
+- `shouldBlockScroll?: boolean` - Whether the popover blocks page scroll when opened (default: false). An inline select doesn't need to lock the scroll; doing so makes react-aria set `overflow:hidden` on `<html>`, which breaks `position: sticky` elements (e.g. a fixed topbar disappears). Set to `true` only if you really need it
 
 **SelectOption Interface:**
 ```typescript
@@ -192,6 +246,15 @@ interface SelectOption {
   description?: string; // Optional description
   startContent?: React.ReactNode; // Content at start
   endContent?: React.ReactNode;   // Content at end
+}
+```
+
+**SelectedItem Interface (passed to `renderValue`):**
+```typescript
+interface SelectedItem extends SelectOption {
+  key: string;            // Item key (equals value)
+  textValue: string;      // Item text (equals label)
+  data?: SelectOption;    // Original option data
 }
 ```
 
@@ -232,6 +295,11 @@ const options = [
 - `select-citrica-ui` or `select-citrica-ui-admin`
 - `select-primary` / `select-secondary` (or `-admin` variants)
 - `select-item-citrica-ui` or `select-item-citrica-ui-admin` (on option items)
+
+**Notes:**
+- Custom variants (primary/secondary) internally map to HeroUI's "bordered" variant.
+- When a listbox opens, react-aria focuses the active option and calls `scrollIntoView()`, which scrolls the **page** and breaks `position: sticky` elements (a fixed topbar disappears) on desktop/Android, and on iOS inside a modal prevents selecting. The component installs a one-time, idempotent patch that neutralizes `scrollIntoView` **only** for elements inside a listbox, keeping keyboard navigation and anchor scrolling intact.
+- Combined with `shouldBlockScroll={false}` (the default), this keeps a fixed topbar visible while the select is open.
 
 ---
 
@@ -984,13 +1052,16 @@ import { Sidebar, type MenuItem } from 'citrica-ui-toolkit';
 - `activeHref?: string` - Currently active main item
 - `activeSubHref?: string` - Currently active sub-item
 - `onItemClick?: (href: string) => void` - Item click handler
+- `header?: React.ReactNode` - Optional content at the top of the panel (e.g. a logo)
+- `ariaLabel?: string` - Accessible label for the nav (default: "Navegación principal")
 - `className?: string` - Additional CSS classes
 
 **MenuItem Interface:**
 ```typescript
 interface MenuItem {
-  title: string;           // Item title
-  href?: string;           // Link URL
+  title: string;            // Item title
+  href?: string;            // Link URL
+  icon?: string;            // Lucide icon name (e.g. "Home", "Settings")
   subItems?: SubMenuItem[]; // Optional sub-items (creates accordion)
 }
 
@@ -1003,16 +1074,17 @@ interface SubMenuItem {
 **Usage:**
 ```tsx
 const menuItems = [
-  { title: "Dashboard", href: "/dashboard" },
+  { title: "Dashboard", href: "/dashboard", icon: "LayoutDashboard" },
   {
     title: "Products",
+    icon: "Package",
     subItems: [
       { title: "All Products", href: "/products" },
       { title: "Add Product", href: "/products/add" },
       { title: "Categories", href: "/products/categories" }
     ]
   },
-  { title: "Settings", href: "/settings" }
+  { title: "Settings", href: "/settings", icon: "Settings" }
 ];
 
 // Basic sidebar
@@ -1022,25 +1094,37 @@ const menuItems = [
   onItemClick={(href) => router.push(href)}
 />
 
-// Sidebar with active sub-item
+// Sidebar with active sub-item, header and aria label
 <Sidebar
   items={menuItems}
   activeHref="/products"
   activeSubHref="/products/add"
+  header={<img src="/logo.png" alt="Logo" />}
+  ariaLabel="Main navigation"
   onItemClick={(href) => router.push(href)}
 />
 ```
 
 **Features:**
-- Responsive: drawer on mobile, fixed sidebar on desktop
-- Accordion support for nested items
-- Active state highlighting
-- Automatic scroll on mobile drawer
-- Overlay backdrop on mobile
+- Responsive: drawer on mobile (with floating menu trigger, overlay backdrop, Escape to close, body-scroll lock and focus management), fixed sticky sidebar on desktop
+- Per-item Lucide icons via `MenuItem.icon`
+- Optional `header` slot (e.g. logo) at the top of the panel
+- Accordion support for nested items: a group auto-opens when one of its sub-items is active, and a single click always toggles what's visible
+- Active state highlighting for both main items and sub-items
+- Built with `Button unstyled` rows, so it carries no HeroUI button visuals
 
-**CSS Classes Applied:**
-- `bg-sidebar` - Background color class for sidebar
-- Uses custom classes defined in consuming app
+**Theming (CSS variables):**
+The sidebar is themed entirely through CSS variables with sensible fallbacks to the admin design tokens (avoids hardcoded grays and the "white text on white background" bug). Override them via the `style` prop on the consuming wrapper if needed:
+
+| Variable | Fallback token | Purpose |
+| --- | --- | --- |
+| `--sb-bg` | `--color-admin-surface-container-lowest` | Panel background |
+| `--sb-fg` | `--color-admin-on-surface` | Default text |
+| `--sb-hover-bg` | `--color-admin-surface-container` | Row hover background |
+| `--sb-active-bg` | `--color-admin-primary-container` | Active row background |
+| `--sb-active-fg` | `--color-admin-on-primary-container` | Active row text |
+| `--sb-accent` | `--color-admin-primary` | Accent (dots, mobile trigger) |
+| `--sb-border` | `--color-admin-outline` | Borders/dividers |
 
 ---
 
@@ -1056,7 +1140,8 @@ All components use custom CSS classes that should be defined in your application
 - `textarea-citrica-ui`
 
 ### Variant Classes
-- Button: `btn-primary`, `btn-secondary`, `btn-success`, `btn-warning`, `btn-danger`, `btn-flat`
+- Button: `btn-primary`, `btn-secondary`, `btn-success`, `btn-warning`, `btn-danger`, `btn-flat`, `btn-link`
+- Button extras: `btn-icon-only-citrica-ui` (icon-only), `btn-xs-citrica-ui` (xs size), `btn-hover-text` / `btn-hover-bg` (custom hover colors)
 - Admin variants: Add `-admin` suffix (e.g., `btn-primary-admin`)
 - Input/Select/Textarea: `input-primary`, `input-secondary`, etc.
 

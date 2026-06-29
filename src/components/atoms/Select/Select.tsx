@@ -82,6 +82,38 @@ export interface SelectProps {
   shouldBlockScroll?: boolean;
 }
 
+// Al abrir un listbox (Select/Autocomplete), react-aria enfoca la opción y llama
+// `option.scrollIntoView()`, lo que mueve el scroll de la PÁGINA: rompe los
+// `position: sticky` (un topbar fijo desaparece) en desktop/Android y, en iOS
+// dentro de un modal, hace un scroll que impide seleccionar. Neutralizamos ese
+// `scrollIntoView` SOLO para elementos dentro de un listbox. El scroll interno
+// del listbox lo hace otra utilidad de react-aria (no este prototipo), así que
+// la navegación por teclado entre opciones sigue intacta, y el resto de
+// `scrollIntoView` (navegación por anclas, etc.) no se ve afectado.
+// Se instala una sola vez (idempotente) la primera vez que se monta un Select.
+let listboxScrollIntoViewPatched = false;
+
+function patchListboxScrollIntoView() {
+  if (listboxScrollIntoViewPatched || typeof Element === "undefined") return;
+  listboxScrollIntoViewPatched = true;
+
+  const original = Element.prototype.scrollIntoView;
+
+  Element.prototype.scrollIntoView = function (
+    this: Element,
+    ...args: unknown[]
+  ) {
+    if (
+      this instanceof HTMLElement &&
+      this.closest('[role="listbox"], [data-slot="listbox"]')
+    ) {
+      return;
+    }
+
+    return (original as (...a: unknown[]) => void).apply(this, args);
+  };
+}
+
 const Select = ({
   label,
   placeholder,
@@ -112,6 +144,11 @@ const Select = ({
   isAdmin = false,
   shouldBlockScroll = false,
 }: SelectProps) => {
+  // Desactiva el scroll de página que react-aria dispara al abrir el listbox.
+  React.useEffect(() => {
+    patchListboxScrollIntoView();
+  }, []);
+
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
     <Icon color={iconColor} name={startIcon} size={iconSize} />
