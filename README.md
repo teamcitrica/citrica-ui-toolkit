@@ -410,11 +410,18 @@ import { Text } from 'citrica-ui-toolkit';
 - `children: React.ReactNode` - Text content (required)
 - `variant?: 'display' | 'headline' | 'title' | 'subtitle' | 'body' | 'label' | 'headlinecustom'` - Typography style (default: 'body')
 - `weight?: 'light' | 'normal' | 'bold'` - Font weight (default: 'normal')
-- `color?: string` - Custom color value
-- `textColor?: string` - CSS variable name (default: 'color-black')
+- `color?: string` - Custom CSS color value (e.g. `"#FF5733"`). Highest priority
+- `textColor?: string` - Color token / CSS variable name (resolved as `var(--{textColor})`)
 - `isAdmin?: boolean` - Use admin theme (default: false)
-- `as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div'` - HTML element (default: 'span')
+- `as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'span' | 'div' | 'a'` - HTML element (default: 'span')
+- `href?: string` - Destination URL. If set (or `as="a"`), the text becomes a clickable link
+- `target?: string` - Link target (e.g. `"_blank"`)
+- `rel?: string` - Link relationship. If it opens in `"_blank"` and `rel` is omitted, `"noopener noreferrer"` is applied automatically
+- `textDecoration?: 'underline' | 'line-through'` - Text decoration; works on any variant
 - `className?: string` - Additional CSS classes
+- Plus all standard HTML attributes (`style`, `onClick`, etc.) — a custom `style` takes priority over the resolved color/decoration
+
+**Color priority:** `color` (explicit CSS) → `textColor` (token) → link color (`--color-text-link`, when it's a link) → default (`--color-black`).
 
 **Usage:**
 ```tsx
@@ -429,8 +436,18 @@ import { Text } from 'citrica-ui-toolkit';
 // Custom color
 <Text color="#FF5733">Custom colored text</Text>
 
-// With CSS variable
+// With CSS variable / token
 <Text textColor="color-primary">Primary color text</Text>
+
+// As a link (href makes it clickable; uses --color-text-link by default)
+<Text href="/about">About us</Text>
+
+// External link (auto rel="noopener noreferrer")
+<Text href="https://example.com" target="_blank">External link</Text>
+
+// Text decoration
+<Text textDecoration="underline">Underlined text</Text>
+<Text textDecoration="line-through">Old price</Text>
 
 // Admin mode
 <Text variant="label" isAdmin={true}>Admin text</Text>
@@ -440,6 +457,10 @@ import { Text } from 'citrica-ui-toolkit';
 - `text-{variant}` or `text-{variant}-admin`
 - `text-component`
 - `text-{variant}-{weight}` (if weight is not 'normal')
+
+**Notes:**
+- Color and decoration are applied via inline `style`; passing your own `style` overrides them.
+- When rendered as a link (`href` or `as="a"`), opening in `_blank` without an explicit `rel` defaults to a safe `noopener noreferrer`.
 
 ---
 
