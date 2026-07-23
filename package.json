@@ -61,6 +61,7 @@
     "@heroui/popover": "2.3.29",
     "@heroui/scroll-shadow": "2.3.19",
     "@heroui/select": "2.4.30",
+    "@heroui/switch": "^2.2.27",
     "classnames": "2.5.1",
     "clsx": "2.1.1",
     "lucide-react": "0.562.0",

@@ -1,6 +1,14 @@
 'use client'
 import { useState } from "react";
-import { Button, Col, Container, Drawer, Input, Text } from "citrica-ui-toolkit";
+import {
+  Button,
+  Col,
+  Container,
+  Drawer,
+  Input,
+  Switch,
+  Text,
+} from "citrica-ui-toolkit";
 
 type OpenKey = "admin" | "noAdmin" | null;
 
@@ -37,6 +45,50 @@ export default function App() {
             className="w-[162px]"
             onPress={() => setOpen("noAdmin")}
           />
+        </div>
+
+        {/* Switches de prueba */}
+        <div className="mt-10 flex flex-col gap-4">
+          <Text variant="subtitle" weight="bold" isAdmin>
+            Switch
+          </Text>
+
+          <div className="flex flex-wrap items-center gap-6">
+            <Switch defaultSelected isAdmin variant="primary">
+              Admin primary
+            </Switch>
+            <Switch defaultSelected isAdmin variant="success">
+              Admin success
+            </Switch>
+            <Switch defaultSelected isAdmin variant="danger">
+              Admin danger
+            </Switch>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6">
+            <Switch defaultSelected variant="primary">
+              Web primary
+            </Switch>
+            <Switch defaultSelected variant="success">
+              Web success
+            </Switch>
+            <Switch variant="warning">Web warning (off)</Switch>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-6">
+            <Switch isAdmin size="sm" defaultSelected>
+              sm
+            </Switch>
+            <Switch isAdmin size="md" defaultSelected>
+              md
+            </Switch>
+            <Switch isAdmin size="lg" defaultSelected>
+              lg
+            </Switch>
+            <Switch isAdmin isDisabled defaultSelected>
+              disabled
+            </Switch>
+          </div>
         </div>
 
         {/* Drawer CON isAdmin */}

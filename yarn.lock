@@ -549,6 +549,20 @@
     "@heroui/system" "2.4.25"
     "@heroui/system-rsc" "2.3.21"
 
+"@heroui/switch@^2.2.27":
+  version "2.2.27"
+  resolved "https://registry.yarnpkg.com/@heroui/switch/-/switch-2.2.27.tgz#a0ebd8044d832446fc8a277ebc353cf3060db309"
+  integrity sha512-z23is+gtPkX29EpixY5ZLY1+NQaP+ueshuiXzdgD9SfCQLOSDYDWuFVdR8ZgfdDPyhP8xpOnJf6l9zfgXHD8Rw==
+  dependencies:
+    "@heroui/react-utils" "2.1.14"
+    "@heroui/shared-utils" "2.1.12"
+    "@heroui/use-safe-layout-effect" "2.1.8"
+    "@react-aria/focus" "3.21.5"
+    "@react-aria/interactions" "3.27.1"
+    "@react-aria/switch" "3.7.11"
+    "@react-aria/visually-hidden" "3.8.31"
+    "@react-stately/toggle" "3.9.5"
+
 "@heroui/system-rsc@2.3.21":
   version "2.3.21"
   resolved "https://registry.npmjs.org/@heroui/system-rsc/-/system-rsc-2.3.21.tgz"
@@ -890,6 +904,14 @@
     "@swc/helpers" "^0.5.0"
     react-aria "3.48.0"
 
+"@react-aria/checkbox@^3.17.0":
+  version "3.17.1"
+  resolved "https://registry.yarnpkg.com/@react-aria/checkbox/-/checkbox-3.17.1.tgz#ce184c1a52f4484ee509d381dbcf0c47bbcc74e0"
+  integrity sha512-742B+UhH87TK02SYsFJZOgQ9VZpFEythH5LXRnwxt/xShoKOp+eqXPaVah79s/+B9sxY1mF0wNORQ2RVAQFSKw==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+    react-aria "^3.48.0"
+
 "@react-aria/combobox@3.14.1":
   version "3.14.1"
   resolved "https://registry.npmjs.org/@react-aria/combobox/-/combobox-3.14.1.tgz"
@@ -1190,6 +1212,25 @@
   dependencies:
     "@swc/helpers" "^0.5.0"
 
+"@react-aria/switch@3.7.11":
+  version "3.7.11"
+  resolved "https://registry.yarnpkg.com/@react-aria/switch/-/switch-3.7.11.tgz#346f63df1a79df4fb8d8123b391808797bab9ad5"
+  integrity sha512-dYVX71HiepBsKyeMaQgHbhqI+MQ3MVoTd5EnTbUjefIBnmQZavYj1/e4NUiUI4Ix+/C0HxL8ibDAv4NlSW3eLQ==
+  dependencies:
+    "@react-aria/toggle" "^3.12.5"
+    "@react-stately/toggle" "^3.9.5"
+    "@react-types/shared" "^3.33.1"
+    "@react-types/switch" "^3.5.17"
+    "@swc/helpers" "^0.5.0"
+
+"@react-aria/switch@^3.8.0":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@react-aria/switch/-/switch-3.8.1.tgz#7be09fd50096d9cbf87eb857ab06508606a8581e"
+  integrity sha512-WzkJG3xJnBdd9rdBxG+0RgWdopAqwI61Ni4ZQtA2rgFuG9UpZIrhsL7qgFO/+R6oEgoeGAMeUlvCf97Ppj2uTg==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+    react-aria "^3.48.0"
+
 "@react-aria/textfield@3.18.3", "@react-aria/textfield@^3.18.3":
   version "3.18.3"
   resolved "https://registry.npmjs.org/@react-aria/textfield/-/textfield-3.18.3.tgz"
@@ -1204,6 +1245,14 @@
     "@react-types/shared" "^3.32.1"
     "@react-types/textfield" "^3.12.6"
     "@swc/helpers" "^0.5.0"
+
+"@react-aria/toggle@^3.12.5", "@react-aria/toggle@^3.13.0":
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/@react-aria/toggle/-/toggle-3.13.1.tgz#f16beceef0d5b3f1f3590e78fb5061844b6ed756"
+  integrity sha512-1SPMBSrbT94Jsy7Wuv9SH2uPv7szGP7KgO4QGIAcF3e5kHwvGQJdMHY6+xR17slk8ICXfFojBqUKgpJjyY2+KQ==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+    react-aria "^3.48.0"
 
 "@react-aria/toolbar@3.0.0-beta.24":
   version "3.0.0-beta.24"
@@ -1259,6 +1308,16 @@
     "@react-types/shared" "^3.32.1"
     "@swc/helpers" "^0.5.0"
 
+"@react-aria/visually-hidden@3.8.31":
+  version "3.8.31"
+  resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.8.31.tgz#38ac652201f87c428fc58d13c6a8f5bb19e06513"
+  integrity sha512-RTOHHa4n56a9A3criThqFHBifvZoV71+MCkSuNP2cKO662SUWjqKkd0tJt/mBRMEJPkys8K7Eirp6T8Wt5FFRA==
+  dependencies:
+    "@react-aria/interactions" "^3.27.1"
+    "@react-aria/utils" "^3.33.1"
+    "@react-types/shared" "^3.33.1"
+    "@swc/helpers" "^0.5.0"
+
 "@react-aria/visually-hidden@^3.8.31":
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/@react-aria/visually-hidden/-/visually-hidden-3.9.0.tgz#bd313ac9301d832123277c1e10aad7a58fad6f40"
@@ -1273,6 +1332,14 @@
   integrity sha512-SmjsXt+mLK2cf8PGstNZvLBfjqE5TjHW15yPIATI6ddqMdcC9JZ3ldnBTdFji9P/B6Rlop4ajnAdDV6bpxLtXA==
   dependencies:
     "@adobe/react-spectrum" "3.47.0"
+    "@swc/helpers" "^0.5.0"
+
+"@react-spectrum/checkbox@^3.11.0":
+  version "3.11.1"
+  resolved "https://registry.yarnpkg.com/@react-spectrum/checkbox/-/checkbox-3.11.1.tgz#82bc5c1ef6993f165ef8f5fb4ca1ed88ffcb7bfd"
+  integrity sha512-SkiKMYA5VMiIC+Zsob7YnGfT+hpuWsolzi+jS/Qd78h4nMIMj/kwPN17bqsYMqb5D3IM1F4YAkNpWUFFGaAeAA==
+  dependencies:
+    "@adobe/react-spectrum" "^3.47.0"
     "@swc/helpers" "^0.5.0"
 
 "@react-spectrum/dialog@^3.10.0":
@@ -1290,6 +1357,22 @@
   dependencies:
     "@adobe/react-spectrum" "3.47.0"
     "@swc/helpers" "^0.5.0"
+
+"@react-spectrum/switch@^3.7.0":
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/@react-spectrum/switch/-/switch-3.7.1.tgz#91cb6f0157b590120cdff7ad75e0afa6b1391f05"
+  integrity sha512-71rSqseVrieCWxQpwCBbqY4F6bBo8IK/jM+r8ounN/WIkoMGhZkVigF8tSwd+/p8ym2tmJq6MoWn0he1taBo0Q==
+  dependencies:
+    "@adobe/react-spectrum" "^3.47.0"
+    "@swc/helpers" "^0.5.0"
+
+"@react-stately/checkbox@^3.8.0":
+  version "3.8.1"
+  resolved "https://registry.yarnpkg.com/@react-stately/checkbox/-/checkbox-3.8.1.tgz#d99c2dfee10ae7df0c0511ce8572fe6f0a76ff4b"
+  integrity sha512-jNYNOkro8cgLkeeea24UQdE+PWpsBz/6hGPPM9CrHBvC7x2Egh3iHy1not61Oqp7BI7Rq1K1+Q4q8J37bOTr6w==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+    react-stately "^3.46.0"
 
 "@react-stately/collections@3.12.10":
   version "3.12.10"
@@ -1409,6 +1492,24 @@
     "@swc/helpers" "^0.5.0"
     react-stately "3.46.0"
 
+"@react-stately/toggle@3.9.5":
+  version "3.9.5"
+  resolved "https://registry.yarnpkg.com/@react-stately/toggle/-/toggle-3.9.5.tgz#5549c0b053135e5a5e38968d312651b037f3db11"
+  integrity sha512-PVzXc788q3jH98Kvw1LYDL+wpVC14dCEKjOku8cSaqhEof6AJGaLR9yq+EF1yYSL2dxI6z8ghc0OozY8WrcFcA==
+  dependencies:
+    "@react-stately/utils" "^3.11.0"
+    "@react-types/checkbox" "^3.10.4"
+    "@react-types/shared" "^3.33.1"
+    "@swc/helpers" "^0.5.0"
+
+"@react-stately/toggle@^3.10.0":
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/@react-stately/toggle/-/toggle-3.10.1.tgz#2e8d55cad838579334a93d0800e6a41683bcbc7f"
+  integrity sha512-oj4goolQJWdeQxRp8a1nZdsUjC779nvAU7pyT3oyWMWrxxrk0heW96TLWhdPjksvre8pLvjbRBbI2kgs8RxmOQ==
+  dependencies:
+    "@swc/helpers" "^0.5.0"
+    react-stately "^3.46.0"
+
 "@react-stately/toggle@^3.9.5":
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/@react-stately/toggle/-/toggle-3.10.0.tgz#28f22e9a3f053ebb185f4340d1ed8d647c7c323c"
@@ -1474,6 +1575,17 @@
   dependencies:
     "@react-aria/button" "^3.15.0"
     "@react-spectrum/button" "^3.18.0"
+
+"@react-types/checkbox@^3.10.4":
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/@react-types/checkbox/-/checkbox-3.11.0.tgz#92c01dca762fc64f734f26041f4710be52a9354f"
+  integrity sha512-VXacLw/pKBcxgwejr2p4uPZtG/XXBnTb6pJCdFtUL6OuFIIOFt/9eTHD+8x2HRPLxWkmo1DD3bFBOinQ7vfu2g==
+  dependencies:
+    "@react-aria/checkbox" "^3.17.0"
+    "@react-aria/toggle" "^3.13.0"
+    "@react-spectrum/checkbox" "^3.11.0"
+    "@react-stately/checkbox" "^3.8.0"
+    "@react-stately/toggle" "^3.10.0"
 
 "@react-types/combobox@3.13.10", "@react-types/combobox@^3.13.10":
   version "3.13.10"
@@ -1563,6 +1675,14 @@
   version "3.36.0"
   resolved "https://registry.yarnpkg.com/@react-types/shared/-/shared-3.36.0.tgz#52e713c6bae8e117967bf1d19d89db3a56219037"
   integrity sha512-DkP/H0C2YjjS7gZWKNqOmU8a16qHPjQNdzMwmTq9SzplM6Iw0kVMTZ0OIoe6FOgGqa+FwMsE2QbPjh/n3g/jXQ==
+
+"@react-types/switch@^3.5.17":
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/@react-types/switch/-/switch-3.6.0.tgz#a37365222ec26c0a03b7b99ede02e1fc06fcc5ec"
+  integrity sha512-6pjDO5a35ovAAw5xsSJoftmUP1BhFzKazB5IuVBNTbeEvJjz/LC1NGkVV3sQX68ZDSZ0UyYLS7ENIVHKU+hjzA==
+  dependencies:
+    "@react-aria/switch" "^3.8.0"
+    "@react-spectrum/switch" "^3.7.0"
 
 "@react-types/textfield@3.12.6", "@react-types/textfield@^3.12.6":
   version "3.12.6"
@@ -2177,7 +2297,7 @@ react-stately@3.46.0:
     "@swc/helpers" "^0.5.0"
     use-sync-external-store "^1.6.0"
 
-react-stately@3.48.0:
+react-stately@3.48.0, react-stately@^3.46.0:
   version "3.48.0"
   resolved "https://registry.yarnpkg.com/react-stately/-/react-stately-3.48.0.tgz#80b658d91a20b35f9803102302268a477ba819e4"
   integrity sha512-ImicSAG+lTotAe5izcs1fz49Zk48w7pDusqYg04WaPhCoej8BJ24soMu3iLXIrsi273s4P1gZrYGrqReMfgEEA==

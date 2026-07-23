@@ -6,6 +6,7 @@ export * from './atoms/Select';
 export * from './atoms/Autocomplete';
 export * from './atoms/Card';
 export * from './atoms/Textarea';
+export * from './atoms/Switch';
 export * from './atoms/Grid';
 export * from './molecules/Modal';
 export * from './molecules/Drawer';
