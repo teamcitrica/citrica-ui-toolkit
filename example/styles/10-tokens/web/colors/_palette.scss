@@ -1,35 +1,39 @@
-// COLORS
+// COLORS — WEB (PUBLIC) PALETTE
+// ============================================
 
-// CITRICA SYSTEM COLORS
+// BRAND SYSTEM COLORS
 $color-text-white: #FFFFFF;
-$color-text-black: #16141F;
+$color-text-black: #111111;
 
-$color-light-primary: #FF5B00;
+// ---- PRIMARY (brand orange) ----
+$color-light-primary: #E8622C;
 $color-light-on-primary: #FFFFFF;
-$color-light-primary-container: #EADDFF;
-$color-light-on-primary-container: #21005D;
-$color-light-primary-fixed: #EADDFF;
-$color-light-on-primary-fixed: #21005D;
-$color-light-on-primary-fixed-variant: #4F378B;
-$color-light-primary-fixed-dim: #D0BCFF;
+$color-light-primary-container: #FDEFE8;
+$color-light-on-primary-container: #4A1A00;
+$color-light-primary-fixed: #FDEFE8;
+$color-light-on-primary-fixed: #4A1A00;
+$color-light-on-primary-fixed-variant: #A83E15;
+$color-light-primary-fixed-dim: #F9D5C2;
 
-$color-light-secondary: #E1FF00;
-$color-light-on-secondary: #35390b;
-$color-light-secondary-container: #bcd900;
-$color-light-on-secondary-container: #1D192B;
-$color-light-secondary-fixed: #E8DEF8;
-$color-light-on-secondary-fixed: #1D192B;
-$color-light-on-secondary-fixed-variant: #4A4458;
-$color-light-secondary-fixed-dim: #CCC2DC;
+// ---- SECONDARY (warm ink — the quiet second voice) ----
+$color-light-secondary: #111111;
+$color-light-on-secondary: #FFFFFF;
+$color-light-secondary-container: #E2E0DC;
+$color-light-on-secondary-container: #111111;
+$color-light-secondary-fixed: #E2E0DC;
+$color-light-on-secondary-fixed: #111111;
+$color-light-on-secondary-fixed-variant: #4A4A4A;
+$color-light-secondary-fixed-dim: #8C8C8C;
 
-$color-light-tertiary: #00FFFF;
-$color-light-on-tertiary: #003333;
-$color-light-tertiary-container: #FFD8E4;
-$color-light-on-tertiary-container: #31111D;
-$color-light-tertiary-fixed: #d39696;
-$color-light-on-tertiary-fixed: #FFD8E4;
-$color-light-on-tertiary-fixed-variant: #633B48;
-$color-light-tertiary-fixed-dim: #EFB8C8;
+// ---- TERTIARY (warm taupe — neutral, rarely used) ----
+$color-light-tertiary: #F5DE4B;
+$color-light-on-tertiary: #111111;
+$color-light-tertiary-container: #FCF6D4;
+$color-light-on-tertiary-container: #4A4A4A;
+$color-light-tertiary-fixed: #FCF6D4;
+$color-light-on-tertiary-fixed: #111111;
+$color-light-on-tertiary-fixed-variant: #4A4A4A;
+$color-light-tertiary-fixed-dim: #D9BF28;
 
 $color-light-cuaternary: #FFFFFF;
 $color-light-on-cuaternary: #FFFFFF;
@@ -49,32 +53,35 @@ $color-light-on-quinary-fixed: #FFFFFF;
 $color-light-on-quinary-fixed-variant: #FFFFFF;
 $color-light-quinary-fixed-dim: #FFFFFF;
 
-$color-dark-primary: #3c3747;
-$color-dark-on-primary: #381E72;
-$color-dark-primary-container: #4F378B;
-$color-dark-on-primary-container: #EADDFF;
-$color-dark-primary-fixed: #EADDFF;
-$color-dark-on-primary-fixed: #21005D;
-$color-dark-on-primary-fixed-variant: #4F378B;
-$color-dark-primary-fixed-dim: #D0BCFF;
+// ---- PRIMARY dark (lifted orange for dark surfaces) ----
+$color-dark-primary: #F09A6B;
+$color-dark-on-primary: #111111;
+$color-dark-primary-container: #A83E15;
+$color-dark-on-primary-container: #FDEFE8;
+$color-dark-primary-fixed: #FDEFE8;
+$color-dark-on-primary-fixed: #4A1A00;
+$color-dark-on-primary-fixed-variant: #A83E15;
+$color-dark-primary-fixed-dim: #F9D5C2;
 
-$color-dark-secondary: #CCC2DC;
-$color-dark-on-secondary: #332D41;
-$color-dark-secondary-container: #4A4458;
-$color-dark-on-secondary-container: #E8DEF8;
-$color-dark-secondary-fixed: #E8DEF8;
-$color-dark-on-secondary-fixed: #CCC2DC;
-$color-dark-on-secondary-fixed-variant: #4A4458;
-$color-dark-secondary-fixed-dim: #CCC2DC;
+// ---- SECONDARY dark (light warm neutral) ----
+$color-dark-secondary: #E2E0DC;
+$color-dark-on-secondary: #111111;
+$color-dark-secondary-container: #4A4A4A;
+$color-dark-on-secondary-container: #E2E0DC;
+$color-dark-secondary-fixed: #E2E0DC;
+$color-dark-on-secondary-fixed: #111111;
+$color-dark-on-secondary-fixed-variant: #4A4A4A;
+$color-dark-secondary-fixed-dim: #8C8C8C;
 
-$color-dark-tertiary: #EFB8C8;
-$color-dark-on-tertiary: #492532;
-$color-dark-tertiary-container: #633B48;
-$color-dark-on-tertiary-container: #FFD8E4;
-$color-dark-tertiary-fixed: #FFD8E4;
-$color-dark-on-tertiary-fixed: #31111D;
-$color-dark-on-tertiary-fixed-variant: #633B48;
-$color-dark-tertiary-fixed-dim: #EFB8C8;
+// ---- TERTIARY dark (warm neutral) ----
+$color-dark-tertiary: #F5DE4B;
+$color-dark-on-tertiary: #111111;
+$color-dark-tertiary-container: #D9BF28;
+$color-dark-on-tertiary-container: #111111;
+$color-dark-tertiary-fixed: #FCF6D4;
+$color-dark-on-tertiary-fixed: #111111;
+$color-dark-on-tertiary-fixed-variant: #4A4A4A;
+$color-dark-tertiary-fixed-dim: #D9BF28;
 
 $color-dark-cuaternary: #FFFFFF;
 $color-dark-on-cuaternary: #FFFFFF;
@@ -95,311 +102,319 @@ $color-dark-on-quinary-fixed-variant: #FFFFFF;
 $color-dark-quinary-fixed-dim: #FFFFFF;
 
 // SEMANTIC COLORS
-$color-light-error: #D40F36;
+// on-* chosen for contrast against the solid role color (badges/fills).
+$color-light-error: #C63A2B;
 $color-light-on-error: #FFFFFF;
-$color-light-error-container: #FCCFD8;
-$color-light-on-error-container: #30030C;
+$color-light-error-container: #F7DAD6;
+$color-light-on-error-container: #3A0C06;
 
-$color-light-warning: #FAAC0F;
-$color-light-on-warning: #FFFFFF;
-$color-light-warning-container: #FEEECD;
+$color-light-warning: #D9BF28;
+$color-light-on-warning: #3A2A00; // dark text — white on amber failed contrast
+$color-light-warning-container: #FCF6D4;
 $color-light-on-warning-container: #322201;
 
-$color-light-success: #94C20A;
+$color-light-success: #2E9E5B; // deepened — white on the old lime failed contrast
 $color-light-on-success: #FFFFFF;
-$color-light-success-container: #F1FCCF;
-$color-light-on-success-container: #253003;
+$color-light-success-container: #D7EEDF;
+$color-light-on-success-container: #0B2E19;
 
-$color-dark-error: #F2B8B5;
-$color-dark-on-error: #601410;
-$color-dark-error-container: #8C1D18;
-$color-dark-on-error-container: #F9DEDC;
+$color-dark-error: #F0B3AC;
+$color-dark-on-error: #4A120B;
+$color-dark-error-container: #7A2118;
+$color-dark-on-error-container: #F7DAD6;
 
-$color-dark-warning: #FAE89E;
+$color-dark-warning: #F5DE4B;
 $color-dark-on-warning: #614F05;
-$color-dark-warning-container: #917608;
-$color-dark-on-warning-container: #FCF3CF;
+$color-dark-warning-container: #8A7510;
+$color-dark-on-warning-container: #FCF6D4;
 
-$color-dark-success: #C4ECAC;
-$color-dark-on-success: #2B5313;
-$color-dark-success-container: #417D1C;
-$color-dark-on-success-container: #DCF4CD;
+$color-dark-success: #9FD9B4;
+$color-dark-on-success: #123D24;
+$color-dark-success-container: #1F6B3E;
+$color-dark-on-success-container: #D7EEDF;
 
-// SURFACE COLORS
-
-$color-light-surface: #F2F2F2;
-$color-light-on-surface: #242424;
-$color-light-surface-dim: #D9D9D9;
-$color-light-surface-bright: #F7F7F7;
-$color-light-on-surface-var: #333333;
-$color-light-surface-container: #EDEDED;
+// SURFACE COLORS (clean warm-neutral grays)
+$color-light-surface: #F7F6F4;
+$color-light-on-surface: #33302C;
+$color-light-surface-dim: #E2E0DC;
+$color-light-surface-bright: #FFFFFF;
+$color-light-on-surface-var: #4A4A4A;
+$color-light-surface-container: #F7F6F4;
 $color-light-surface-container-lowest: #FFFFFF;
-$color-light-surface-container-low: #F2F2F2;
-$color-light-surface-container-high: #E6E6E6;
-$color-light-surface-container-highest: #E0E0E0;
+$color-light-surface-container-low: #F7F6F4;
+$color-light-surface-container-high: #E2E0DC;
+$color-light-surface-container-highest: #E2E0DC;
 
-$color-light-outline: #9B9164;
-$color-light-outline-variant: #D7D3C1;
+$color-light-outline: #CFC9C1;        // warm gray (was olive #9B9164)
+$color-light-outline-variant: #E2E0DC; // warm light gray (was khaki #D7D3C1)
 
-$color-light-inverse-surface: #333333;
-$color-light-inverse-on-surface: #F2F2F2;
-$color-light-inverse-primary: #FFBD99;
+$color-light-inverse-surface: #111111;
+$color-light-inverse-on-surface: #F7F6F4;
+$color-light-inverse-primary: #F09A6B;
 
-$color-dark-surface: #1F1F1F;
-$color-dark-on-surface: #E0E0E0;
-$color-dark-surface-dim: #1F1F1F;
-$color-dark-surface-bright: #3D3D3D;
-$color-dark-on-surface-var: #FFFFFF;
-$color-dark-surface-container: #292929;
-$color-dark-surface-container-lowest: #1A1A1A;
-$color-dark-surface-container-low: #242424;
-$color-dark-surface-container-high: #2E2E2E;
-$color-dark-surface-container-highest: #383838;
+$color-dark-surface: #171514;
+$color-dark-on-surface: #F4F1EC;
+$color-dark-surface-dim: #141110;
+$color-dark-surface-bright: #332C27;
+$color-dark-on-surface-var: #C8C3BC;
+$color-dark-surface-container: #1B1714;
+$color-dark-surface-container-lowest: #100E0D;
+$color-dark-surface-container-low: #171514;
+$color-dark-surface-container-high: #211C19;
+$color-dark-surface-container-highest: #2A2420;
 
-$color-dark-outline: #928AA8;
-$color-dark-outline-variant: #474158;
+$color-dark-outline: #7A736C;          // warm gray (was purple-gray #928AA8)
+$color-dark-outline-variant: #2A2420;  // warm dark (was purple #474158)
 
-$color-dark-inverse-surface: #E0E0E0;
-$color-dark-inverse-on-surface: #333333;
-$color-dark-inverse-primary: #6750A4;
+$color-dark-inverse-surface: #F4F1EC;
+$color-dark-inverse-on-surface: #1A1613;
+$color-dark-inverse-primary: #E8622C;  // was purple #6750A4
 
 $color-scrim: #000;
 $color-shadow: #000;
 
 // BUTTON COLORS LIGHT THEME
-$color-light-primary-btn: #ff5B00;
+// Primary — brand orange CTA
+$color-light-primary-btn: #E8622C;
 $color-light-primary-btn-text: #FFFFFF;
-$color-light-primary-btn-hover: #F04800;
+$color-light-primary-btn-hover: #CE4F1D;
 $color-light-primary-btn-text-hover: #FFFFFF;
-$color-light-primary-btn-border: #fef6dc;
-$color-light-primary-btn-border-hover: #372b06;
+$color-light-primary-btn-border: #E8622C;
+$color-light-primary-btn-border-hover: #CE4F1D;
 
-$color-light-secondary-btn: #cbee1b;
-$color-light-secondary-btn-text: #2D3300;
-$color-light-secondary-btn-hover: #CDEB00;
-$color-light-secondary-btn-text-hover: #2D3300;
-$color-light-secondary-btn-border: #ff5B00;
-$color-light-secondary-btn-border-hover: #745a04;
+// Secondary — outline carbón (transparente; invierte a carbón sólido en hover)
+$color-light-secondary-btn: transparent;
+$color-light-secondary-btn-text: #111111;
+$color-light-secondary-btn-hover: #111111;
+$color-light-secondary-btn-text-hover: #FFFFFF;
+$color-light-secondary-btn-border: #111111;
+$color-light-secondary-btn-border-hover: #111111;
 
+// Flat — orange text, no fill
 $color-light-flat-btn: transparent;
-$color-light-flat-btn-text: #964f20;
-$color-light-flat-btn-hover: #05322b;
-$color-light-flat-btn-text-hover: #523cb5;
-$color-light-flat-btn-border: transparent;
-$color-light-flat-btn-border-hover: transparent;
+$color-light-flat-btn-text: #A83E15;
+$color-light-flat-btn-hover: rgba(232, 98, 44, 0.08);
+$color-light-flat-btn-text-hover: #CE4F1D;
+$color-light-flat-btn-border: #E8622C;
+$color-light-flat-btn-border-hover: #CE4F1D;
 
 // BUTTON COLORS DARK THEME
-$color-dark-primary-btn: #b5a93c;
-$color-dark-primary-btn-text: #222222;
-$color-dark-primary-btn-hover: #964f20;
-$color-dark-primary-btn-text-hover: #fef6dc;
-$color-dark-primary-btn-border: #222222;
-$color-dark-primary-btn-border-hover: #fef6dc;
+$color-dark-primary-btn: #E8622C;
+$color-dark-primary-btn-text: #FFFFFF;
+$color-dark-primary-btn-hover: #CE4F1D;
+$color-dark-primary-btn-text-hover: #FFFFFF;
+$color-dark-primary-btn-border: #E8622C;
+$color-dark-primary-btn-border-hover: #CE4F1D;
 
-$color-dark-secondary-btn: #cad3d0;
-$color-dark-secondary-btn-text: #222222;
-$color-dark-secondary-btn-hover: #552110;
-$color-dark-secondary-btn-text-hover: #fef6dc;
-$color-dark-secondary-btn-border: #222222;
-$color-dark-secondary-btn-border-hover: #fef6dc;
+// Secondary — outline claro sobre oscuro (invierte en hover)
+$color-dark-secondary-btn: transparent;
+$color-dark-secondary-btn-text: #F4F1EC;
+$color-dark-secondary-btn-hover: #F4F1EC;
+$color-dark-secondary-btn-text-hover: #171514;
+$color-dark-secondary-btn-border: #F4F1EC;
+$color-dark-secondary-btn-border-hover: #F4F1EC;
 
 $color-dark-flat-btn: transparent;
-$color-dark-flat-btn-text: #b5a93c;
-$color-dark-flat-btn-hover: #222222;
-$color-dark-flat-btn-text-hover: #fef6dc;
+$color-dark-flat-btn-text: #F09A6B;
+$color-dark-flat-btn-hover: rgba(240, 154, 107, 0.12);
+$color-dark-flat-btn-text-hover: #F9D5C2;
 $color-dark-flat-btn-border: transparent;
 $color-dark-flat-btn-border-hover: transparent;
 
 // INPUT COLORS LIGHT THEME
 $color-light-primary-input-bg: #FFFFFF;
-$color-light-primary-input-border: grey;
-$color-light-primary-input-border-hover: #265197;
-$color-light-primary-input-label: #222222;
-$color-light-primary-input-text: #222222;
-$color-light-primary-input-text-hover: #222222;
-$color-light-primary-input-placeholder: #957e7e;
+$color-light-primary-input-border: #CFC9C1;
+$color-light-primary-input-border-hover: #E8622C; // focus = brand (was blue)
+$color-light-primary-input-label: #111111;
+$color-light-primary-input-text: #33302C;
+$color-light-primary-input-text-hover: #33302C;
+$color-light-primary-input-placeholder: #6E6A65; // 5:1 on white (was washed #957e7e)
 
-$color-light-secondary-input-bg: #cad3d0;
-$color-light-secondary-input-border: #964f20;
-$color-light-secondary-input-border-hover: #964f20;
-$color-light-secondary-input-label: #222222;
-$color-light-secondary-input-text: #222222;
-$color-light-secondary-input-text-hover: #222222;
-$color-light-secondary-input-placeholder: #8d957e;
+$color-light-secondary-input-bg: #F7F6F4;
+$color-light-secondary-input-border: #CFC9C1;
+$color-light-secondary-input-border-hover: #E8622C;
+$color-light-secondary-input-label: #111111;
+$color-light-secondary-input-text: #33302C;
+$color-light-secondary-input-text-hover: #33302C;
+$color-light-secondary-input-placeholder: #6E6A65;
 
 // INPUT COLORS DARK THEME
-$color-dark-primary-input-bg: #222222;
-$color-dark-primary-input-border: #5a4949;
-$color-dark-primary-input-border-hover: #e9de8e;
-$color-dark-primary-input-label: #fef6dc;
-$color-dark-primary-input-text: #fef6dc;
-$color-dark-primary-input-text-hover: #fef6dc;
-$color-dark-primary-input-placeholder: #8d957e;
+$color-dark-primary-input-bg: #1B1714;
+$color-dark-primary-input-border: #2A2420;
+$color-dark-primary-input-border-hover: #F09A6B;
+$color-dark-primary-input-label: #F4F1EC;
+$color-dark-primary-input-text: #F4F1EC;
+$color-dark-primary-input-text-hover: #F4F1EC;
+$color-dark-primary-input-placeholder: #948D85;
 
-$color-dark-secondary-input-bg: #8d957e;
-$color-dark-secondary-input-border: #ffff00;
-$color-dark-secondary-input-border-hover: #cccc00;
-$color-dark-secondary-input-label: #fef6dc;
-$color-dark-secondary-input-text: #fef6dc;
-$color-dark-secondary-input-text-hover: #fef6dc;
-$color-dark-secondary-input-placeholder: #cad3d0;
+$color-dark-secondary-input-bg: #211C19;
+$color-dark-secondary-input-border: #2A2420;
+$color-dark-secondary-input-border-hover: #F09A6B;
+$color-dark-secondary-input-label: #F4F1EC;
+$color-dark-secondary-input-text: #F4F1EC;
+$color-dark-secondary-input-text-hover: #F4F1EC;
+$color-dark-secondary-input-placeholder: #948D85;
 
 // SELECT COLORS LIGHT THEME
-$color-light-primary-select-bg: #000;
-$color-light-primary-select-border: grey;
-$color-light-primary-select-border-hover: #964f20;
-$color-light-primary-select-label: #fff;
-$color-light-primary-select-text: #fff;
-$color-light-primary-select-text-hover: rgb(37, 58, 133);
-$color-light-primary-select-placeholder: #8d957e;
+$color-light-primary-select-bg: #FFFFFF;
+$color-light-primary-select-border: #CFC9C1;
+$color-light-primary-select-border-hover: #E8622C;
+$color-light-primary-select-label: #111111;
+$color-light-primary-select-text: #33302C;
+$color-light-primary-select-text-hover: #33302C;
+$color-light-primary-select-placeholder: #6E6A65;
 
-$color-light-secondary-select-bg: #cad3d0;
-$color-light-secondary-select-border: #964f20;
-$color-light-secondary-select-border-hover: #964f20;
-$color-light-secondary-select-label: #222222;
-$color-light-secondary-select-text: #222222;
-$color-light-secondary-select-text-hover: #222222;
-$color-light-secondary-select-placeholder: #8d957e;
+$color-light-secondary-select-bg: #F7F6F4;
+$color-light-secondary-select-border: #CFC9C1;
+$color-light-secondary-select-border-hover: #E8622C;
+$color-light-secondary-select-label: #111111;
+$color-light-secondary-select-text: #33302C;
+$color-light-secondary-select-text-hover: #33302C;
+$color-light-secondary-select-placeholder: #6E6A65;
 
 // SELECT ITEMS COLORS LIGHT THEME
-$color-light-primary-select-item-text: #fff;
-$color-light-primary-select-item-bg: #d4bc67;
-$color-light-primary-select-item-bg-hover: #978C2C;
-$color-light-primary-select-item-bg-selected: #964f20;
-$color-light-primary-select-item-text-selected: #fef6dc;
+$color-light-primary-select-item-text: #33302C;
+$color-light-primary-select-item-bg: #FFFFFF;
+$color-light-primary-select-item-bg-hover: rgba(232, 98, 44, 0.10);
+$color-light-primary-select-item-bg-selected: #E8622C;
+$color-light-primary-select-item-text-selected: #FFFFFF;
 
-$color-light-secondary-select-item-text: #222222;
-$color-light-secondary-select-item-bg: #cad3d0;
-$color-light-secondary-select-item-bg-hover: #8d957e;
-$color-light-secondary-select-item-bg-selected: #964f20;
-$color-light-secondary-select-item-text-selected: #fef6dc;
+$color-light-secondary-select-item-text: #33302C;
+$color-light-secondary-select-item-bg: #FFFFFF;
+$color-light-secondary-select-item-bg-hover: rgba(232, 98, 44, 0.10);
+$color-light-secondary-select-item-bg-selected: #E8622C;
+$color-light-secondary-select-item-text-selected: #FFFFFF;
 
 // SELECT COLORS DARK THEME
-$color-dark-primary-select-bg: #222222;
-$color-dark-primary-select-border: #5a4949;
-$color-dark-primary-select-border-hover: #e9de8e;
-$color-dark-primary-select-label: #fef6dc;
-$color-dark-primary-select-text: #fef6dc;
-$color-dark-primary-select-text-hover: #fef6dc;
-$color-dark-primary-select-placeholder: #8d957e;
+$color-dark-primary-select-bg: #1B1714;
+$color-dark-primary-select-border: #2A2420;
+$color-dark-primary-select-border-hover: #F09A6B;
+$color-dark-primary-select-label: #F4F1EC;
+$color-dark-primary-select-text: #F4F1EC;
+$color-dark-primary-select-text-hover: #F4F1EC;
+$color-dark-primary-select-placeholder: #948D85;
 
-$color-dark-secondary-select-bg: #8d957e;
-$color-dark-secondary-select-border: #ffff00;
-$color-dark-secondary-select-border-hover: #cccc00;
-$color-dark-secondary-select-label: #fef6dc;
-$color-dark-secondary-select-text: #fef6dc;
-$color-dark-secondary-select-text-hover: #fef6dc;
-$color-dark-secondary-select-placeholder: #cad3d0;
+$color-dark-secondary-select-bg: #211C19;
+$color-dark-secondary-select-border: #2A2420;
+$color-dark-secondary-select-border-hover: #F09A6B;
+$color-dark-secondary-select-label: #F4F1EC;
+$color-dark-secondary-select-text: #F4F1EC;
+$color-dark-secondary-select-text-hover: #F4F1EC;
+$color-dark-secondary-select-placeholder: #948D85;
 
 // SELECT ITEMS COLORS DARK THEME
-$color-dark-primary-select-item-text: #fef6dc;
-$color-dark-primary-select-item-bg: #222222;
-$color-dark-primary-select-item-bg-hover: #8d957e;
-$color-dark-primary-select-item-bg-selected: #b5a93c;
-$color-dark-primary-select-item-text-selected: #222222;
+$color-dark-primary-select-item-text: #F4F1EC;
+$color-dark-primary-select-item-bg: #1B1714;
+$color-dark-primary-select-item-bg-hover: rgba(240, 154, 107, 0.12);
+$color-dark-primary-select-item-bg-selected: #E8622C;
+$color-dark-primary-select-item-text-selected: #FFFFFF;
 
-$color-dark-secondary-select-item-text: #fef6dc;
-$color-dark-secondary-select-item-bg: #8d957e;
-$color-dark-secondary-select-item-bg-hover: #cad3d0;
-$color-dark-secondary-select-item-bg-selected: #b5a93c;
-$color-dark-secondary-select-item-text-selected: #222222;
+$color-dark-secondary-select-item-text: #F4F1EC;
+$color-dark-secondary-select-item-bg: #211C19;
+$color-dark-secondary-select-item-bg-hover: rgba(240, 154, 107, 0.12);
+$color-dark-secondary-select-item-bg-selected: #E8622C;
+$color-dark-secondary-select-item-text-selected: #FFFFFF;
 
 // TEXTAREA COLORS LIGHT THEME
 $color-light-primary-textarea-bg: #FFFFFF;
-$color-light-primary-textarea-border: grey;
-$color-light-primary-textarea-border-hover: #964f20;
-$color-light-primary-textarea-label: #222222;
-$color-light-primary-textarea-text: #222222;
-$color-light-primary-textarea-text-hover: #222222;
-$color-light-primary-textarea-placeholder: #8d957e;
+$color-light-primary-textarea-border: #CFC9C1;
+$color-light-primary-textarea-border-hover: #E8622C;
+$color-light-primary-textarea-label: #111111;
+$color-light-primary-textarea-text: #33302C;
+$color-light-primary-textarea-text-hover: #33302C;
+$color-light-primary-textarea-placeholder: #6E6A65;
 
-$color-light-secondary-textarea-bg: #cad3d0;
-$color-light-secondary-textarea-border: #964f20;
-$color-light-secondary-textarea-border-hover: #964f20;
-$color-light-secondary-textarea-label: #222222;
-$color-light-secondary-textarea-text: #222222;
-$color-light-secondary-textarea-text-hover: #222222;
-$color-light-secondary-textarea-placeholder: #8d957e;
+$color-light-secondary-textarea-bg: #F7F6F4;
+$color-light-secondary-textarea-border: #CFC9C1;
+$color-light-secondary-textarea-border-hover: #E8622C;
+$color-light-secondary-textarea-label: #111111;
+$color-light-secondary-textarea-text: #33302C;
+$color-light-secondary-textarea-text-hover: #33302C;
+$color-light-secondary-textarea-placeholder: #6E6A65;
 
 // TEXTAREA COLORS DARK THEME
-$color-dark-primary-textarea-bg: #222222;
-$color-dark-primary-textarea-border: #5a4949;
-$color-dark-primary-textarea-border-hover: #e9de8e;
-$color-dark-primary-textarea-label: #fef6dc;
-$color-dark-primary-textarea-text: #fef6dc;
-$color-dark-primary-textarea-text-hover: #fef6dc;
-$color-dark-primary-textarea-placeholder: #8d957e;
+$color-dark-primary-textarea-bg: #1B1714;
+$color-dark-primary-textarea-border: #2A2420;
+$color-dark-primary-textarea-border-hover: #F09A6B;
+$color-dark-primary-textarea-label: #F4F1EC;
+$color-dark-primary-textarea-text: #F4F1EC;
+$color-dark-primary-textarea-text-hover: #F4F1EC;
+$color-dark-primary-textarea-placeholder: #948D85;
 
-$color-dark-secondary-textarea-bg: #8d957e;
-$color-dark-secondary-textarea-border: #ffff00;
-$color-dark-secondary-textarea-border-hover: #cccc00;
-$color-dark-secondary-textarea-label: #fef6dc;
-$color-dark-secondary-textarea-text: #fef6dc;
-$color-dark-secondary-textarea-text-hover: #fef6dc;
-$color-dark-secondary-textarea-placeholder: #cad3d0;
+$color-dark-secondary-textarea-bg: #211C19;
+$color-dark-secondary-textarea-border: #2A2420;
+$color-dark-secondary-textarea-border-hover: #F09A6B;
+$color-dark-secondary-textarea-label: #F4F1EC;
+$color-dark-secondary-textarea-text: #F4F1EC;
+$color-dark-secondary-textarea-text-hover: #F4F1EC;
+$color-dark-secondary-textarea-placeholder: #948D85;
 
 // CALENDAR COLORS LIGHT THEME
+// Primary — brand orange (kept; this was already on-brand)
 $color-light-primary-calendar-base-bg: #FFFFFF;
-$color-light-primary-calendar-header-bg: #FF5B00;
+$color-light-primary-calendar-header-bg: #E8622C;
 $color-light-primary-calendar-header-text: #FFFFFF;
 $color-light-primary-calendar-header-hover: rgba(255, 255, 255, 0.1);
 $color-light-primary-calendar-grid-header-bg: #FFFFFF;
-$color-light-primary-calendar-grid-header-text: #333333;
+$color-light-primary-calendar-grid-header-text: #4A4A4A;
 $color-light-primary-calendar-grid-body-bg: #FFFFFF;
-$color-light-primary-calendar-cell-hover: rgba(255, 91, 0, 0.05);
-$color-light-primary-calendar-cell-button-hover: rgba(255, 91, 0, 0.1);
-$color-light-primary-calendar-cell-selected: #FF5B00;
+$color-light-primary-calendar-cell-hover: rgba(232, 98, 44, 0.06);
+$color-light-primary-calendar-cell-button-hover: rgba(232, 98, 44, 0.1);
+$color-light-primary-calendar-cell-selected: #E8622C;
 $color-light-primary-calendar-cell-selected-text: #FFFFFF;
-$color-light-primary-calendar-cell-selected-hover: #F04800;
-$color-light-primary-calendar-cell-focus: #FF5B00;
-$color-light-primary-calendar-cell-today-bg: rgba(255, 91, 0, 0.1);
-$color-light-primary-calendar-cell-today-text: #FF5B00;
+$color-light-primary-calendar-cell-selected-hover: #CE4F1D;
+$color-light-primary-calendar-cell-focus: #E8622C;
+$color-light-primary-calendar-cell-today-bg: rgba(232, 98, 44, 0.1);
+$color-light-primary-calendar-cell-today-text: #A83E15;
 
+// Secondary — warm ink (was acid lime #E1FF00)
 $color-light-secondary-calendar-base-bg: #FFFFFF;
-$color-light-secondary-calendar-header-bg: #E1FF00;
-$color-light-secondary-calendar-header-text: #35390b;
-$color-light-secondary-calendar-header-hover: rgba(0, 0, 0, 0.05);
+$color-light-secondary-calendar-header-bg: #111111;
+$color-light-secondary-calendar-header-text: #FFFFFF;
+$color-light-secondary-calendar-header-hover: rgba(255, 255, 255, 0.1);
 $color-light-secondary-calendar-grid-header-bg: #FFFFFF;
-$color-light-secondary-calendar-grid-header-text: #333333;
+$color-light-secondary-calendar-grid-header-text: #4A4A4A;
 $color-light-secondary-calendar-grid-body-bg: #FFFFFF;
-$color-light-secondary-calendar-cell-hover: rgba(225, 255, 0, 0.05);
-$color-light-secondary-calendar-cell-button-hover: rgba(225, 255, 0, 0.1);
-$color-light-secondary-calendar-cell-selected: #E1FF00;
-$color-light-secondary-calendar-cell-selected-text: #35390b;
-$color-light-secondary-calendar-cell-selected-hover: #CDEB00;
-$color-light-secondary-calendar-cell-focus: #E1FF00;
-$color-light-secondary-calendar-cell-today-bg: rgba(225, 255, 0, 0.1);
-$color-light-secondary-calendar-cell-today-text: #35390b;
+$color-light-secondary-calendar-cell-hover: rgba(17, 17, 17, 0.05);
+$color-light-secondary-calendar-cell-button-hover: rgba(17, 17, 17, 0.1);
+$color-light-secondary-calendar-cell-selected: #111111;
+$color-light-secondary-calendar-cell-selected-text: #FFFFFF;
+$color-light-secondary-calendar-cell-selected-hover: #000000;
+$color-light-secondary-calendar-cell-focus: #111111;
+$color-light-secondary-calendar-cell-today-bg: rgba(17, 17, 17, 0.1);
+$color-light-secondary-calendar-cell-today-text: #111111;
 
 // CALENDAR COLORS DARK THEME
-$color-dark-primary-calendar-base-bg: #2E2E2E;
-$color-dark-primary-calendar-header-bg: #b5a93c;
-$color-dark-primary-calendar-header-text: #222222;
+// Primary — orange (was gold #b5a93c)
+$color-dark-primary-calendar-base-bg: #1B1714;
+$color-dark-primary-calendar-header-bg: #E8622C;
+$color-dark-primary-calendar-header-text: #FFFFFF;
 $color-dark-primary-calendar-header-hover: rgba(0, 0, 0, 0.1);
-$color-dark-primary-calendar-grid-header-bg: #2E2E2E;
-$color-dark-primary-calendar-grid-header-text: #E0E0E0;
-$color-dark-primary-calendar-grid-body-bg: #2E2E2E;
-$color-dark-primary-calendar-cell-hover: rgba(181, 169, 60, 0.1);
-$color-dark-primary-calendar-cell-button-hover: rgba(181, 169, 60, 0.15);
-$color-dark-primary-calendar-cell-selected: #b5a93c;
-$color-dark-primary-calendar-cell-selected-text: #222222;
-$color-dark-primary-calendar-cell-selected-hover: #964f20;
-$color-dark-primary-calendar-cell-focus: #b5a93c;
-$color-dark-primary-calendar-cell-today-bg: rgba(181, 169, 60, 0.15);
-$color-dark-primary-calendar-cell-today-text: #b5a93c;
+$color-dark-primary-calendar-grid-header-bg: #1B1714;
+$color-dark-primary-calendar-grid-header-text: #F4F1EC;
+$color-dark-primary-calendar-grid-body-bg: #1B1714;
+$color-dark-primary-calendar-cell-hover: rgba(232, 98, 44, 0.12);
+$color-dark-primary-calendar-cell-button-hover: rgba(232, 98, 44, 0.18);
+$color-dark-primary-calendar-cell-selected: #E8622C;
+$color-dark-primary-calendar-cell-selected-text: #FFFFFF;
+$color-dark-primary-calendar-cell-selected-hover: #CE4F1D;
+$color-dark-primary-calendar-cell-focus: #E8622C;
+$color-dark-primary-calendar-cell-today-bg: rgba(232, 98, 44, 0.15);
+$color-dark-primary-calendar-cell-today-text: #F09A6B;
 
-$color-dark-secondary-calendar-base-bg: #2E2E2E;
-$color-dark-secondary-calendar-header-bg: #CCC2DC;
-$color-dark-secondary-calendar-header-text: #222222;
+// Secondary — warm neutral (was lavender #CCC2DC)
+$color-dark-secondary-calendar-base-bg: #1B1714;
+$color-dark-secondary-calendar-header-bg: #E2E0DC;
+$color-dark-secondary-calendar-header-text: #111111;
 $color-dark-secondary-calendar-header-hover: rgba(0, 0, 0, 0.1);
-$color-dark-secondary-calendar-grid-header-bg: #2E2E2E;
-$color-dark-secondary-calendar-grid-header-text: #E0E0E0;
-$color-dark-secondary-calendar-grid-body-bg: #2E2E2E;
-$color-dark-secondary-calendar-cell-hover: rgba(204, 194, 220, 0.1);
-$color-dark-secondary-calendar-cell-button-hover: rgba(204, 194, 220, 0.15);
-$color-dark-secondary-calendar-cell-selected: #CCC2DC;
-$color-dark-secondary-calendar-cell-selected-text: #222222;
-$color-dark-secondary-calendar-cell-selected-hover: #cad3d0;
-$color-dark-secondary-calendar-cell-focus: #CCC2DC;
-$color-dark-secondary-calendar-cell-today-bg: rgba(204, 194, 220, 0.15);
-$color-dark-secondary-calendar-cell-today-text: #CCC2DC;
+$color-dark-secondary-calendar-grid-header-bg: #1B1714;
+$color-dark-secondary-calendar-grid-header-text: #F4F1EC;
+$color-dark-secondary-calendar-grid-body-bg: #1B1714;
+$color-dark-secondary-calendar-cell-hover: rgba(226, 224, 220, 0.1);
+$color-dark-secondary-calendar-cell-button-hover: rgba(226, 224, 220, 0.15);
+$color-dark-secondary-calendar-cell-selected: #E2E0DC;
+$color-dark-secondary-calendar-cell-selected-text: #111111;
+$color-dark-secondary-calendar-cell-selected-hover: #FFFFFF;
+$color-dark-secondary-calendar-cell-focus: #E2E0DC;
+$color-dark-secondary-calendar-cell-today-bg: rgba(226, 224, 220, 0.15);
+$color-dark-secondary-calendar-cell-today-text: #E2E0DC;

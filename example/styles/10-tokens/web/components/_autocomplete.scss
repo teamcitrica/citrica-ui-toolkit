@@ -1,0 +1,109 @@
+// ============================================
+// AUTOCOMPLETE TOKENS - CLIENT/PUBLIC SIDE
+// ============================================
+// El Autocomplete del toolkit (autocomplete-citrica-ui) no tenía tokens
+// propios, así que sobre fondos oscuros (p. ej. el hero) el campo quedaba
+// transparente y el valor seleccionado, en texto oscuro, era ilegible.
+// Reutiliza los tokens de input (mismo campo de texto) y de select-item
+// (mismo listbox) para garantizar contraste en cualquier fondo.
+
+.autocomplete-citrica-ui {
+  [data-slot="input-wrapper"] {
+    border-radius: var(--form-radius-input);
+  }
+}
+
+.autocomplete-item-citrica-ui {
+  border-radius: var(--form-radius-input);
+  color: var(--color-primary-select-item-text) !important;
+  background-color: var(--color-primary-select-item-bg) !important;
+
+  &[data-hover="true"],
+  &:hover {
+    background-color: var(--color-primary-select-item-bg-hover) !important;
+    color: var(--color-primary-select-item-text) !important;
+  }
+
+  &[data-selected="true"],
+  &[aria-selected="true"] {
+    background-color: var(--color-primary-select-item-bg-selected) !important;
+    color: var(--color-primary-select-item-text-selected) !important;
+  }
+}
+
+.autocomplete-primary.autocomplete-citrica-ui {
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-primary-input-bg);
+    border: var(--form-border-size-input) solid var(--color-primary-input-border);
+    border-radius: var(--form-radius-input);
+
+    &:hover {
+      border-color: var(--color-primary-input-border-hover);
+    }
+
+    &[data-focus="true"],
+    &[data-open="true"] {
+      border-color: var(--color-primary-input-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-primary-input-label) !important;
+  }
+
+  // Texto escrito y valor seleccionado.
+  [data-slot="input"] {
+    color: var(--color-primary-input-text) !important;
+
+    &::placeholder {
+      color: var(--color-primary-input-placeholder) !important;
+    }
+  }
+
+  // Iconos (borrar / abrir) legibles sobre el campo blanco.
+  [data-slot="clear-button"],
+  [data-slot="selector-button"] {
+    color: var(--color-primary-input-text) !important;
+  }
+}
+
+.autocomplete-secondary.autocomplete-citrica-ui {
+  [data-slot="input-wrapper"] {
+    background-color: var(--color-secondary-input-bg);
+    border: var(--form-border-size-input) solid var(--color-secondary-input-border);
+    border-radius: var(--form-radius-input);
+
+    &:hover {
+      border-color: var(--color-secondary-input-border-hover);
+    }
+
+    &[data-focus="true"],
+    &[data-open="true"] {
+      border-color: var(--color-secondary-input-border-hover);
+    }
+  }
+
+  [data-slot="label"] {
+    color: var(--color-secondary-input-label) !important;
+  }
+
+  [data-slot="input"] {
+    color: var(--color-secondary-input-text) !important;
+
+    &::placeholder {
+      color: var(--color-secondary-input-placeholder) !important;
+    }
+  }
+
+  [data-slot="clear-button"],
+  [data-slot="selector-button"] {
+    color: var(--color-secondary-input-text) !important;
+  }
+}
+
+// Listbox del Autocomplete (se renderiza en un portal a <body>): aseguramos
+// que las opciones se vean sobre fondo blanco aunque no lleven la clase.
+[data-slot="popover"] [role="option"].autocomplete-item-citrica-ui {
+  color: var(--color-primary-select-item-text) !important;
+  background-color: var(--color-primary-select-item-bg) !important;
+}

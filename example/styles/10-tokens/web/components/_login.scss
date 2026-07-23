@@ -1,7 +1,7 @@
 $container-inputs : (
   sm: (padding: 0px 8px,),
-  md: (padding: 0px 0px,),
-  lg: (padding: 0px 0px,)
+  md: (padding: 0px 12px,),
+  lg: (padding: 0px 16px,)
 );
 
 .container-inputs {
@@ -21,7 +21,7 @@ $container-inputs : (
 }
 
 .bg-login {
-  background: url("/img/login-form-image-lg.jpg");
+  background: url("/img/login.png");
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

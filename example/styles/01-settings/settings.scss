@@ -23,6 +23,8 @@ $border-extra-bold: "";
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
 @import 'https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap';
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+// ImPulso landing: Anton (display/titulares) + Lato (lectura, UI, formularios)
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Lato:ital,wght@0,400;0,700;0,900;1,400&display=swap');
 
 // FONTS LOCALES
 @font-face {
@@ -104,11 +106,15 @@ $border-extra-bold: "";
     font-style: normal;
 }
 
-// CITRICA SYSTEM TYPOGRAPJY
-$font-family-a: 'Roboto';
-$font-family-b: 'Poppins', sans-serif;
-$font-family-c: 'Poppins', sans-serif;
-$font-family-d: 'Sansation';
+// BRAND SYSTEM TYPOGRAPHY — ImPulso
+// Anton → display / titulares (mayúsculas, ≥24px, nunca párrafos).
+// Lato  → cuerpo, navegación, formularios, captions.
+// Slot `a` = Anton: lo consumen las clases display de la landing
+// (.impulso__display/__h1/__h2/__h3). El toolkit Text usa b/c/d = Lato.
+$font-family-a: 'Anton', Impact, 'Arial Narrow Bold', sans-serif;
+$font-family-b: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+$font-family-c: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+$font-family-d: 'Lato', 'Helvetica Neue', Arial, sans-serif;
 
 // ADMIN SYSTEM TYPOGRAPHY
 $font-family-a-admin: 'Inter', sans-serif;
@@ -116,14 +122,14 @@ $font-family-b-admin: 'Inter', sans-serif;
 $font-family-c-admin: 'Inter', sans-serif;
 $font-family-d-admin: 'Inter', sans-serif;
 
-// CITRICA SYSTEM OPACITY
+// BRAND SYSTEM OPACITY
 $opacity-1:"";
 $opacity-2:"";
 $opacity-3:"";
 $opacity-4:"";
 $opacity-5:"";
 
-// CITRICA SYSTEM ELEVATION 
+// BRAND SYSTEM ELEVATION 
 $elevation-level-1: "";
 $elevation-level-2: "";
 $elevation-level-3: "";

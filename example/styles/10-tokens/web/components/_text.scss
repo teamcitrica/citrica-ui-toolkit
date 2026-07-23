@@ -1,26 +1,27 @@
 // TEXT TOKEN: Typography
 
-// DISPLAY
+// DISPLAY — ImPulso hero (Anton, mayúsculas)
 $display-responsive: (
    sm: (
-    font-size: 36px,
-    line-height: 40px
+    font-size: 46px,
+    line-height: 46px
   ),
   md: (
-    font-size: 40px,
-    line-height: 48px
+    font-size: 70px,
+    line-height: 70px
   ),
   lg: (
-    font-size: 40px,
-    line-height: 48px
+    font-size: 92px,
+    line-height: 92px
   )
 );
 .text-display {
-  font-family: var(--font-family-d);
+  font-family: var(--font-family-a);
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  text-transform: none;
+  text-transform: uppercase;
+  text-wrap: balance;
   @include a-set($display-responsive);
   &-bold{
     font-weight: 700;
@@ -30,28 +31,29 @@ $display-responsive: (
   }
 }
 
-// HEADLINE
+// HEADLINE — ImPulso títulos de sección (Anton, mayúsculas)
 $headline-responsive: (
   sm: (
-    font-size: 28px,
-    line-height: 36px
+    font-size: 30px,
+    line-height: 33px
   ),
   md: (
-    font-size: 32px,
-    line-height: 40px
+    font-size: 40px,
+    line-height: 44px
   ),
   lg: (
-    font-size: 32px,
-    line-height: 40px
- 
+    font-size: 46px,
+    line-height: 50px
+
   )
 );
 .text-headline {
-  font-family: var(--font-family-d);
+  font-family: var(--font-family-a);
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  text-transform: none;
+  text-transform: uppercase;
+  text-wrap: balance;
   @include a-set($headline-responsive);
   &-bold{
     font-weight: 700;
@@ -92,27 +94,28 @@ $body-big-responsive: (
   }
 }
 
-// TITLE
+// TITLE — ImPulso títulos de card/step/garantía (Anton, mayúsculas)
 $title-responsive: (
   sm: (
     font-size: 22px,
-    line-height: 28px
+    line-height: 26px
   ),
   md: (
-    font-size: 25px,
-    line-height: 32px
+    font-size: 26px,
+    line-height: 30px
   ),
   lg: (
-    font-size: 25px,
+    font-size: 28px,
     line-height: 32px
   )
 );
 .text-title {
-  font-family: var(--font-family-b);
+  font-family: var(--font-family-a);
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: 0.01em;
   text-decoration: none;
-  text-transform: none;
+  text-transform: uppercase;
+  text-wrap: balance;
   @include a-set($title-responsive);
   &-bold{
     font-weight: 700;
@@ -220,3 +223,4 @@ $label-responsive: (
 .text-black-color{
   color: var(--color-text-black);
 }
+

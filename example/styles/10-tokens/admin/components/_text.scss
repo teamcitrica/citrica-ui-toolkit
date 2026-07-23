@@ -1,4 +1,6 @@
-// TEXT TOKEN: Typography
+// ============================================
+// TEXT TOKENS - ADMIN SIDE
+// ============================================
 
 // DISPLAY
 $display-responsive-admin: (
@@ -99,11 +101,11 @@ $title-responsive-admin: (
     line-height: 28px
   ),
   md: (
-    font-size: 25px,
+    font-size: 24px,
     line-height: 32px
   ),
   lg: (
-    font-size: 25px,
+    font-size: 24px,
     line-height: 32px
   )
 );
@@ -115,7 +117,7 @@ $title-responsive-admin: (
   text-transform: none;
   @include a-set($title-responsive-admin);
   &-bold{
-    font-weight: 700;
+    font-weight: 900;
   }
   &-light{
     font-weight: 300;
@@ -190,11 +192,11 @@ $label-responsive-admin: (
     line-height: 16px
   ),
   md: (
-    font-size: 13px,
+    font-size: 12px,
     line-height: 20px
   ),
   lg: (
-    font-size: 13px,
+    font-size: 12px,
     line-height: 20px
   )
 );
@@ -215,8 +217,8 @@ $label-responsive-admin: (
 
 // Default color
 .text-default-color-admin {
-  color: var(--text-default-color-admin);
+  color: var(--color-admin-on-surface);
 }
 .text-black-color-admin {
-  color: var(--color-text-black-admin);
+  color: var(--color-admin-text-black);
 }

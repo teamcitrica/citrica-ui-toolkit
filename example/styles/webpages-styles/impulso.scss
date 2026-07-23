@@ -1,0 +1,386 @@
+// ============================================
+// ImPULSO — Growth & Content Agency (gastronomía)
+// Landing de conversión · "La carta del mercado moderno"
+// ============================================
+// SIN COLORES PROPIOS Y SIN VARIABLES PROPIAS: la paleta de marca vive en los
+// tokens globales (styles/10-tokens/web/colors/_palette.scss) y se usa aquí
+// directamente vía `var(--color-*)`. Los pocos tonos de la sección "carbón"
+// que no tienen token equivalente (fondo elevado / borde de step) se derivan
+// con `color-mix()` inline sobre esos mismos tokens. Único lugar donde se
+// editan los hex de marca: _palette.scss.
+// Anton se usa SOLO en titulares vía las variantes display/headline/title del
+// componente Text (tokens en _text.scss); todo el texto de lectura es Lato.
+// ============================================
+
+.impulso {
+  // Tipografía: los slots globales ya traen Anton (a) y Lato (b/c/d) desde
+  // styles/01-settings/settings.scss — no se redefinen aquí.
+
+  // Botones: el radio pill y el secundario outline viven en los tokens
+  // globales (_form.scss + _button.scss + _palette.scss).
+  background-color: var(--color-surface);
+  color: var(--color-on-surface);
+  overflow-x: hidden;
+}
+
+// Tipografía de titulares (Anton, mayúsculas, escala fluida) → definida como
+// tokens del componente Text en styles/10-tokens/web/components/_text.scss:
+//   display  → hero        ·  headline → títulos de sección
+//   title    → card/step/garantía. El JSX solo elige la `variant`.
+
+// Firma bicolor (imita el logo Im/Pulso). Sin gradientes: color sólido.
+.impulso__accent { color: var(--color-primary); }
+.impulso--on-carbon .impulso__accent { color: var(--color-primary); }
+
+// Subrayado marcador amarillo (se "dibuja" en el reveal del hero).
+.impulso__mark {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+.impulso__mark::after {
+  content: "";
+  position: absolute;
+  left: -0.06em;
+  right: -0.06em;
+  bottom: 0.08em;
+  height: 0.34em;
+  background: var(--color-tertiary);
+  z-index: -1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  border-radius: 2px;
+}
+.impulso[data-anim="on"] .impulso__mark::after { transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.35s; }
+.impulso[data-anim="on"].is-ready .impulso__mark::after,
+.impulso:not([data-anim="on"]) .impulso__mark::after { transform: scaleX(1); }
+
+// Eyebrow (Lato 700, uso deliberado y escaso — no en cada sección).
+.impulso__eyebrow {
+  font-family: var(--font-family-b);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-flat-btn-text); // naranja seguro para texto pequeño (AA)
+  display: inline-block;
+}
+.impulso__section--carbon .impulso__eyebrow { color: var(--color-tertiary); }
+
+// ---- Entrada orquestada del hero (un solo momento) ----
+.impulso[data-anim="on"] .impulso__hero-in {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.impulso[data-anim="on"].is-ready .impulso__hero-in {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 90ms),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i, 0) * 90ms);
+}
+@media (prefers-reduced-motion: reduce) {
+  .impulso[data-anim="on"] .impulso__hero-in { opacity: 1 !important; transform: none !important; transition: none !important; }
+}
+
+// ============================================
+// Wordmark
+// ============================================
+.impulso__wordmark {
+  font-family: var(--font-family-a);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--color-text-black);
+}
+.impulso__wordmark--light { color: var(--color-text-white); }
+.impulso__wordmark .im-p { color: var(--color-primary); }
+
+// ============================================
+// Secciones y ritmo de contraste
+// ============================================
+.impulso__section { position: relative; padding: 72px 0; scroll-margin-top: 84px; }
+@media (min-width: 1191px) { .impulso__section { padding: 108px 0; } }
+.impulso__section--white   { background: var(--color-surface); }
+.impulso__section--warm    { background: var(--color-surface); }
+.impulso__section--carbon  { background: var(--color-text-black); color: var(--color-surface); }
+// Títulos blancos sobre carbón. `!important` porque el componente Text aplica
+// el color como estilo inline; el acento naranja (.impulso__accent) se pinta
+// sobre su propio span, así que no se ve afectado.
+.impulso__section--carbon .text-display,
+.impulso__section--carbon .text-headline,
+.impulso__section--carbon .text-title { color: var(--color-text-white) !important; }
+
+.impulso__eyebrow-row { display: flex; align-items: center; gap: 14px; }
+.impulso__rule { height: 3px; width: 40px; background: var(--color-primary); border-radius: 2px; flex: none; }
+
+// ============================================
+// Hero
+// ============================================
+.impulso__hero {
+  position: relative;
+  padding-top: 132px;
+  padding-bottom: 72px;
+  background: var(--color-surface);
+  overflow: hidden;
+  scroll-margin-top: 84px;
+}
+@media (min-width: 1191px) {
+  .impulso__hero { padding-top: 168px; padding-bottom: 96px; min-height: 92vh; display: flex; align-items: center; }
+}
+.impulso__hero-photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--color-text-black);
+}
+@media (min-width: 1191px) { .impulso__hero-photo { aspect-ratio: 3 / 4; } }
+.impulso__hero-badge {
+  position: absolute;
+  left: 20px; bottom: 20px;
+  background: var(--color-text-black);
+  color: var(--color-text-white);
+  border-radius: 8px;
+  padding: 14px 18px;
+  max-width: 220px;
+  z-index: 2;
+}
+.impulso__hero-badge .im-num {
+  // Blanco (no amarillo): en el viewport del hero el único acento amarillo es
+  // el subrayado marcador del titular. Una firma amarilla por pantalla.
+  font-family: var(--font-family-a);
+  color: var(--color-text-white);
+  font-size: 34px;
+  line-height: 1;
+}
+
+// ============================================
+// Imagen (con overlay carbón para texto encima)
+// ============================================
+.impulso__img {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--color-text-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.impulso__img img { object-fit: cover; width: 100%; height: 100%; }
+.impulso__img--r45 { aspect-ratio: 4 / 5; }
+.impulso__img--r43 { aspect-ratio: 4 / 3; }
+.impulso__img--r11 { aspect-ratio: 1 / 1; }
+.impulso__img-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(120% 120% at 80% 0%, color-mix(in srgb, var(--color-primary) 55%, transparent), transparent 60%),
+    color-mix(in srgb, var(--color-text-black) 92%, var(--color-primary));
+}
+.impulso__img-fallback span {
+  font-family: var(--font-family-a);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: color-mix(in srgb, var(--color-text-white) 16%, transparent);
+  font-size: 40px;
+}
+.impulso__img--overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--color-text-black) 15%, transparent) 0%, color-mix(in srgb, var(--color-text-black) 62%, transparent) 100%);
+  z-index: 1;
+}
+.impulso__img-round { border-radius: 999px; }
+
+// ============================================
+// Problema / dolores
+// ============================================
+.impulso__pain {
+  display: flex;
+  gap: 16px;
+  padding: 22px 0;
+  border-top: 1px solid var(--color-outline-variant);
+}
+.impulso__pain:last-child { border-bottom: 1px solid var(--color-outline-variant); }
+.impulso__pain-ico {
+  flex: none;
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  background: var(--color-primary-container);
+  display: flex; align-items: center; justify-content: center;
+}
+
+// ============================================
+// Método (Sistema Mesa Activa) — secuencia ordenada real
+// ============================================
+.impulso__step {
+  position: relative;
+  height: 100%;
+  padding: 28px 24px 26px;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--color-text-black) 92%, var(--color-primary));
+  border: 1px solid color-mix(in srgb, var(--color-text-black) 84%, var(--color-surface));
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: border-color 0.25s ease, transform 0.25s ease;
+}
+.impulso__step:hover { border-color: var(--color-primary); transform: translateY(-4px); }
+.impulso__step-n {
+  font-family: var(--font-family-a);
+  font-size: 40px;
+  line-height: 1;
+  color: var(--color-primary);
+}
+.impulso__step:hover .impulso__step-n { color: var(--color-tertiary); }
+
+// ============================================
+// Métrica destacada (scoreboard)
+// ============================================
+.impulso__metric-num {
+  font-family: var(--font-family-a);
+  font-size: clamp(44px, 6vw, 68px);
+  line-height: 0.95;
+  color: var(--color-primary);
+  display: block;
+}
+.impulso__section--carbon .impulso__metric-num { color: var(--color-tertiary); }
+
+// ============================================
+// Card de resultado / servicio
+// ============================================
+.impulso__card {
+  height: 100%;
+  background: var(--color-text-white);
+  border: 1px solid var(--color-outline-variant);
+  border-radius: 8px;
+  padding: 28px 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+.impulso__card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-text-black) 8%, transparent);
+  transform: translateY(-4px);
+}
+.impulso__card-ico {
+  flex: none;
+  width: 48px; height: 48px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+
+// ============================================
+// Badge
+// ============================================
+.impulso__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-tertiary);
+  color: var(--color-text-black);
+  font-family: var(--font-family-b);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 5px 13px;
+  border-radius: 999px;
+}
+
+// ============================================
+// Testimonio
+// ============================================
+.impulso__quote {
+  font-family: var(--font-family-b);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+// ============================================
+// Garantía
+// ============================================
+.impulso__guarantee {
+  position: relative;
+  border-radius: 8px;
+  background: var(--color-primary-container);
+  border: 1px solid var(--color-primary-fixed-dim);
+  padding: 40px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+@media (max-width: 610px) { .impulso__guarantee { flex-direction: column; padding: 28px; } }
+.impulso__guarantee-seal {
+  flex: none;
+  width: 72px; height: 72px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+}
+
+// ============================================
+// Formulario (CTA final, sobre carbón)
+// ============================================
+.impulso__form {
+  background: var(--color-text-white);
+  border-radius: 12px;
+  padding: 32px;
+  box-shadow: 0 8px 24px color-mix(in srgb, var(--color-shadow) 28%, transparent);
+}
+@media (max-width: 610px) { .impulso__form { padding: 22px; } }
+
+// Header: se usa el componente <Header variant="basic"> de citrica-ui-toolkit.
+// Hereda los colores de marca de los tokens globales (--color-primary, etc.).
+
+// ============================================
+// Footer
+// ============================================
+.impulso__footer {
+  background: var(--color-text-black);
+  color: var(--color-outline);
+  padding: 64px 0 40px;
+}
+.impulso__footer a { color: var(--color-outline); transition: color 0.2s ease; }
+.impulso__footer a:hover { color: var(--color-tertiary); }
+.impulso__footer-avatar {
+  width: 40px; height: 40px;
+  border-radius: 999px;
+  background: var(--color-primary);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-family-a);
+  font-size: 15px;
+}
+
+// ============================================
+// Reveal — VISIBLE por defecto; el estado oculto solo se activa con JS
+// (data-anim="on"). Así SSR / no-JS / headless nunca quedan en blanco.
+// ============================================
+.impulso[data-anim="on"] .impulso__reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+.impulso[data-anim="on"] .impulso__reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .impulso[data-anim="on"] .impulso__reveal {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+  .impulso[data-anim="on"] .impulso__mark::after { transition: none !important; }
+}

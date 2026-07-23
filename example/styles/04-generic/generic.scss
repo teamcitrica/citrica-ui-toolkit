@@ -96,6 +96,6 @@ textarea:focus {
 
 // SELECTIONS
 ::selection{
-    //color: var(--color-primary);
-    //background-color: var(--color-primary);
+    color: var(--color-on-primary);
+    background-color: var(--color-primary);
 }
