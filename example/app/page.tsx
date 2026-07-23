@@ -1,9 +1,10 @@
-'use client'
+"use client";
 import { useState } from "react";
 import {
   Button,
   Col,
   Container,
+  Dropdown,
   Drawer,
   Input,
   Switch,
@@ -14,6 +15,7 @@ type OpenKey = "admin" | "noAdmin" | null;
 
 export default function App() {
   const [open, setOpen] = useState<OpenKey>(null);
+  const [lastAction, setLastAction] = useState<string>("—");
   const close = () => setOpen(null);
 
   return (
@@ -88,6 +90,37 @@ export default function App() {
             <Switch isAdmin isDisabled defaultSelected>
               disabled
             </Switch>
+          </div>
+        </div>
+
+        {/* Dropdown de prueba */}
+        <div className="mt-10 flex flex-col gap-4">
+          <Text variant="subtitle" weight="bold" isAdmin>
+            Dropdown
+          </Text>
+
+          <div className="flex flex-wrap items-center gap-6">
+            <Dropdown
+              isAdmin
+              trigger={
+                <Button
+                  isAdmin
+                  isIconOnly
+                  variant="flat"
+                  startIcon="EllipsisVertical"
+                />
+              }
+              items={[
+                { key: "edit", label: "Editar" },
+                { key: "access", label: "Accesos" },
+                { key: "delete", label: "Eliminar", color: "danger" },
+              ]}
+              onAction={(key) => setLastAction(key)}
+            />
+
+            <Text variant="body" isAdmin>
+              Última acción: <b>{lastAction}</b>
+            </Text>
           </div>
         </div>
 
