@@ -8,6 +8,7 @@ export * from './atoms/Card';
 export * from './atoms/Textarea';
 export * from './atoms/Grid';
 export * from './molecules/Modal';
+export * from './molecules/Drawer';
 export * from './molecules/Carousel';
 export * from './molecules/Accordion';
 export * from './organism/Footer';
