@@ -57,38 +57,10 @@ export default function App() {
 
           <div className="flex flex-wrap items-center gap-6">
             <Switch defaultSelected isAdmin variant="primary">
-              Admin primary
+              Admin
             </Switch>
-            <Switch defaultSelected isAdmin variant="success">
-              Admin success
-            </Switch>
-            <Switch defaultSelected isAdmin variant="danger">
-              Admin danger
-            </Switch>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6">
             <Switch defaultSelected variant="primary">
-              Web primary
-            </Switch>
-            <Switch defaultSelected variant="success">
-              Web success
-            </Switch>
-            <Switch variant="warning">Web warning (off)</Switch>
-          </div>
-
-          <div className="flex flex-wrap items-center gap-6">
-            <Switch isAdmin size="sm" defaultSelected>
-              sm
-            </Switch>
-            <Switch isAdmin size="md" defaultSelected>
-              md
-            </Switch>
-            <Switch isAdmin size="lg" defaultSelected>
-              lg
-            </Switch>
-            <Switch isAdmin isDisabled defaultSelected>
-              disabled
+              Web
             </Switch>
           </div>
         </div>
