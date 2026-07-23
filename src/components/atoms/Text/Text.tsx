@@ -54,9 +54,12 @@ export const Text: React.FC<TextProps> = ({
         ? "var(--color-text-link)"
         : "var(--color-black)";
 
-  const weightClass = weight !== "normal" ? `text-${variant}-${weight}` : "";
-
   const isAdminSuffix = isAdmin ? "-admin" : "";
+
+  // Incluye el sufijo admin en la clase de peso para que matchee el SCSS
+  // (`.text-{variant}-admin-bold`); si no, el bold admin no se aplica.
+  const weightClass =
+    weight !== "normal" ? `text-${variant}${isAdminSuffix}-${weight}` : "";
 
   const classes = [
     `text-${variant}${isAdminSuffix}`,

@@ -1,31 +1,111 @@
 'use client'
-import { Accordion, Button, Col, Container, Login, Text } from "citrica-ui-toolkit";
+import { useState } from "react";
+import { Button, Col, Container, Drawer, Input, Text } from "citrica-ui-toolkit";
 
-const faqs = [
-  { id: 1, question: "¿Qué es Citrica?", answer: "Una librería de componentes React." },
-  { id: 2, question: "¿Cómo se instala?", answer: "Con npm install citrica-ui-toolkit." },
-  { id: 3, question: "¿Soporta admin theme?", answer: "Sí, con la prop isAdmin." },
-];
+type OpenKey = "admin" | "noAdmin" | null;
 
 export default function App() {
+  const [open, setOpen] = useState<OpenKey>(null);
+  const close = () => setOpen(null);
+
   return (
-    <>
-      <Container>
-        <Col cols={{ lg: 8, md: 6, sm: 4 }} className="mx-auto py-20">
-          <Accordion
+    <Container>
+      <Col cols={{ lg: 8, md: 6, sm: 4 }} className="mx-auto py-20">
+        <Text as="h1" variant="headline" weight="bold" isAdmin>
+          Drawer
+        </Text>
+
+        <Text variant="title" weight="bold" isAdmin className="mt-4 block">
+          Text isAdmin bold (prueba)
+        </Text>
+
+        <Text variant="title" weight="bold" className="mt-2 block">
+          Text bold sin admin (prueba)
+        </Text>
+
+        <div className="mt-8 flex flex-wrap gap-3">
+          <Button
+            label="Con admin"
+            variant="primary"
+            className="w-[162px]"
+            onPress={() => setOpen("admin")}
             isAdmin
-            defaultExpandedKeys={["1"]}
-            selectionMode="single"
-            variant="splitted"
-            items={faqs.map((faq) => ({
-              key: faq.id.toString(),
-              title: faq.question,
-              content: faq.answer,
-              ariaLabel: faq.question,
-            }))}
           />
-        </Col>
-      </Container>
-    </>
+          <Button
+            label="Sin admin"
+            variant="primary"
+            className="w-[162px]"
+            onPress={() => setOpen("noAdmin")}
+          />
+        </div>
+
+        {/* Drawer CON isAdmin */}
+        <Drawer
+          isOpen={open === "admin"}
+          onClose={close}
+          placement="right"
+          title="Derecha (admin)"
+          isAdmin
+          footer={
+            <>
+              <Button
+                isAdmin
+                variant="secondary"
+                onPress={close}
+                className=" bg-white w-[162px]"
+              >
+                Cerrar
+              </Button>
+              <Button
+                isAdmin
+                variant="primary"
+                className="w-[162px]"
+                onPress={close}
+              >
+                Guardar
+              </Button>
+            </>
+          }
+        >
+          <div className="flex flex-col gap-2">
+            <Text variant="body" isAdmin>
+              Drawer a la derecha con footer, usando isAdmin.
+            </Text>
+            <Input isAdmin label="Nombre" placeholder="Escribe tu nombre" />
+            <Input isAdmin label="Correo" placeholder="tucorreo@ejemplo.com" />
+          </div>
+        </Drawer>
+
+        {/* Drawer SIN isAdmin */}
+        <Drawer
+          isOpen={open === "noAdmin"}
+          onClose={close}
+          placement="right"
+          title="Derecha (sin admin)"
+          footer={
+            <>
+              <Button
+                variant="secondary"
+                onPress={close}
+                className=" bg-white w-[162px]"
+              >
+                Cerrar
+              </Button>
+              <Button variant="primary" className="w-[162px]" onPress={close}>
+                Guardar
+              </Button>
+            </>
+          }
+        >
+          <div className="flex flex-col gap-2">
+            <Text variant="body">
+              Drawer a la derecha con footer, sin isAdmin.
+            </Text>
+            <Input label="Nombre" placeholder="Escribe tu nombre" />
+            <Input label="Correo" placeholder="tucorreo@ejemplo.com" />
+          </div>
+        </Drawer>
+      </Col>
+    </Container>
   );
 }
