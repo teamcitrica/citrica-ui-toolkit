@@ -46,8 +46,10 @@ $input-citrica-ui-admin: (
       border-color: var(--color-admin-primary-input-border-hover);
     }
 
+    // !important para ganarle a la regla global del input web
+    // (border-default-foreground) que pinta el focus de naranja de marca.
     &[data-focus="true"] {
-      border-color: var(--color-admin-primary-input-border-hover);
+      border-color: var(--color-admin-primary-input-border-hover) !important;
     }
   }
 
@@ -73,8 +75,9 @@ $input-citrica-ui-admin: (
       border-color: var(--color-admin-secondary-input-border-hover);
     }
 
+    // !important para ganarle a la regla global del input web (naranja de marca).
     &[data-focus="true"] {
-      border-color: var(--color-admin-secondary-input-border-hover);
+      border-color: var(--color-admin-secondary-input-border-hover) !important;
     }
   }
 
