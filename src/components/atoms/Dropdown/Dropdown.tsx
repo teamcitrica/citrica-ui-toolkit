@@ -17,11 +17,20 @@ export const Dropdown: React.FC<DropdownProps> = ({
   isAdmin = false,
   ariaLabel = "Menú de acciones",
   placement = "bottom-end",
+  offset,
+  backdrop,
+  closeOnSelect,
+  isDisabled,
+  isOpen,
+  defaultOpen,
+  onOpenChange,
+  shouldBlockScroll,
+  radius,
+  shadow,
   disabledKeys,
   className,
   classNames,
   menuClassNames,
-  ...props
 }) => {
   return (
     <HeroDropdown
@@ -31,7 +40,16 @@ export const Dropdown: React.FC<DropdownProps> = ({
       )}
       classNames={classNames}
       placement={placement}
-      {...props}
+      offset={offset}
+      backdrop={backdrop}
+      closeOnSelect={closeOnSelect}
+      isDisabled={isDisabled}
+      isOpen={isOpen}
+      defaultOpen={defaultOpen}
+      onOpenChange={onOpenChange}
+      shouldBlockScroll={shouldBlockScroll}
+      radius={radius}
+      shadow={shadow}
     >
       <DropdownTrigger>{trigger}</DropdownTrigger>
 
