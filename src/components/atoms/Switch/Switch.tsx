@@ -16,11 +16,21 @@ const VARIANT_TOKEN: Record<string, string> = {
 export const Switch: React.FC<SwitchProps> = ({
   variant = "primary",
   isAdmin = false,
+  isSelected,
+  defaultSelected,
+  onValueChange,
+  size,
+  isDisabled,
+  isReadOnly,
+  startContent,
+  endContent,
+  thumbIcon,
+  name,
+  value,
   className,
   classNames,
   children,
   style,
-  ...props
 }) => {
   // `isAdmin` decide la familia de tokens (admin ↔ web), igual que Drawer/Text.
   const p = isAdmin ? "admin-" : "";
@@ -30,6 +40,17 @@ export const Switch: React.FC<SwitchProps> = ({
 
   return (
     <HeroSwitch
+      isSelected={isSelected}
+      defaultSelected={defaultSelected}
+      onValueChange={onValueChange}
+      size={size}
+      isDisabled={isDisabled}
+      isReadOnly={isReadOnly}
+      startContent={startContent}
+      endContent={endContent}
+      thumbIcon={thumbIcon}
+      name={name}
+      value={value}
       className={clsx("switch-citrica-ui", className)}
       style={{ ["--sw-on"]: onColor, ...style } as React.CSSProperties}
       classNames={{
@@ -40,7 +61,6 @@ export const Switch: React.FC<SwitchProps> = ({
           classNames?.wrapper,
         ),
       }}
-      {...props}
     >
       {children}
     </HeroSwitch>
