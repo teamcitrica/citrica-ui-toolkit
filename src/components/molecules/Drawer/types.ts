@@ -1,5 +1,4 @@
-import type { ReactNode } from "react";
-import type { DrawerProps as HeroDrawerProps } from "@heroui/drawer";
+import type { ReactNode, CSSProperties } from "react";
 
 export interface DrawerClassNames {
   base?: string;
@@ -10,11 +9,7 @@ export interface DrawerClassNames {
   closeButton?: string;
 }
 
-export interface DrawerProps
-  extends Omit<
-    HeroDrawerProps,
-    "placement" | "size" | "children" | "classNames"
-  > {
+export interface DrawerProps {
   isOpen: boolean;
   onClose: () => void;
   title?: string;
@@ -37,8 +32,24 @@ export interface DrawerProps
   /** Ancho fijo del panel (ej. "450px"). Tiene prioridad sobre `size`. */
   customWidth?: string;
   hideCloseButton?: boolean;
+  /** Cerrar al hacer clic fuera. Default: true. */
   isDismissable?: boolean;
+  /** Deshabilita cerrar con la tecla Esc. */
+  isKeyboardDismissDisabled?: boolean;
+  /** Fondo detrás del panel. */
+  backdrop?: "transparent" | "opaque" | "blur";
+  /** Comportamiento del scroll del contenido. */
+  scrollBehavior?: "inside" | "outside";
+  radius?: "none" | "sm" | "md" | "lg";
+  shadow?: "none" | "sm" | "md" | "lg";
+  /** Bloquea el scroll del body mientras está abierto. */
+  shouldBlockScroll?: boolean;
+  disableAnimation?: boolean;
+  /** Callback al abrir/cerrar (estado controlado alternativo a onClose). */
+  onOpenChange?: (isOpen: boolean) => void;
+  defaultOpen?: boolean;
+  isAdmin?: boolean;
   className?: string;
   classNames?: DrawerClassNames;
-  isAdmin?: boolean;
+  style?: CSSProperties;
 }

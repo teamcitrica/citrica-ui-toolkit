@@ -39,11 +39,19 @@ export const Drawer: React.FC<DrawerProps> = ({
   customWidth,
   hideCloseButton = false,
   isDismissable = true,
+  isKeyboardDismissDisabled,
+  backdrop,
+  scrollBehavior,
+  radius,
+  shadow,
+  shouldBlockScroll,
+  disableAnimation,
+  onOpenChange,
+  defaultOpen,
   className,
   classNames,
   isAdmin = false,
   style,
-  ...props
 }) => {
   // Familia de tokens según isAdmin (admin ↔ web).
   const drawerVars = getDrawerVars(isAdmin);
@@ -57,10 +65,19 @@ export const Drawer: React.FC<DrawerProps> = ({
     <HeroDrawer
       isOpen={isOpen}
       onClose={onClose}
+      onOpenChange={onOpenChange}
+      defaultOpen={defaultOpen}
       placement={placement}
       size={customWidth ? undefined : size}
       hideCloseButton={hideCloseButton}
       isDismissable={isDismissable}
+      isKeyboardDismissDisabled={isKeyboardDismissDisabled}
+      backdrop={backdrop}
+      scrollBehavior={scrollBehavior}
+      radius={radius}
+      shadow={shadow}
+      shouldBlockScroll={shouldBlockScroll}
+      disableAnimation={disableAnimation}
       // `style` va sobre la base/panel: aquí inyectamos las CSS vars (cascadean a
       // header/body/footer) y el ancho fijo. Un `style` del consumidor gana.
       style={{ ...drawerVars, ...widthStyle, ...style }}
@@ -74,7 +91,6 @@ export const Drawer: React.FC<DrawerProps> = ({
           classNames?.closeButton,
         ),
       }}
-      {...props}
     >
       <DrawerContent>
         {(header || title) && (
