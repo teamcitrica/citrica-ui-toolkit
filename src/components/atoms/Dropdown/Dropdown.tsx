@@ -8,7 +8,26 @@ import {
 } from "@heroui/dropdown";
 import clsx from "clsx";
 import Icon from "../Icon/Icon";
+import { Text } from "../Text";
 import type { DropdownProps } from "./types";
+
+// Clases de tema por token. Se escriben como literales completos (admin vs web)
+// para que Tailwind las genere; los tokens `--color-*` son globales (:root), así
+// que resuelven aunque el menú se renderice en portal.
+const THEME = {
+  admin: {
+    content: "bg-[var(--color-admin-surface-container-lowest)]",
+    fg: "text-[var(--color-admin-on-surface)]",
+    fgDanger: "text-[var(--color-admin-error)]",
+    hover: "data-[hover=true]:bg-[var(--color-admin-surface-container)]",
+  },
+  web: {
+    content: "bg-[var(--color-surface-container-lowest)]",
+    fg: "text-[var(--color-on-surface)]",
+    fgDanger: "text-[var(--color-error)]",
+    hover: "data-[hover=true]:bg-[var(--color-surface-container)]",
+  },
+};
 
 export const Dropdown: React.FC<DropdownProps> = ({
   trigger,
@@ -32,13 +51,19 @@ export const Dropdown: React.FC<DropdownProps> = ({
   classNames,
   menuClassNames,
 }) => {
+  const t = isAdmin ? THEME.admin : THEME.web;
+
   return (
     <HeroDropdown
       className={clsx(
         isAdmin ? "dropdown-citrica-ui-admin" : "dropdown-citrica-ui",
         className,
       )}
-      classNames={classNames}
+      classNames={{
+        ...classNames,
+        // Fondo del menú según token (admin/web).
+        content: clsx(t.content, classNames?.content),
+      }}
       placement={placement}
       offset={offset}
       backdrop={backdrop}
@@ -60,6 +85,8 @@ export const Dropdown: React.FC<DropdownProps> = ({
         classNames={menuClassNames}
       >
         {items.map((item) => {
+          const isDanger = item.color === "danger";
+
           const startContent = item.startIcon ? (
             <Icon name={item.startIcon} size={item.iconSize ?? 16} />
           ) : (
@@ -71,13 +98,29 @@ export const Dropdown: React.FC<DropdownProps> = ({
             item.endContent
           );
 
+          // La etiqueta usa `Text` (tipografía admin/web) heredando el color del
+          // item (currentColor), para que ícono y texto vayan del mismo color.
+          const labelNode =
+            typeof item.label === "string" || typeof item.label === "number" ? (
+              <Text
+                as="span"
+                variant="label"
+                color="currentColor"
+                isAdmin={isAdmin}
+              >
+                {item.label}
+              </Text>
+            ) : (
+              item.label
+            );
+
           return (
             <DropdownItem
               key={item.key}
-              color={item.color}
-              // El color "danger" también pinta el texto (patrón de citrica-web).
+              // Color del texto/ícono por token (danger usa el token error) + hover.
               className={clsx(
-                item.color === "danger" && "text-danger",
+                isDanger ? t.fgDanger : t.fg,
+                t.hover,
                 item.className,
               )}
               description={item.description}
@@ -86,7 +129,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
               startContent={startContent}
               endContent={endContent}
             >
-              {item.label}
+              {labelNode}
             </DropdownItem>
           );
         })}
