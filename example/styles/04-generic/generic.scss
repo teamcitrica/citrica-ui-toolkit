@@ -36,13 +36,22 @@
     outline: none !important;
 }
 
-// Suprime el ring de focus de HeroUI/Tailwind en todos los componentes Citrica
+// Suprime el ring de focus de HeroUI/Tailwind en todos los componentes Citrica.
+// Las versiones nuevas de HeroUI marcan el foco con un `outline` sólido en el
+// slot del input vía `:focus-visible` + la utilidad `!outline-solid`; ese
+// outline NO se anula con `outline: none` (que solo cambia el style, no el
+// width), por eso hace falta forzar `outline-width: 0`. El sistema ya indica el
+// foco con el color de borde del wrapper, así que aquí lo eliminamos.
 [class*="-citrica-ui"] {
   &[data-focus="true"],
   &[data-focus-visible="true"],
   [data-focus="true"],
-  [data-focus-visible="true"] {
+  [data-focus-visible="true"],
+  [data-slot="input"]:focus,
+  [data-slot="input"]:focus-visible,
+  [data-slot="inner-wrapper"]:focus-visible {
     outline: none !important;
+    outline-width: 0 !important;
     box-shadow: none !important;
     --tw-ring-shadow: 0 0 #0000 !important;
     --tw-ring-offset-shadow: 0 0 #0000 !important;
