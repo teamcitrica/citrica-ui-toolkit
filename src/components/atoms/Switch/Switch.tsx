@@ -51,7 +51,7 @@ export const Switch: React.FC<SwitchProps> = ({
       thumbIcon={thumbIcon}
       name={name}
       value={value}
-      className={clsx("switch-citrica-ui", className)}
+      className={className}
       style={{ ["--sw-on"]: onColor, ...style } as React.CSSProperties}
       classNames={{
         ...classNames,

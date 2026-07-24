@@ -55,10 +55,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
 
   return (
     <HeroDropdown
-      className={clsx(
-        isAdmin ? "dropdown-citrica-ui-admin" : "dropdown-citrica-ui",
-        className,
-      )}
+      className={className}
       classNames={{
         ...classNames,
         // Fondo del menú según token (admin/web).

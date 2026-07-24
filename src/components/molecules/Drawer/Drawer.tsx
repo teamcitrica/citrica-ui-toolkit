@@ -81,7 +81,7 @@ export const Drawer: React.FC<DrawerProps> = ({
       // `style` va sobre la base/panel: aquí inyectamos las CSS vars (cascadean a
       // header/body/footer) y el ancho fijo. Un `style` del consumidor gana.
       style={{ ...drawerVars, ...widthStyle, ...style }}
-      className={clsx("drawer-citrica-ui", className)}
+      className={className}
       classNames={{
         base: clsx("bg-[var(--dw-panel-bg)]", classNames?.base),
         backdrop: classNames?.backdrop,
