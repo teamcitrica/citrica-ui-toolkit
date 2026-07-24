@@ -17,3 +17,4 @@ export * from './organism/Footer';
 export * from './organism/Header';
 export * from './organism/Sidebar';
 export * from './organism/Login';
+export * from './organism/DataTable';
