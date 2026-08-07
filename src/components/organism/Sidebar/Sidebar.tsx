@@ -24,7 +24,7 @@ const sidebarVars = {
 // `bg-transparent` neutraliza el `bg-default` (gris) del recipe de HeroUI en
 // reposo; el activo y el hover lo sobreescriben porque van después (twMerge).
 const rowBase =
-  "group flex h-auto min-w-0 items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left transition-colors duration-200 data-[hover=true]:opacity-100 motion-reduce:transition-none";
+  "group flex h-auto min-w-0 shrink-0 items-center gap-3 rounded-lg bg-transparent px-3 py-2 text-left transition-colors duration-200 data-[hover=true]:opacity-100 motion-reduce:transition-none";
 
 // Normaliza un href (ignora el hash) para comparar de forma estable, sin
 // depender de window ni romperse con rutas relativas o con query string.
