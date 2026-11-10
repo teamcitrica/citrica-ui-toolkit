@@ -24,11 +24,15 @@ export interface SignupResult {
   message?: string;
 }
 
+// Política de contraseña de los proyectos Cítrica (la de Dumbbelldance: la
+// misma en registro, reset y cambio desde el perfil). La usan Signup y Login.
 export const DEFAULT_PASSWORD_RULES: PasswordRule[] = [
-  { id: 'length', label: 'Mínimo 8 caracteres', test: (p) => p.length >= 8 },
-  { id: 'uppercase', label: 'Al menos una mayúscula', test: (p) => /[A-Z]/.test(p) },
-  { id: 'lowercase', label: 'Al menos una minúscula', test: (p) => /[a-z]/.test(p) },
-  { id: 'number', label: 'Al menos un número', test: (p) => /[0-9]/.test(p) },
+  { id: 'length', label: 'Al menos 8 caracteres', test: (p) => p.length >= 8 },
+  // Con `\p{…}` (Unicode) y no [A-Z]: así Ñ, Á o É cuentan como mayúsculas y
+  // ñ o á como letras, no como "carácter especial".
+  { id: 'case', label: 'Mayúsculas y minúsculas', test: (p) => /\p{Lu}/u.test(p) && /\p{Ll}/u.test(p) },
+  { id: 'number', label: 'Un número', test: (p) => /\p{Nd}/u.test(p) },
+  { id: 'special', label: 'Un carácter especial', test: (p) => /[^\p{L}\p{N}]/u.test(p) },
 ];
 
 export interface SignupProps {

@@ -16,6 +16,10 @@ export interface InputProps {
   defaultValue?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onValueChange?: (value: string) => void;
+  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+  /** Nombre accesible cuando el campo no lleva `label` visible (solo placeholder). */
+  ariaLabel?: string;
+  onFocus?: (e: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
   type?:
     | 'text'
@@ -89,6 +93,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
   defaultValue,
   onChange,
   onValueChange,
+  onBlur,
+  onFocus,
+  ariaLabel,
   name,
   type = 'text',
   variant = 'primary',
@@ -161,6 +168,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(({
       defaultValue={defaultValue}
       onChange={onChange}
       onValueChange={onValueChange}
+      onBlur={onBlur}
+      onFocus={onFocus}
+      aria-label={ariaLabel}
       name={name}
       type={type}
       variant={heroVariant}

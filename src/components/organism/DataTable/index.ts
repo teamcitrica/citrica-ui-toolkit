@@ -8,4 +8,6 @@ export type {
   DataTableServerConfig,
   ExportModalProps,
   ExportColumn,
+  RowAction,
+  DataTableSingleFilter,
 } from "./types";

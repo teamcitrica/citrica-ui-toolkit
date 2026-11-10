@@ -1,7 +1,6 @@
 "use client";
 import React, { useCallback, useMemo } from "react";
 import { Skeleton } from "@heroui/skeleton";
-import { Chip } from "@heroui/chip";
 import { Divider } from "@heroui/divider";
 import {
   Table,
@@ -12,31 +11,51 @@ import {
   TableCell,
 } from "@heroui/table";
 import { Pagination } from "@heroui/pagination";
+import { Popover, PopoverContent, PopoverTrigger } from "@heroui/popover";
+import {
+  Dropdown as HeroDropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
+} from "@heroui/dropdown";
 
 import { Text } from "../../atoms/Text";
 import { Button } from "../../atoms/Button";
 import Icon from "../../atoms/Icon/Icon";
-import Input from "../../atoms/Input/Input";
 import Select from "../../atoms/Select/Select";
-import { Dropdown } from "../../atoms/Dropdown";
 
 import ExportModal from "./ExportModal";
+import RowActions from "./RowActions";
+import { BASE_LABELS, CARD_CLASS, TableSearch, TableToolbarActions, getTableColors } from "./shared";
 import { useTableFeatures } from "./hooks/useTableFeatures";
 import { useTableExport } from "./hooks/useTableExport";
 import type { Column, DataTableProps } from "./types";
 
 export type { ExportColumn } from "./hooks/useTableExport";
 
+// Línea horizontal entre secciones de la tarjeta. Es un <div> y no un <hr>
+// (Divider): los estilos base de los proyectos ponen `hr { margin: 0 }` fuera de
+// las capas de Tailwind, y eso anulaba el margen de abajo: lo que seguía quedaba
+// pegado a la línea.
+const SectionDivider = () => (
+  <div
+    aria-hidden
+    className="mb-4 h-px w-full flex-shrink-0 bg-[color:var(--ct-dt-input-border)]"
+  />
+);
+
+// Select y Autocomplete del consumidor con el estilo del buscador: fondo
+// transparente, borde suave y acento al pasar el cursor o escribir.
+const FILTER_FIELDS_CLASS =
+  "[&_[data-slot=input-wrapper]]:!rounded-[var(--ct-dt-input-radius)] [&_[data-slot=input-wrapper]]:!border-[length:var(--ct-dt-input-border-size)] [&_[data-slot=input-wrapper]]:!bg-transparent [&_[data-slot=input-wrapper]]:!border-[color:var(--ct-dt-input-border)] [&_[data-slot=input-wrapper]:hover]:!border-[color:var(--ct-dt-accent)] [&_[data-slot=input-wrapper]:focus-within]:!border-[color:var(--ct-dt-accent)] [&_[data-slot=trigger]]:!rounded-[var(--ct-dt-input-radius)] [&_[data-slot=trigger]]:!border-[length:var(--ct-dt-input-border-size)] [&_[data-slot=trigger]]:!bg-transparent [&_[data-slot=trigger]]:!border-[color:var(--ct-dt-input-border)] [&_[data-slot=trigger]:hover]:!border-[color:var(--ct-dt-accent)] [&_[data-slot=trigger][data-open=true]]:!border-[color:var(--ct-dt-accent)] [&_[data-slot=value]]:!text-[color:var(--ct-dt-accent)] [&_input]:!text-[color:var(--ct-dt-accent)] [&_input::placeholder]:!text-[color:var(--ct-dt-input-placeholder)] [&_[data-slot=selector-button]]:!text-[color:var(--ct-dt-accent)] [&_[data-slot=selectorIcon]]:!text-[color:var(--ct-dt-accent)]";
+
 const DEFAULT_LABELS = {
-  search: "Buscar...",
-  add: "Agregar",
-  actions: "ACCIONES",
-  export: "Descargar",
+  ...BASE_LABELS,
+  filters: "Filtros",
+  clearFilters: "Limpiar filtros",
+  clearAll: "Limpiar",
   rowsPerPage: "Filas por página",
   ariaLabel: "Tabla de datos",
-  exportAriaLabel: "Opciones de exportación",
-  excelItem: "Excel (.xlsx)",
-  csvItem: "CSV (.csv)",
   activeFilterLabel: "Filtro activo:",
 };
 
@@ -57,14 +76,20 @@ export function DataTable<T extends Record<string, any>>({
   onAdd,
   addButtonText,
   addButtonIcon,
+  onView,
+  rowActions,
   renderActions,
   enableExport = false,
   exportColumns = [],
   exportButtonIcon,
   tableName = "tabla",
   emptyContent = "No se encontraron registros",
+  tabs,
   customFilters,
   headerFilters,
+  filters,
+  onClearFilters,
+  filter,
   headerActions,
   showFilterIndicators = false,
   totalRecordsLabel,
@@ -78,6 +103,7 @@ export function DataTable<T extends Record<string, any>>({
   mutedColor,
   paginationColor,
   className = "",
+  withCard = true,
   customContainerClass = "",
   removeWrapper = false,
   labels,
@@ -86,32 +112,46 @@ export function DataTable<T extends Record<string, any>>({
   const t = { ...DEFAULT_LABELS, ...labels };
   const isServer = Boolean(server);
 
-  // Familia de tokens según isAdmin; cada color resuelve como
-  // `override ?? var(--color-[admin-]token, #fallbackActual)`.
-  const p = isAdmin ? "admin-" : "";
-  const headerBg = headerColor ?? `var(--color-${p}primary, #083D77)`;
-  const headerText = headerTextColor ?? `var(--color-${p}on-primary, #ffffff)`;
-  const accent =
-    accentColor ?? paginationColor ?? `var(--color-${p}primary, #083D77)`;
-  const stripe = stripeColor ?? `var(--color-${p}surface-container, #E2E6E1)`;
-  const border = borderColor ?? `var(--color-${p}outline, #C8D2D4)`;
-  const muted = mutedColor ?? `var(--color-${p}outline, #9FB2C0)`;
+  // Colores por token (admin o web), compartidos con SortableTable.
+  const { vars: styleVars, accent } = getTableColors({
+    isAdmin,
+    headerColor,
+    headerTextColor,
+    accentColor: accentColor ?? paginationColor,
+    stripeColor,
+    borderColor,
+    mutedColor,
+  });
 
-  // Tokens de color expuestos como CSS variables para el theming interno.
-  // La fuente del contenedor sigue la familia admin/web para que el contenido
-  // "plano" de la tabla (headers/celdas, que no pasan por <Text>) herede la
-  // tipografía correcta. Los <Text> internos mantienen su propia fuente.
-  const styleVars = {
-    "--ct-dt-header-bg": headerBg,
-    "--ct-dt-header-text": headerText,
-    "--ct-dt-accent": accent,
-    "--ct-dt-stripe": stripe,
-    "--ct-dt-border": border,
-    "--ct-dt-muted": muted,
-    fontFamily: isAdmin
-      ? "var(--font-family-b-admin)"
-      : "var(--font-family-b)",
-  } as React.CSSProperties;
+  const [filtersOpen, setFiltersOpen] = React.useState(false);
+
+  // Grupos de pestañas: cada hijo de `tabs` es un grupo (se aceptan un
+  // fragmento, un arreglo o un solo elemento). Entre grupos va una línea.
+  const tabGroups = React.Children.toArray(
+    React.isValidElement(tabs) && tabs.type === React.Fragment
+      ? (tabs.props as { children?: React.ReactNode }).children
+      : tabs,
+  );
+
+  // "Limpiar todo" solo con `onClearFilters`, o cuando hay un único filtro.
+  // Llamar al `onClear` de varios filtros seguidos no es seguro: si el proyecto
+  // guarda los filtros en un solo objeto, cada llamada pisa la anterior (todas
+  // ven el estado viejo) y solo se limpiaría el último.
+  const canClearAll = Boolean(onClearFilters) || activeFilters.length === 1;
+  const clearAllFilters = () => {
+    if (onClearFilters) onClearFilters();
+    else if (activeFilters.length === 1) activeFilters[0].onClear();
+  };
+
+  // Filtro único: qué se muestra en el botón.
+  const singleAll = filter ? (filter.allValue ?? filter.options[0]?.value) : undefined;
+  const singleSelected = filter?.options.find((o) => o.value === filter.value);
+  const singleIsActive = Boolean(filter && filter.value !== singleAll);
+  const singleButtonLabel = filter
+    ? singleIsActive && singleSelected
+      ? `${filter.label}: ${singleSelected.label}`
+      : filter.label
+    : "";
 
   const tableFeatures = useTableFeatures<T>({
     data,
@@ -129,19 +169,33 @@ export function DataTable<T extends Record<string, any>>({
   // Filas visibles: en modo servidor los datos ya vienen paginados.
   const visibleItems = isServer ? data : tableFeatures.paginatedItems;
 
-  // Agregar columna de acciones si hay renderActions.
+  const hasActions = Boolean(renderActions || onView || rowActions);
+
+  // Columna de acciones al final, alineada a la derecha como en los paneles.
   const tableColumns = useMemo(() => {
-    if (renderActions) {
-      return [...columns, { name: t.actions, uid: "actions" }];
+    if (hasActions) {
+      return [...columns, { name: t.actions, uid: "actions", align: "end" as const }];
     }
 
     return columns;
-  }, [columns, renderActions, t.actions]);
+  }, [columns, hasActions, t.actions]);
+
+  const renderRowActions = (item: T) => (
+    <RowActions
+      color="var(--ct-dt-accent)"
+      isAdmin={isAdmin}
+      item={item}
+      moreLabel={t.moreActions}
+      rowActions={rowActions}
+      viewLabel={t.view}
+      onView={onView}
+    />
+  );
 
   const renderCell = useCallback(
     (item: T, columnKey: React.Key) => {
-      if (columnKey === "actions" && renderActions) {
-        return renderActions(item);
+      if (columnKey === "actions" && hasActions) {
+        return renderActions ? renderActions(item) : renderRowActions(item);
       }
 
       const column = columns.find((col) => col.uid === columnKey);
@@ -152,13 +206,16 @@ export function DataTable<T extends Record<string, any>>({
 
       const value = item[columnKey as keyof T];
 
-      if (value === null || value === undefined) {
-        return "-";
-      }
-
-      return String(value);
+      // Valores simples con la tipografía del sistema (admin o web). El color
+      // se hereda de la fila; `render` queda para contenido propio.
+      return (
+        <Text color="inherit" isAdmin={isAdmin} variant="label">
+          {value === null || value === undefined ? "-" : String(value)}
+        </Text>
+      );
     },
-    [columns, renderActions],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [columns, renderActions, onView, rowActions, isAdmin, t.view, t.moreActions],
   );
 
   const handleSortChange = (descriptor: {
@@ -201,7 +258,7 @@ export function DataTable<T extends Record<string, any>>({
   };
 
   const showToolbar =
-    searchFields.length > 0 || headerActions || enableExport || onAdd;
+    searchFields.length > 0 || headerFilters || filters || filter || headerActions || enableExport || onAdd;
 
   const clientTotalPages = tableFeatures.pages;
   const serverTotalPages = server
@@ -210,86 +267,233 @@ export function DataTable<T extends Record<string, any>>({
 
   return (
     <div
-      className={`${customContainerClass} h-full flex flex-col ${className}`}
+      className={`datatable-citrica-ui ${isAdmin ? "datatable-citrica-ui-admin" : ""} ${withCard ? CARD_CLASS : ""} ${customContainerClass} h-full flex flex-col ${className}`}
       style={styleVars}
     >
       {/* Custom Filters en su propia fila */}
+      {/* Pestañas arriba, cerradas con una línea divisoria (variante de los
+          paneles Cítrica con filtros rápidos). */}
+      {tabs && (
+        <>
+          {/* Si los grupos no caben en una fila (tablet), pasan a la siguiente
+              en vez de desbordar la tarjeta. */}
+          <div className="flex w-full min-w-0 flex-shrink-0 flex-col gap-3 pb-4 md:flex-row md:flex-wrap md:items-center">
+            {tabGroups.map((group, i) => (
+              <React.Fragment key={i}>
+                {/* Línea vertical entre grupos (en celular van apilados y no hace falta). */}
+                {i > 0 && (
+                  <div
+                    aria-hidden
+                    className="hidden h-9 w-px shrink-0 bg-[color:var(--ct-dt-input-border)] md:block"
+                  />
+                )}
+                {group}
+              </React.Fragment>
+            ))}
+          </div>
+          <SectionDivider />
+        </>
+      )}
+
       {customFilters && (
-        <div className="w-full flex-shrink-0">{customFilters}</div>
+        <div className="mb-3 w-full flex-shrink-0">{customFilters}</div>
       )}
 
       {/* Barra de búsqueda y acciones */}
       {showToolbar && (
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full py-3 flex-shrink-0 gap-3">
+        // Solo margen abajo: arriba ya está el relleno de la tarjeta (o la
+        // línea de las pestañas), y sumarle más dejaba demasiado aire.
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full pb-3 flex-shrink-0 gap-3">
           <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 flex-1 min-w-0">
             {/* Input de búsqueda */}
             {searchFields.length > 0 && (
-              <Input
-                className="w-full sm:w-56"
-                classNames={{
-                  inputWrapper:
-                    "!border-[color:var(--ct-dt-border)] !rounded-[12px] data-[hover=true]:!border-[color:var(--ct-dt-accent)]",
-                  label: "!text-[color:var(--ct-dt-accent)]",
-                  input:
-                    "placeholder:text-[color:var(--ct-dt-muted)] !text-black",
-                }}
+              <TableSearch
+                accent={accent}
                 placeholder={searchPlaceholder || t.search}
-                startContent={<Icon color={accent} name="Search" size={16} />}
-                type="text"
                 value={searchValue}
-                variant="faded"
-                onChange={(e) => onSearch(e.target.value)}
+                onChange={onSearch}
               />
             )}
 
-            {headerFilters}
-          </div>
+            {/* Los filtros (Select o Autocomplete del consumidor) toman el mismo
+                estilo del buscador: fondo transparente, borde suave y acento al
+                pasar el cursor o escribir. */}
+            {headerFilters && (
+              <div className={`flex flex-wrap items-center gap-2 ${FILTER_FIELDS_CLASS}`}>
+                {headerFilters}
+              </div>
+            )}
 
-          <div className="flex items-center gap-2 flex-shrink-0">
-            {headerActions}
-            {enableExport && (
-              <Dropdown
-                isAdmin={isAdmin}
-                ariaLabel={t.exportAriaLabel}
-                trigger={
+            {/* Botón "Filtros" con su panel. El panel se abre en un portal,
+                fuera de la tabla, así que lleva sus propias variables de color. */}
+            {filters && (
+              <Popover isOpen={filtersOpen} placement="bottom-start" onOpenChange={setFiltersOpen}>
+                <PopoverTrigger>
                   <Button
-                    isAdmin={isAdmin}
-                    className="w-full sm:w-auto"
-                    label={t.export}
-                    startContent={
-                      exportButtonIcon || <Icon name="Download" size={16} />
+                    className="w-full sm:w-auto !outline-0 aria-expanded:!opacity-100 aria-expanded:!scale-100"
+                    color={isAdmin ? "var(--color-admin-secondary-btn-text, #265197)" : "var(--color-secondary-btn-text)"}
+                    endContent={
+                      <Icon
+                        className={`transition-transform duration-200 motion-reduce:transition-none ${filtersOpen ? "rotate-180" : ""}`}
+                        name="ChevronDown"
+                        size={16}
+                      />
                     }
-                    variant="primary"
+                    isAdmin={isAdmin}
+                    label={t.filters}
+                    startContent={
+                      <span className="relative inline-flex">
+                        <Icon name="Filter" size={18} />
+                        {activeFilters.length > 0 && (
+                          <span
+                            aria-label={`${activeFilters.length} activos`}
+                            className="absolute -right-2 -top-2 flex h-4 min-w-4 items-center justify-center rounded-full bg-[color:var(--ct-dt-accent)] px-1 text-[10px] font-bold leading-none text-white"
+                          >
+                            {activeFilters.length}
+                          </span>
+                        )}
+                      </span>
+                    }
+                    variant="secondary"
                   />
-                }
-                items={[
-                  { key: "excel", label: t.excelItem, startIcon: "FileSpreadsheet" },
-                  { key: "csv", label: t.csvItem, startIcon: "FileText" },
-                ]}
-                onAction={(key) => exportFeatures.openModal(key)}
-              />
+                </PopoverTrigger>
+                <PopoverContent className="p-0">
+                  {/* PopoverContent no pasa `style` a su contenido: las
+                      variables de color van en este contenedor. */}
+                  <div
+                    className={`flex w-[280px] max-w-[calc(100vw-32px)] flex-col items-stretch gap-3 p-4 ${FILTER_FIELDS_CLASS}`}
+                    style={styleVars}
+                  >
+                  {filters}
+                  {activeFilters.length > 0 && canClearAll && (
+                    <button
+                      className="self-start rounded-sm underline-offset-4 hover:underline"
+                      type="button"
+                      onClick={() => {
+                        clearAllFilters();
+                        setFiltersOpen(false);
+                      }}
+                    >
+                      <Text color="var(--ct-dt-accent)" isAdmin={isAdmin} variant="label" weight="bold">
+                        {t.clearFilters}
+                      </Text>
+                    </button>
+                  )}
+                  </div>
+                </PopoverContent>
+              </Popover>
             )}
 
-            {onAdd && (
-              <Button
-                isAdmin={isAdmin}
-                className="w-full sm:w-auto"
-                label={addButtonText || t.add}
-                startContent={
-                  addButtonIcon || <Icon name="UserPlus" size={16} />
-                }
-                variant="primary"
-                onPress={onAdd}
-              />
+            {/* Filtro único: el botón abre directo la lista de opciones, con
+                una marca en la elegida, y muestra lo elegido ("Estado: Activo"). */}
+            {filter && (
+              <HeroDropdown
+                classNames={{
+                  content: isAdmin
+                    ? "bg-[var(--color-admin-surface-container-lowest)]"
+                    : "bg-[var(--color-surface-container-lowest)]",
+                }}
+                placement="bottom-start"
+              >
+                <DropdownTrigger>
+                  <Button
+                    className="w-full sm:w-auto !outline-0 aria-expanded:!opacity-100 aria-expanded:!scale-100"
+                    color={isAdmin ? "var(--color-admin-secondary-btn-text, #265197)" : "var(--color-secondary-btn-text)"}
+                    endContent={<Icon name="ChevronDown" size={16} />}
+                    isAdmin={isAdmin}
+                    label={singleButtonLabel}
+                    startContent={<Icon name="Filter" size={18} />}
+                    variant="secondary"
+                  />
+                </DropdownTrigger>
+                <DropdownMenu
+                  disallowEmptySelection
+                  aria-label={filter.label}
+                  selectedKeys={new Set([filter.value])}
+                  selectionMode="single"
+                  onSelectionChange={(keys) => {
+                    const key = Array.from(keys as Set<string>)[0];
+                    if (key !== undefined) filter.onChange(String(key));
+                  }}
+                >
+                  {filter.options.map((o) => (
+                    <DropdownItem
+                      key={o.value}
+                      className={
+                        // Hover, foco y elegido con el token de superficie
+                        // (HeroUI pone su gris por defecto).
+                        isAdmin
+                          ? "text-[var(--color-admin-on-surface)] data-[hover=true]:!bg-[var(--color-admin-surface-container)] data-[focus=true]:!bg-[var(--color-admin-surface-container)] data-[selected=true]:font-semibold"
+                          : "text-[var(--color-on-surface)] data-[hover=true]:!bg-[var(--color-surface-container)] data-[focus=true]:!bg-[var(--color-surface-container)] data-[selected=true]:font-semibold"
+                      }
+                    >
+                      {o.label}
+                    </DropdownItem>
+                  ))}
+                </DropdownMenu>
+              </HeroDropdown>
             )}
           </div>
+
+          <TableToolbarActions
+            addIcon={addButtonIcon || <Icon name="UserPlus" size={16} />}
+            addLabel={addButtonText || t.add}
+            enableExport={enableExport}
+            exportIcon={exportButtonIcon}
+            headerActions={headerActions}
+            isAdmin={isAdmin}
+            labels={t}
+            onAdd={onAdd}
+            onExportFormat={(key) => exportFeatures.openModal(key)}
+          />
         </div>
       )}
 
-      {/* Indicadores de filtros activos */}
-      {showFilterIndicators && (
+      {/* Filtros aplicados, justo debajo de la barra y sin línea de por medio:
+          se ve qué está filtrado sin abrir nada, y cada uno se quita aparte. */}
+      {/* Se muestran si se pidieron (showFilterIndicators) o si los filtros
+          son de la tabla (botón Filtros): ahí no hay otro lugar donde verlos. */}
+      {activeFilters.length > 0 && (showFilterIndicators || Boolean(filters)) && (
+        <div className="-mt-1 mb-3 flex flex-wrap items-center gap-2">
+          {activeFilters.map((filter) => (
+            <span
+              key={`${filter.label}-${filter.value}`}
+              className="inline-flex items-center gap-1 rounded-full bg-[color:var(--ct-dt-chip-bg)] py-1 pl-3 pr-1"
+            >
+              <Text color={accent} isAdmin={isAdmin} variant="label">
+                {filter.label}:
+              </Text>
+              <Text color={accent} isAdmin={isAdmin} variant="label" weight="bold">
+                {filter.value}
+              </Text>
+              <button
+                aria-label={`Quitar filtro ${filter.label}: ${filter.value}`}
+                className="ml-0.5 flex h-5 w-5 items-center justify-center rounded-full transition-colors hover:bg-[color:var(--ct-dt-input-border)] motion-reduce:transition-none"
+                type="button"
+                onClick={filter.onClear}
+              >
+                <Icon aria-hidden className="text-[color:var(--ct-dt-accent)]" name="X" size={14} />
+              </button>
+            </span>
+          ))}
+          {canClearAll && (
+            <button
+              className="rounded-sm px-1 underline-offset-4 hover:underline"
+              type="button"
+              onClick={clearAllFilters}
+            >
+              <Text color={accent} isAdmin={isAdmin} variant="label" weight="bold">
+                {t.clearAll}
+              </Text>
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Total de registros y filtros permanentes (los aplicados van arriba). */}
+      {showFilterIndicators && Boolean(totalRecordsLabel || permanentFilters.length) && (
         <>
-          <Divider className="mb-4" />
+          <SectionDivider />
           <div className="flex gap-2 items-center pb-4">
             {totalRecordsLabel && (
               <p>
@@ -298,15 +502,9 @@ export function DataTable<T extends Record<string, any>>({
                 </Text>
               </p>
             )}
-            {totalRecordsLabel &&
-              (permanentFilters.length > 0 || activeFilters.length > 0) && (
-                <Divider
-                  className="h-[20px] bg-[color:var(--ct-dt-muted)]"
-                  orientation="vertical"
-                />
-              )}
-
-            {/* Filtros permanentes */}
+            {totalRecordsLabel && permanentFilters.length > 0 && (
+              <Divider className="h-[20px] bg-[color:var(--ct-dt-muted)]" orientation="vertical" />
+            )}
             {permanentFilters.length > 0 && (
               <div className="flex items-center gap-2">
                 <span>
@@ -323,44 +521,6 @@ export function DataTable<T extends Record<string, any>>({
                 ))}
               </div>
             )}
-            {permanentFilters.length > 0 && activeFilters.length > 0 && (
-              <Divider
-                className="h-[20px] bg-[color:var(--ct-dt-muted)]"
-                orientation="vertical"
-              />
-            )}
-
-            {/* Chips de filtros activos */}
-            <div className="space-y-2">
-              {activeFilters.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap">
-                  {activeFilters.map((filter) => (
-                    <Chip
-                      key={`${filter.label}-${filter.value}`}
-                      classNames={{
-                        base: "!border-[color:var(--ct-dt-muted)]",
-                      }}
-                      color="default"
-                      endContent={
-                        <button
-                          aria-label="Cerrar"
-                          className="cursor-pointer flex items-center"
-                          type="button"
-                          onClick={filter.onClear}
-                        >
-                          <Icon color={muted} name="X" size={16} />
-                        </button>
-                      }
-                      size="sm"
-                      variant="bordered"
-                      onClose={filter.onClear}
-                    >
-                      {filter.value}
-                    </Chip>
-                  ))}
-                </div>
-              )}
-            </div>
           </div>
         </>
       )}
@@ -390,7 +550,9 @@ export function DataTable<T extends Record<string, any>>({
                   color: "var(--ct-dt-header-text)",
                 }}
               >
-                {column.name}
+                <Text color="inherit" isAdmin={isAdmin} variant="label" weight="bold" className="!uppercase">
+                  {column.name}
+                </Text>
               </TableColumn>
             )}
           </TableHeader>

@@ -95,7 +95,17 @@ export interface AutocompleteProps {
   maxListboxHeight?: number;
   /** Habilita virtualización para listas grandes */
   isVirtualized?: boolean;
+  /** Colores del panel admin (tokens `--color-admin-*`) en las opciones de la lista. */
+  isAdmin?: boolean;
 }
+
+// Opciones de la lista en admin: hover, foco y elegida con los tokens admin.
+// Van como clases (no dependen del CSS del proyecto): la lista se abre en un
+// portal y la regla web `.autocomplete-item-citrica-ui` la pintaba de naranja.
+// No se combina con esa clase web: trae sus colores con `!important` y, en los
+// proyectos con Tailwind 3, le ganaría a estas. El redondeado sí se replica.
+const ADMIN_ITEM_CLASS =
+  "autocomplete-item-citrica-ui-admin rounded-[var(--form-admin-radius-input,8px)] text-[var(--color-admin-on-surface)] data-[hover=true]:!bg-[var(--color-admin-surface-container)] data-[hover=true]:!text-[var(--color-admin-on-surface)] data-[focus=true]:!bg-[var(--color-admin-surface-container)] data-[selected=true]:!bg-[var(--color-admin-primary-container)] data-[selected=true]:!text-[var(--color-admin-on-primary-container)] data-[selected=true]:font-semibold";
 
 const Autocomplete = ({
   label,
@@ -135,6 +145,7 @@ const Autocomplete = ({
   disabledKeys,
   maxListboxHeight,
   isVirtualized,
+  isAdmin = false,
 }: AutocompleteProps) => {
   // Create icon content if icons are provided
   const startIconContent = startIcon ? (
@@ -194,6 +205,7 @@ const Autocomplete = ({
       description={description}
       className={clsx(
         'autocomplete-citrica-ui',
+        isAdmin && 'autocomplete-citrica-ui-admin',
         getAutocompleteClassByVariant(variant),
         className
       )}
@@ -216,7 +228,7 @@ const Autocomplete = ({
           description={option.description}
           startContent={option.startContent}
           endContent={option.endContent}
-          className="autocomplete-item-citrica-ui"
+          className={isAdmin ? ADMIN_ITEM_CLASS : "autocomplete-item-citrica-ui"}
         >
           {option.label}
         </AutocompleteItem>
